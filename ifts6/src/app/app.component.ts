@@ -11,8 +11,8 @@ export class AppComponent {
 
   constructor(private router : Router){}
 
-  irInstitucional(){
-    this.router.navigate(['/institucional']);
+  irPagina(pagina : string){
+    this.router.navigate(['/' + pagina]);
   }
  
 }

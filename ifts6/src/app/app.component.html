@@ -19,13 +19,16 @@
   </div>
 
   <div class="container">
-    <a href="index.component.html"><button class="btn btn-custom">Inicio</button></a>
-    <a (click) = "irInstitucional()"><button class="btn btn-custom">Institucional</button></a>
-    <a href="carreras.component.html"><button class="btn btn-custom">Carreras</button></a>
-    <a href="ingreso.component.html"><button class="btn btn-custom">Ingreso</button></a>
-    <a href="extension.component.html"><button class="btn btn-custom">Extensión terciaria</button></a>
-    <a href="convenios.component.html"><button class="btn btn-custom">Convenios</button></a>
-    <a href="contacto.component.html"><button class="btn btn-custom">Contacto</button></a>
+    <a (click) = "irPagina('')"><button class="btn btn-custom">Inicio</button></a>
+    <a (click) = "irPagina('institucional')"><button class="btn btn-custom">Institucional</button></a>
+    <a (click) = "irPagina('carreras')"><button class="btn btn-custom">Carreras</button></a>
+    <a (click) = "irPagina('ingreso')"><button class="btn btn-custom">Ingreso</button></a>
+    <a (click) = "irPagina('extension')"><button class="btn btn-custom">Extensión terciaria</button></a>
+    <a (click) = "irPagina('convenios')"><button class="btn btn-custom">Convenios</button></a>
+    <a (click) = "irPagina('contacto')"><button class="btn btn-custom">Contacto</button></a>
 </div>
 </header>
 
+<router-outlet></router-outlet>
+
+<footer></footer>
