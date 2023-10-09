@@ -1,0 +1,10 @@
+<div>
+    <label>Usuario:</label>
+    <input type="text" [(ngModel)]="username">
+</div>
+<div>
+    <label>Contraseña:</label>
+    <input type="password" [(ngModel)]="password">
+</div>
+<button (click)="login()">Iniciar Sesión</button>
+<div *ngIf="message">{{ message }}</div>
