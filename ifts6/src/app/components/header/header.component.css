@@ -1,8 +1,20 @@
-@media (min-width: 768px){
+@media (min-width: 1200px) {
     .container {
-        width: 750px;
+        width: 1170px;
     }
 }
+
+/* @media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750;
+    }
+} */
 
 .navbar {
     border-radius: 0;
@@ -31,7 +43,9 @@
     border-bottom: 3px solid #fdd306;
 }
 
-.container, .container-fluid{
+.container,
+.container-fluid {
+
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -63,4 +77,19 @@
     position: relative;
     top: 6px;
     color: #292202;
+}
+
+.text-right {
+    float: right;
+    text-align: right;
+}
+
+.text-left {
+    float: left;
+    text-align: left;
+}
+
+.contenedor-botones {
+    display: flex;
+    justify-content: center;
 }
