@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 20px;
+}
+
+.contact-section {
+    margin-top: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+iframe {
+    margin-top: 20px;
+}
