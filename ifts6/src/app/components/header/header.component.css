@@ -1,0 +1,66 @@
+@media (min-width: 768px){
+    .container {
+        width: 750px;
+    }
+}
+
+.navbar {
+    border-radius: 0;
+    position: relative;
+    text-shadow: none;
+    min-height: 48px;
+}
+
+.navbar-top {
+    margin: 0;
+}
+
+.navbar-default.navbar-top {
+    min-height: 80px;
+    margin-bottom: 29px;
+}
+
+.navbar-default.navbar-top a {
+    padding-top: 30px;
+    min-height: 80px;
+}
+
+.navbar-primary {
+    border: 0;
+    background-color: #ffffff;
+    border-bottom: 3px solid #fdd306;
+}
+
+.container, .container-fluid{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.navbar-brand {
+    float: left;
+    padding: 15px;
+    margin-left: 0;
+    margin-top: 12px;
+}
+
+
+.bac-header {
+    width: 170px;
+    height: 60px;
+    background-image: url(../../../assets/bac-header.png), none;
+    background-repeat: no-repeat;
+}
+
+.navbar-top .sub-brand {
+    float: right;
+    position: relative;
+    top: 6px;
+    color: #292202;
+}

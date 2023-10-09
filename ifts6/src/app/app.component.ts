@@ -9,10 +9,4 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'ifts6';
 
-  constructor(private router : Router){}
-
-  irPagina(pagina : string){
-    this.router.navigate(['/' + pagina]);
-  }
- 
 }
