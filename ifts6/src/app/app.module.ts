@@ -10,6 +10,9 @@ import { IngresoComponent } from './pages/ingreso/ingreso.component';
 import { ExtensionComponent } from './pages/extension/extension.component';
 import { ConveniosComponent } from './pages/convenios/convenios.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
     IngresoComponent,
     ExtensionComponent,
     ConveniosComponent,
-    ContactoComponent
+    ContactoComponent,
+    InicioComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

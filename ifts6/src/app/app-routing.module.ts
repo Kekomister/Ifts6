@@ -8,9 +8,10 @@ import { ExtensionComponent } from './pages/extension/extension.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ConveniosComponent } from './pages/convenios/convenios.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 const routes: Routes = [
-{path:'', component: AppComponent},
+{path:'', component: InicioComponent},
 {path:'institucional', component: InstitucionalComponent},
 {path:'ingreso', component: IngresoComponent},
 {path:'carreras', component: CarrerasComponent},
