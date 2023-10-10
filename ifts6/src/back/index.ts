@@ -1,15 +1,16 @@
 import express from "express";
-import {Request, Response} from 'express';
-
-import * as sql from 'mssql';
 
 const app = express();
 app.use(express.json());
 const port = 3000;
 
-const publicaciones = require("./routes/publicaciones");
+const publicacion = require("./routes/publicacion");
+const sector = require("./routes/sector");
+const usuario = require("./routes/usuario");
 
-app.use("/publicaciones",publicaciones);
+app.use("/publicaciones",publicacion);
+app.use("/sector",sector);
+app.use("/usuarios",usuario);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
