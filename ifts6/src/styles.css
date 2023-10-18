@@ -110,7 +110,7 @@ PARA WIDTH 600PX PARA ABAJO */
 
 /* Estilo personalizado para los botones */
 .btn-custom {
-    background-color: #ff9900;
+    background-color:#424142;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -121,5 +121,5 @@ PARA WIDTH 600PX PARA ABAJO */
 }
 
 .btn-custom:hover {
-    background-color: #cc7700;
+    background-color:#a6a4a4;
 }

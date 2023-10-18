@@ -21,8 +21,11 @@
     position: relative;
     text-shadow: none;
     min-height: 48px;
+    background-color: #2b06fd;
 }
-
+.fondo{
+    background-color: #FFD300;
+}
 .navbar-top {
     margin: 0;
 }
@@ -59,17 +62,17 @@
 
 .navbar-brand {
     float: left;
-    padding: 15px;
     margin-left: 0;
     margin-top: 12px;
 }
 
 
 .bac-header {
-    width: 170px;
-    height: 60px;
-    background-image: url(../../../assets/bac-header.png), none;
-    background-repeat: no-repeat;
+  
+    width: 64px;
+    height: 64px;
+    background-image: url(/ifts6/src/assets/logo2.png), none;
+    /* background-repeat: no-repeat; */
 }
 
 .navbar-top .sub-brand {
@@ -92,4 +95,7 @@
 .contenedor-botones {
     display: flex;
     justify-content: center;
+}
+.imagen {
+    height: 64px;
 }
