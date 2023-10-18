@@ -5,7 +5,7 @@ footer {
     background-color: #FFD300;
     color: #333     ;
     text-align: center;
-    padding: 20px 0;
+    padding: 10px 0;
   }
   
   .footer-content {
@@ -42,6 +42,6 @@ footer {
 .iconst{
     max-width: 32px;
     height: auto;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
