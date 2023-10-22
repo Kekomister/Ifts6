@@ -2,7 +2,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #FFD300;
+  background-color:#FFD300;
   color: #333;
   text-align: center;
   padding: 10px 0;
@@ -12,11 +12,12 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .footer-left {
   text-align: left;
-  padding-right: 10px;
+  padding-left: 100px;
 }
 
 .footer-center {
@@ -25,14 +26,15 @@ footer {
 
 .footer-right {
   text-align: right;
-  padding-right: 10px;
+  padding-right:75px;
 }
 
 .icon-container {
-  padding-right: 10px;
+  padding-right: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+ 
 }
 
 /* Estilos opcionales para los iconos */
