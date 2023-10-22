@@ -1,15 +1,17 @@
 import { Request, Response } from 'express';
 
 import * as sql from 'mssql';
-
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
-const url = require("url");
+import { Buffer } from 'buffer';
+import folder from 'fs/promises';
+import FormData from 'form-data'
 
 const {
     config
 } = require('../controllers/conection')
+
+const multer = require("multer");
+const path = require("path");
+const fs = require('fs');
 
 // id_Publicacion, titulo, descripcion, imagen, fecha_Publicacion, id_Usuario, id_Sector
 //  int,           varchar,varchar,   varbinary,   date,             int,        int
@@ -21,43 +23,96 @@ const getPublicacion = (async (req: Request, res: Response) => {
         var respuesta = await pool.request().query('SELECT * FROM Publicaciones');
         publicaciones = respuesta.recordset;
         console.log("Publicaciones : ", publicaciones);
+        publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
         res.send(e);
     }
 });
 
-const createPublicacion = (async (req: Request, res: Response) => {
-    fs.createReadStream(req.body.img);
-    try {
-        let pool = await new sql.ConnectionPool(config).connect();
-        
-        //let query = `INSERT INTO Alumnos (nombre, apellido, dni, email) 
-        //             VALUES ('${alumno.nombre}','${alumno.apellido}',${alumno.dni},'${alumno.email}')`
-
-        // VALUES (@ + nombre variable que le vas a poner en input)
-        let query =
-            `INSERT INTO Publicaciones 
-        (titulo, descripcion, imagen, fecha_Publicacion, id_Usuario, id_Sector)
-        VALUES (@titulo, @desc, @img, @fecha, @user, @sector)`
-        let result = await pool.request()
-            .input('titulo', sql.VarChar, req.body.titulo)
-            .input('desc', sql.VarChar, req.body.descripcion)
-            .input('img', sql.VarBinary, req.body.otto.jpg)
-            .input('fecha', sql.Date, req.body.fecha_Publicacion)
-            .input('user', sql.VarChar, req.body.id_Usuario)
-            .input('sector', sql.VarChar, req.body.id_Sector)
-            .query(query);
-        res.send(result);
-    } catch (e) {
-        res.send(e);
+function convertirAImagenes(array: any) {
+    console.log(array.length);
+    for (let i = 0; i < array.length; i++) {
+        array[i].imagen = Buffer.from(array[i].imagen).toString('base64');
     }
+    return array;
+}
+
+async function convertirABuffer(img: any){
+    return fs.readFileSync(img.path)
+}
+
+const createPublicacion = (async (req: Request, res: Response) => {
+    console.log(req.body);
+    
+    console.log(req.file);
+    
+    try {
+        handleMultipartData(req, res, async (err: { message: any; }) => {
+            if (err) {
+                res.json({ msgs: err.message });
+            }
+            let pool = await new sql.ConnectionPool(config).connect();
+
+            let img = await convertirABuffer(req.file);
+            console.log("DESPUES DE HELLO: " + img);
+            
+            // VALUES (@ + nombre variable que le vas a poner en input)
+            let query =
+                `INSERT INTO Publicaciones 
+            (titulo, descripcion, imagen, fecha_Publicacion, id_Usuario, id_Sector)
+            VALUES (@titulo, @desc, @img, @fecha, @user, @sector)`
+            let result = await pool.request()
+                .input('titulo', sql.VarChar, req.body.titulo)
+                .input('desc', sql.VarChar, req.body.descripcion)
+                .input('img', sql.VarBinary, img)
+                .input('fecha', sql.Date, new Date().toISOString())
+                .input('user', sql.VarChar, req.body.id_Usuario)
+                .input('sector', sql.VarChar, req.body.id_Sector)
+                .query(query);
+            
+            vaciarCarpeta();
+            res.send(result);
+        });
+    } catch (e) {
+        console.log(e);
+    }
+    
 })
+
+async function vaciarCarpeta(){
+    let dirPath = ".uploads";
+    try{
+        let files = await folder.readdir(dirPath);
+        const deleteFilePromises = files.map(file =>
+            folder.unlink(path.join(dirPath, file)),
+          );
+          await Promise.all(deleteFilePromises);
+    }catch(e){
+        console.log(e);
+    }
+}
+
+const storage = multer.diskStorage({
+    destination: (req: any, file: any, cb: (arg0: null, arg1: string) => any) => cb(null, ".uploads"), // cb -> callback
+    filename: (req: any, file: { originalname: any; }, cb: (arg0: null, arg1: string) => void) => {
+        const uniqueName = `${Date.now()}-${Math.round(
+            Math.random() * 1e9
+        )}${path.extname(file.originalname)}`;
+        cb(null, uniqueName);
+    },
+});
+
+const handleMultipartData = multer({
+    storage,
+    limits: { fileSize: 1000000 * 5 },
+}).single("image");
+
 
 const updatePublicacion = (async (req: Request, res: Response) => {
     try {
         let query =
-        `UPDATE Publicaciones SET 
+            `UPDATE Publicaciones SET 
         titulo = @titulo,
         descripcion = @desc,
         imagen = @img,
@@ -84,7 +139,7 @@ const updatePublicacion = (async (req: Request, res: Response) => {
 const updatePublicacionCampo = (async (req: Request, res: Response) => {
     try {
         let query =
-        `UPDATE Publicaciones SET 
+            `UPDATE Publicaciones SET 
         ${req.params.campo} = @campo
         WHERE id_Publicacion = @id`;
         let pool = await new sql.ConnectionPool(config).connect();

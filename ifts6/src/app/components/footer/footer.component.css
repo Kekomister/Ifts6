@@ -1,47 +1,49 @@
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #FFD300;
-    color: #333     ;
-    text-align: center;
-    padding: 10px 0;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #FFD300;
+  color: #333;
+  text-align: center;
+  padding: 10px 0;
+}
 
-  .footer-left {
-    text-align: left;
-    padding-right: 10px;
-  }
-  .footer-center {
-    flex: 1;
-  }
-  
-  .footer-right {
-    text-align: right;
-    padding-right: 10px;
-  }
-  .icon-container {
-    padding-right: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Estilos opcionales para los iconos */
-  .fa {
-    font-size: 24px;
-    padding: 10px;
-  }
-  
-.iconst{
-    max-width: 32px;
-    height: auto;
-    padding-left: 4px;
-    padding-right: 4px;
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.footer-center {
+  flex: 1;
+}
+
+.footer-right {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.icon-container {
+  padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilos opcionales para los iconos */
+.fa {
+  font-size: 24px;
+  padding: 10px;
+}
+
+.iconst {
+  max-width: 32px;
+  height: auto;
+  padding-left: 4px;
+  padding-right: 4px;
 }
