@@ -113,13 +113,13 @@ PARA WIDTH 600PX PARA ABAJO */
     background-color:#424142;
     color: #ffffff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 10px 45px;
+    border-radius: 0px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .btn-custom:hover {
-    background-color:#a6a4a4;
+    background-color:#312e2e;
 }

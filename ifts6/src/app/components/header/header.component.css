@@ -42,7 +42,7 @@
 
 .navbar-primary {
     border: 0;
-    background-color: #ffffff;
+    background-color: #717170;
     border-bottom: 3px solid #fdd306;
 }
 
@@ -79,7 +79,7 @@
     float: right;
     position: relative;
     top: 6px;
-    color: #292202;
+    color: #f3f3f3;
 }
 
 .text-right {
