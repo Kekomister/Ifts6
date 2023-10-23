@@ -1,7 +1,7 @@
 .contenedor-principal {
-    margin: 0;
-    padding: 0;
-    display: flex;
+    margin-left: 0;
+    padding: 100px ;
+    display:contents;
     justify-content: center;
     align-items: center;
     height: 85vh;
@@ -10,16 +10,20 @@
 }
 
 .container {
-    max-width: 600px;
+    max-width: 1300px;
     width: 100%;
-    margin: 20px;
+    margin: 50px;
 }
 
 .contact-section {
     margin-top: 20px;
 }
-
+.map-section {
+    justify-content: center;
+    margin-top: 20px;
+}
 h1, h2 {
+    
     margin-bottom: 10px;
 }
 
