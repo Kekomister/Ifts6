@@ -1,85 +1,21 @@
 @media (min-width: 1200px) {
     .container {
         width: 1170px;
+
     }
 }
 
-/* @media (min-width: 992px) {
-    .container {
-        width: 970px;
-    }
-}
 
-@media (min-width: 768px) {
-    .container {
-        width: 750;
-    }
-} */
-
-.navbar {
-    border-radius: 0;
-    position: relative;
-    text-shadow: none;
-    min-height: 48px;
-    background-color: #2b06fd;
-}
-.fondo{
+.fondo {
     background-color: #FFD300;
 }
-.navbar-top {
-    margin: 0;
-}
 
-.navbar-default.navbar-top {
-    min-height: 80px;
-    margin-bottom: 29px;
-}
-
-.navbar-default.navbar-top a {
-    padding-top: 30px;
-    min-height: 80px;
-}
-
-.navbar-primary {
-    border: 0;
-    background-color: #717170;
-    border-bottom: 3px solid #fdd306;
-}
-
-.container,
-.container-fluid {
+.container {
 
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-}
-
-.row {
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.navbar-brand {
-    float: left;
-    margin-left: 0;
-    margin-top: 12px;
-}
-
-
-.bac-header {
-  
-    width: 64px;
-    height: 64px;
-    background-image: url(/ifts6/src/assets/logo2.png), none;
-    /* background-repeat: no-repeat; */
-}
-
-.navbar-top .sub-brand {
-    float: right;
-    position: relative;
-    top: 6px;
-    color: #f3f3f3;
 }
 
 .text-right {
@@ -92,10 +28,16 @@
     text-align: left;
 }
 
-.contenedor-botones {
-    display: flex;
-    justify-content: center;
-}
-.imagen {
-    height: 64px;
-}
+.header {
+    position: relative;
+    width: 100%;
+     height: 200px; /* Ajusta la altura del encabezado según tus necesidades */
+     background-color: #333; /*Cambia el color de fondo según tus preferencias */
+  
+  
+  }  
+  .imgifts6 {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /*Esto hará que la imagen ocupe todo el espacio del encabezado sin distorsionarla */
+    }
