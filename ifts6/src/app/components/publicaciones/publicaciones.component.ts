@@ -1,10 +1,11 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Publicacion } from 'src/app/classes/publicacion.model';
 import { Sector } from 'src/app/classes/sector.model';
 import { Usuario } from 'src/app/classes/usuario.model';
 import { Buffer } from 'buffer';
+import { ConexionService } from 'src/app/services/conexion.service';
 
 
 @Component({
@@ -21,15 +22,12 @@ export class PublicacionesComponent {
   usuarios: Usuario[] = [];
   sectores: Sector[] = [];
 
-  urlUsuario: string = "http://localhost:3000/usuario";
-  urlPublicacion: string = "http://localhost:3000/publicacion";
-  urlSector: string = "http://localhost:3000/sector";
-
   @Input() criterio: string = "";
   publicacionesMostrar: Publicacion[] = [];
   imagen: any;
 
-  constructor(private http: HttpClient, public sanitizer: DomSanitizer) { }
+  constructor(private http: HttpClient, public sanitizer: DomSanitizer, 
+    private conexion : ConexionService) { }
 
   ngOnInit() {
     this.getSectores();
@@ -39,7 +37,7 @@ export class PublicacionesComponent {
 
   getUsuarios() {
     try {
-      this.http.get<Usuario[]>(this.urlUsuario).subscribe(res => {
+      this.http.get<Usuario[]>(this.conexion.urlUsuario).subscribe(res => {
         //console.log("USUARIOS : " + res);
         this.usuarios = res;
       });
@@ -50,7 +48,7 @@ export class PublicacionesComponent {
 
   getSectores() {
     try {
-      this.http.get<Sector[]>(this.urlSector).subscribe(res => {
+      this.http.get<Sector[]>(this.conexion.urlSector).subscribe(res => {
         //console.log("SECTORES : " + res);
         this.sectores = res;
       });
@@ -61,7 +59,7 @@ export class PublicacionesComponent {
 
   getPublicaciones() {
     try {
-      this.http.get<Publicacion[]>(this.urlPublicacion).subscribe(res => {
+      this.http.get<Publicacion[]>(this.conexion.urlPublicacion).subscribe(res => {
         this.publicaciones = res;
         this.verCriterio();
       });
@@ -111,9 +109,5 @@ export class PublicacionesComponent {
   detalle(pub: Publicacion) {
     alert("Ir a " + pub.titulo)
   }
-
-
-
-  
 
 }

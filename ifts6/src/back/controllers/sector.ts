@@ -24,15 +24,9 @@ const getSector = (async (req: Request, res: Response) => {
 const createSector = (async (req: Request, res: Response) => {
     try {
         let pool = await new sql.ConnectionPool(config).connect();
-
-        //let query = `INSERT INTO Alumnos (nombre, apellido, dni, email) 
-        //             VALUES ('${alumno.nombre}','${alumno.apellido}',${alumno.dni},'${alumno.email}')`
-
-        // VALUES (@ + nombre variable que le vas a poner en input)
         let query =
-            `INSERT INTO Sectores (id_Sector, descripcion) VALUES (@id, @desc)`
+            `INSERT INTO Sectores (descripcion) VALUES (@desc)`
         let result = await pool.request()
-            .input('id', sql.Int, req.body.id_Sector)
             .input('desc', sql.VarChar, req.body.descripcion)
             .query(query);
         res.send(result);

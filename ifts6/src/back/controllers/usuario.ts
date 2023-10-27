@@ -24,11 +24,6 @@ const getUsuario = (async (req: Request, res: Response) => {
 const createUsuario = (async (req: Request, res: Response) => {
     try {
         let pool = await new sql.ConnectionPool(config).connect();
-
-        //let query = `INSERT INTO Alumnos (nombre, apellido, dni, email) 
-        //             VALUES ('${alumno.nombre}','${alumno.apellido}',${alumno.dni},'${alumno.email}')`
-
-        // VALUES (@ + nombre variable que le vas a poner en input)
         let query =
             `INSERT INTO Usuarios (nombre_Usuario, clave, rol) 
             VALUES (@nomUser, @clave, @rol)`

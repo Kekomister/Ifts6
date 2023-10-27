@@ -1,1 +1,15 @@
-<p>admin works!</p>
+<div>
+    <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
+    <label for=""> Descripcion <input type="text" [(ngModel)]="pub.descripcion"></label>
+    <label for=""> Sector <input type="number" [(ngModel)]="pub.id_Sector"></label>
+    <label for=""> Usuario <input type="number" [(ngModel)]="pub.id_Usuario"></label>
+    <br>
+    <button (click)="onClick()">
+        Upload
+    </button>
+    <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
+    
+    <button (click)="enviar()"> SUBMIT </button>
+</div>
+
+<form action=""></form>

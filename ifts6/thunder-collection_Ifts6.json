@@ -1,0 +1,279 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Ifts6",
+    "dateExported": "2023-10-27T18:34:25.612Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "0c7245bc-7bf3-4679-acc1-0b117cfb3171",
+            "name": "Publicaciones",
+            "containerId": "",
+            "created": "2023-10-27T17:51:11.736Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "f4dd9949-5b82-4d4e-9988-c157e7e38f49",
+            "name": "Usuarios",
+            "containerId": "",
+            "created": "2023-10-27T18:21:21.113Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "ccfbb008-17b1-4792-87e8-1c2d6f84d602",
+            "name": "Sectores",
+            "containerId": "",
+            "created": "2023-10-27T18:21:50.059Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "2502dcab-fc59-497f-8c73-16d3cc962947",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "0c7245bc-7bf3-4679-acc1-0b117cfb3171",
+            "name": "get publicaciones",
+            "url": "http://localhost:3000/publicacion",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-10-27T17:51:26.144Z",
+            "modified": "2023-10-27T17:52:11.519Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "aaa4d669-72f2-4038-83ef-ca7b3d51deae",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "0c7245bc-7bf3-4679-acc1-0b117cfb3171",
+            "name": "post publicaciones",
+            "url": "http://localhost:3000/publicacion",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-27T17:54:52.133Z",
+            "modified": "2023-10-27T18:19:23.494Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "titulo",
+                        "value": "Titulo6"
+                    },
+                    {
+                        "name": "descripcion",
+                        "value": "Descripcion6"
+                    },
+                    {
+                        "name": "id_Usuario",
+                        "value": "1"
+                    },
+                    {
+                        "name": "id_Sector",
+                        "value": "1"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "imagen",
+                        "value": "d:\\Keko\\COSAS APARTES\\2.png"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "b21c3070-95e5-4eb6-aabf-6545a8f1add2",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "0c7245bc-7bf3-4679-acc1-0b117cfb3171",
+            "name": "put publicaciones",
+            "url": "http://localhost:3000/publicacion/55",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2023-10-27T18:01:14.220Z",
+            "modified": "2023-10-27T18:11:32.986Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "titulo",
+                        "value": "Titulo2"
+                    },
+                    {
+                        "name": "descripcion",
+                        "value": "Descripcion2"
+                    },
+                    {
+                        "name": "id_Usuario",
+                        "value": "1"
+                    },
+                    {
+                        "name": "id_Sector",
+                        "value": "1"
+                    },
+                    {
+                        "name": "fecha_Publicacion",
+                        "value": "2002-01-01"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "imagen",
+                        "value": "d:\\Keko\\COSAS APARTES\\1.png"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "ea74945a-5255-44d2-9ff5-83484ac9a6ce",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "0c7245bc-7bf3-4679-acc1-0b117cfb3171",
+            "name": "delete publicaciones",
+            "url": "http://localhost:3000/publicacion/55",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-10-27T18:12:28.291Z",
+            "modified": "2023-10-27T18:13:13.295Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "55590bc6-3b33-4ec5-a4a4-d80a96afafa7",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "ccfbb008-17b1-4792-87e8-1c2d6f84d602",
+            "name": "get sectores",
+            "url": "http://localhost:3000/sector",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-10-27T18:21:58.921Z",
+            "modified": "2023-10-27T18:22:07.002Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3a4a2837-b91a-44bb-9264-d0b245d1ab7a",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "ccfbb008-17b1-4792-87e8-1c2d6f84d602",
+            "name": "post sectores",
+            "url": "http://localhost:3000/sector",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-10-27T18:22:21.785Z",
+            "modified": "2023-10-27T18:27:04.382Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\" : \"Economico\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ef848833-c446-4b3e-92d5-c544ac72966b",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "ccfbb008-17b1-4792-87e8-1c2d6f84d602",
+            "name": "put sectores",
+            "url": "http://localhost:3000/sector/3",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2023-10-27T18:26:21.564Z",
+            "modified": "2023-10-27T18:28:03.918Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\" : \"Deportivo\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "66225ad5-dcf0-49d3-978f-a6a85cfd565e",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "ccfbb008-17b1-4792-87e8-1c2d6f84d602",
+            "name": "delete sectores",
+            "url": "http://localhost:3000/sector/4",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2023-10-27T18:28:25.181Z",
+            "modified": "2023-10-27T18:28:40.134Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6d323e56-d783-44f1-9b6e-32e6ef8c451a",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "f4dd9949-5b82-4d4e-9988-c157e7e38f49",
+            "name": "get usuarios",
+            "url": "http://localhost:3000/usuario",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-10-27T18:29:33.974Z",
+            "modified": "2023-10-27T18:29:41.688Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "45bb1901-8562-49d9-89cd-803a51b90d3a",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "f4dd9949-5b82-4d4e-9988-c157e7e38f49",
+            "name": "post usuarios",
+            "url": "http://localhost:3000/usuario",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-10-27T18:30:00.262Z",
+            "modified": "2023-10-27T18:31:02.488Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre_Usuario\" : \"Jorge\",\n  \"clave\" : \"Jorge123\",\n  \"rol\" : \"El jorge\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "40a1e73c-acc8-4e24-8de8-572ebca684d5",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "f4dd9949-5b82-4d4e-9988-c157e7e38f49",
+            "name": "put usuarios",
+            "url": "http://localhost:3000/usuario/4",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2023-10-27T18:31:38.636Z",
+            "modified": "2023-10-27T18:32:30.157Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre_Usuario\" : \"Jorgina\",\n  \"clave\" : \"Jorgina123\",\n  \"rol\" : \"La jorgina\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "70ba4425-e1b6-475d-b29b-0709566e543b",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "f4dd9949-5b82-4d4e-9988-c157e7e38f49",
+            "name": "delete usuarios",
+            "url": "http://localhost:3000/usuario/4",
+            "method": "DELETE",
+            "sortNum": 100000,
+            "created": "2023-10-27T18:33:47.637Z",
+            "modified": "2023-10-27T18:33:56.416Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
