@@ -1,0 +1,22 @@
+<div class="card">
+    <p-table [columns]="columnas" [value]="filas" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{ col.header }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{ rowData[col.field] }}
+                </td>
+                <td>
+                    <button (click) = "borrar(rowData)"> Borrar </button>
+                    <button (click) = "modificar(rowData)"> Modificar </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

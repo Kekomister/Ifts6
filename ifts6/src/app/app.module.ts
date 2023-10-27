@@ -14,9 +14,11 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicacionesComponent } from './components/publicaciones/publicaciones.component';
+import { TableComponent } from './components/table/table.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -32,13 +34,15 @@ import { HttpClientModule } from '@angular/common/http';
     InicioComponent,
     HeaderComponent,
     FooterComponent,
-    PublicacionesComponent
+    PublicacionesComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

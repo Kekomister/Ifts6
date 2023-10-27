@@ -8,12 +8,15 @@ router.use(express.json());
 
 const  { 
     getPublicacion,
+    getPublicacionLegible,
     createPublicacion,
     updatePublicacion,
     deletePublicacion
 } = require('../controllers/publicacion')
 
 router.get('/',getPublicacion)
+
+router.get('/legible',getPublicacionLegible)
 
 router.post('/', upload.any(),createPublicacion)
 

@@ -1,15 +1,25 @@
-<div>
+<div class="logIn" *ngIf="!conectado">
+    <label for=""> Usuario / Username <input type="text" [(ngModel)]="user.nombre_Usuario"></label>
+    <label for=""> Clave / Password <input type="password" [(ngModel)]="user.clave"></label>
+    <button (click)="chequeoUsuario()">
+        Ingresar
+    </button>
+</div>
+
+<div *ngIf="conectado">
     <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
     <label for=""> Descripcion <input type="text" [(ngModel)]="pub.descripcion"></label>
-    <label for=""> Sector <input type="number" [(ngModel)]="pub.id_Sector"></label>
-    <label for=""> Usuario <input type="number" [(ngModel)]="pub.id_Usuario"></label>
+    <!-- <label for=""> Usuario <input type="number" [(ngModel)]="pub.id_Usuario"></label> -->
+    <select [(ngModel)]="pub.id_Sector">
+        <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
+    </select>
     <br>
-    <button (click)="onClick()">
-        Upload
+    <button (click)="subir()">
+        Subir imagen
     </button>
     <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
     
     <button (click)="enviar()"> SUBMIT </button>
-</div>
 
-<form action=""></form>
+    <app-table [columnas] = "columnas" [filas]="filas" (accion)="acciones($event)"></app-table>
+</div>
