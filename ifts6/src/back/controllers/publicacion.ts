@@ -16,6 +16,7 @@ const fs = require('fs');
 //  int,           varchar,varchar,   varbinary,   date,             int,        int
 
 const getPublicacion = (async (req: Request, res: Response) => {
+    console.log("HELLO");
     try {
         let publicaciones;
         const pool = await new sql.ConnectionPool(config).connect();
@@ -25,7 +26,7 @@ const getPublicacion = (async (req: Request, res: Response) => {
         publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
-        res.send(e);
+        console.log(e);
     }
 });
 
@@ -45,7 +46,7 @@ const getPublicacionLegible = (async (req: Request, res: Response) => {
         publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
-        res.send(e);
+        console.log(e);
     }
 });
 
@@ -55,10 +56,6 @@ function convertirAImagenes(array: any) {
         array[i].imagen = Buffer.from(array[i].imagen).toString('base64');
     }
     return array;
-}
-
-async function convertirABuffer(img: any) {
-    return fs.readFileSync(img[0].path);
 }
 
 const createPublicacion = (async (req: Request, res: Response) => {
@@ -105,6 +102,12 @@ async function vaciarCarpeta() {
     }
 }
 
+async function convertirABuffer(img: any) {
+    console.log(img);
+
+    return fs.readFileSync(img[0].path);
+}
+
 const storage = multer.diskStorage({
     destination: (req: any, file: any, cb: (arg0: null, arg1: string) => any) => cb(null, ".uploads"), // cb -> callback
     filename: (req: any, file: { originalname: any; }, cb: (arg0: null, arg1: string) => void) => {
@@ -123,14 +126,19 @@ const handleMultipartData = multer({
 
 const updatePublicacion = (async (req: Request, res: Response) => {
     let bod = req.body;
+    let img = Buffer.from(req.body.file);
+    console.log(`Img : ${img}`);
     try {
         handleMultipartData(req, res, async (err: { message: any; }) => {
             if (err) {
                 //res.json({ msgs: err.message });
+                console.log("ERROR : " + err);
             }
-            let pool = await new sql.ConnectionPool(config).connect();
 
-            let img = await convertirABuffer(req.files);
+            let pool = await new sql.ConnectionPool(config).connect();
+            console.log(bod.fecha_Publicacion);
+            
+            //let img = await convertirABuffer(req.files);
 
             let query =
                 `UPDATE Publicaciones SET 

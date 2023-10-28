@@ -5,6 +5,7 @@ import { ConexionService } from 'src/app/services/conexion.service';
 import { Usuario } from 'src/app/classes/usuario.model';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { Column } from 'src/app/classes/column.model';
+import { Sector } from 'src/app/classes/sector.model';
 
 @Component({
   selector: 'app-admin',
@@ -20,34 +21,46 @@ export class AdminComponent {
   files = [];
 
   pub: Publicacion = new Publicacion();
-  modificar : boolean = false;
+  sec: Sector = new Publicacion();
+  userTemp: Usuario = new Usuario();
+
+  modificar: boolean = false;
 
   filas: any;
   columnas: Column[] = [];
 
-  sectores : any;
-  publicaciones : any;
+  sectores: any;
+  publicaciones: any;
+  usuarios: any;
+
+  cual: string = "";
 
   constructor(private conexion: ConexionService, private http: HttpClient,
-    private msj: MensajesService) { 
-      this.traerPub();
-      this.traerSect();
-    }
+    private msj: MensajesService) {
+    this.traerPub();
+  }
 
   async chequeoUsuario() {
     this.http.get(this.conexion.urlUsuario).subscribe(async res => {
       let usuarios = await res;
-      console.log(usuarios);
       let cant = this.cuantos(usuarios);
       if (this.usuarioEsta(cant, usuarios)) {
-        this.conectado = true;
-        this.traerPub();
+        this.conectar();
         this.msj.success("Ha ingresado con exito!", "Okey");
       } else {
         this.msj.error("Hubo un problema", "Usuario / clave incorrecta.", "Okey");
       }
     });
 
+  }
+
+  conectar() {
+    this.conectado = true;
+    this.traerSect();
+    //CONDICION PARA ADMIN
+    if (true) {
+      this.traerUsers();
+    }
   }
 
   cuantos(usuarios): number {
@@ -64,38 +77,50 @@ export class AdminComponent {
   }
 
   usuarioEsta(cant, usuarios): boolean {
+    // FALTA CONDICION ADMIN
+
     for (let i = 0; i < cant; i++) {
       if (this.user.nombre_Usuario == usuarios[i].nombre_Usuario &&
         this.user.clave == usuarios[i].clave) {
-          this.user.id_Usuario = usuarios[i].id_Usuario;
+        this.user.id_Usuario = usuarios[i].id_Usuario;
         return true;
       }
     }
     return false;
   }
 
+  select_Tabla(cual: string) {
+    this.cual = cual;
+    switch (this.cual) {
+      case "S":
+        this.traerSect();
+        this.filas = this.sectores;
+        break;
+      case "P":
+        this.traerPub();
+        this.filas = this.publicaciones;
+        break;
+      case "U":
+        this.traerUsers();
+        this.filas = this.usuarios;
+        break;
+      default:
+        break;
+    }
+    this.vaciarCampos();
+  }
+
   traerSect() {
+    this.columnas = [
+      { field: "id_Sector", header: "ID" },
+      { field: "descripcion", header: "Descripcion" },
+    ];
     this.http.get(this.conexion.urlSector).subscribe(async res => {
       this.sectores = await res;
     });
-
-    // this.columnas = [
-    //   { field: "id_Publicacion", header: "ID" },
-    //   { field: "titulo", header: "Titulo" },
-    //   { field: "descripcion", header: "Descripcion" },
-    //   //{ field: "imagen", header: "Imagen" },
-    //   { field: "fecha_Publicacion", header: "Fecha de Publicacion" },
-    //   { field: "nombre_Usuario", header: "Usuario que lo publico" },
-    //   { field: "sector", header: "Sector" },
-    // ];
   }
 
   traerPub() {
-    this.http.get(this.conexion.urlPublicacion + "/legible").subscribe(async res => {
-      this.publicaciones = await res;
-      this.filas = this.publicaciones;
-    });
-
     this.columnas = [
       { field: "id_Publicacion", header: "ID" },
       { field: "titulo", header: "Titulo" },
@@ -105,6 +130,24 @@ export class AdminComponent {
       { field: "nombre_Usuario", header: "Usuario que lo publico" },
       { field: "sector", header: "Sector" },
     ];
+
+    this.http.get(this.conexion.urlPublicacion + "/legible").subscribe(async res => {
+      this.publicaciones = await res;
+    });
+
+  }
+
+  traerUsers() {
+    this.columnas = [
+      { field: "id_Usuario", header: "ID" },
+      { field: "nombre_Usuario", header: "Nombre del usuario" },
+      //{ field: "clave", header: "Contraseña" },
+      { field: "rol", header: "Rol" },
+    ];
+
+    this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+      this.usuarios = await res;
+    });
   }
 
   subir() {
@@ -118,11 +161,25 @@ export class AdminComponent {
     fileUpload.click();
   }
 
-  enviar() {
+  enviarPub() {
     this.fileUpload.nativeElement.value = '';
     this.files.forEach(file => {
       this.sendFile(file);
     });
+    this.vaciarCampos();
+  }
+
+  enviarSec() {
+    this.http.post(this.conexion.urlSector, this.sec).subscribe(async res => {
+      this.select_Tabla("S");
+    })
+    this.vaciarCampos();
+  }
+
+  enviarUser() {
+    this.http.post(this.conexion.urlUsuario, this.userTemp).subscribe(async res => {
+      this.select_Tabla("U");
+    })
     this.vaciarCampos();
   }
 
@@ -135,7 +192,9 @@ export class AdminComponent {
     formData.append('id_Sector', String(this.pub.id_Sector));
     file.inProgress = true;
 
-    (await this.sendFormData(formData)).subscribe((event: any) => { this.traerPub();});
+    (await this.sendFormData(formData)).subscribe((event: any) => {
+      this.select_Tabla("P");
+    });
   }
 
   public async sendFormData(formData: FormData) {
@@ -148,15 +207,12 @@ export class AdminComponent {
   async acciones(accion: any[]) {
     // POR AHORA SOLO FUNCIONA PARA PUBLICACIONES
     if (accion[0] == "borrar") {
-      let mensaje =
-        "Titulo : " + accion[1].titulo;
+      let mensaje = this.borrarMensaje(accion[1]);
       let res = await this.msj.preguntar
         ("Estas seguro de querer borrar?", mensaje, "Si", "Cambie de opinion")
       if (res.isConfirmed) {
-        await this.http.delete(this.conexion.urlPublicacion+"/" + accion[1].id_Publicacion)
-        .subscribe();
         this.msj.info("Se ha borrado correctamente", "Entendido");
-        this.traerPub();
+        this.borrarAlguno(accion[1]);
       } else {
         this.msj.info("Se ha cancelado", "Gracias");
       }
@@ -168,33 +224,113 @@ export class AdminComponent {
     }
   }
 
-  llenarCampos(p){
-    this.pub.descripcion = p.descripcion;
-    this.pub.fecha_Publicacion = p.fecha_Publicacion;
-    this.pub.id_Publicacion = p.id_Publicacion;
-    this.pub.id_Sector = this.buscarSector(p.sector);
-    this.pub.id_Usuario = this.user.id_Usuario;
-    this.pub.imagen = p.imagen;
-    this.pub.titulo = p.titulo;
+  borrarMensaje(objeto) {
+    switch (this.cual) {
+      case "S":
+        return "Descripcion : " + objeto.descripcion;
+      case "P":
+        return "Titulo : " + objeto.titulo;
+      case "U":
+        return "Nombre del usuario : " + objeto.nombre_Usuario;
+      default:
+        return "ERROR";
+    }
   }
 
-  buscarSector(desc : string) : number {
-    for(let i = 0; i < this.sectores.length; i++){
-      if(this.sectores[i].descripcion == desc){
+  async borrarAlguno(objeto) {
+    switch (this.cual) {
+      case "S":
+        await this.http.delete(this.conexion.urlSector + "/" + objeto.id_Sector)
+          .subscribe();
+        this.select_Tabla("S");
+        break;
+      case "P":
+        await this.http.delete(this.conexion.urlPublicacion + "/" + objeto.id_Publicacion)
+          .subscribe();
+        this.select_Tabla("P");
+        break;
+      case "U":
+        await this.http.delete(this.conexion.urlUsuario + "/" + objeto.id_Usuario)
+          .subscribe();
+        this.select_Tabla("U");
+        break;
+      default:
+        break;
+    }
+  }
+
+  modificarUser() {
+    this.http.put(this.conexion.urlUsuario + "/" + this.userTemp.id_Usuario, this.userTemp).subscribe(async res => {
+      this.select_Tabla("U");
+    })
+    this.msj.success("Se ha modificado con exito!", "Genial");
+    this.vaciarCampos();
+  }
+
+  modificarPub() {
+    const formData = new FormData();
+    formData.append('file', this.pub.imagen);
+    formData.append('titulo', this.pub.titulo);
+    formData.append('descripcion', this.pub.descripcion);
+    formData.append('id_Usuario', String(this.user.id_Usuario));
+    formData.append('id_Sector', String(this.pub.id_Sector));
+    formData.append('fecha_Publicacion', this.pub.fecha_Publicacion)
+
+    this.http.put(this.conexion.urlPublicacion + "/" + this.pub.id_Publicacion, formData).subscribe(async res => {
+      this.select_Tabla("P");
+    })
+    this.msj.success("Se ha modificado con exito!","Genial");
+    this.vaciarCampos();
+  }
+
+  modificarSec() {
+    this.http.put(this.conexion.urlSector + "/" + this.sec.id_Sector, this.sec).subscribe(async res => {
+      this.select_Tabla("S");
+    })
+    this.msj.success("Se ha modificado con exito!", "Genial");
+    this.vaciarCampos();
+  }
+
+  llenarCampos(objeto) {
+    switch (this.cual) {
+      case "S":
+        this.sec.descripcion = objeto.descripcion;
+        this.sec.id_Sector = objeto.id_Sector;
+        break;
+      case "P":
+        this.pub.descripcion = objeto.descripcion;
+        this.pub.fecha_Publicacion = objeto.fecha_Publicacion;
+        this.pub.id_Publicacion = objeto.id_Publicacion;
+        this.pub.id_Sector = this.buscarSector(objeto.sector);
+        this.pub.id_Usuario = this.user.id_Usuario;
+        this.pub.imagen = objeto.imagen;
+        this.pub.titulo = objeto.titulo;
+        break;
+      case "U":
+        this.userTemp.id_Usuario = objeto.id_Usuario;
+        this.userTemp.clave = objeto.clave;
+        this.userTemp.nombre_Usuario = objeto.nombre_Usuario;
+        this.userTemp.rol = objeto.rol;
+        break;
+      default:
+        break;
+    }
+  }
+
+  buscarSector(desc: string): number {
+    for (let i = 0; i < this.sectores.length; i++) {
+      if (this.sectores[i].descripcion == desc) {
         return this.sectores[i].id_Sector;
       }
     }
     return 0;
   }
 
-  vaciarCampos(){
-    this.pub.descripcion = "";
-    this.pub.fecha_Publicacion = "";
-    this.pub.id_Publicacion = -1;
-    this.pub.id_Sector = -1;
-    this.pub.id_Usuario = -1;
-    this.pub.imagen = "";
-    this.pub.titulo = "";
+  vaciarCampos() {
+    this.pub = new Publicacion();
+    this.sec = new Sector();
+    this.userTemp = new Usuario();
+    this.modificar = false;
   }
 
 }

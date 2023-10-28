@@ -7,19 +7,42 @@
 </div>
 
 <div *ngIf="conectado">
-    <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
-    <label for=""> Descripcion <input type="text" [(ngModel)]="pub.descripcion"></label>
-    <!-- <label for=""> Usuario <input type="number" [(ngModel)]="pub.id_Usuario"></label> -->
-    <select [(ngModel)]="pub.id_Sector">
-        <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
-    </select>
-    <br>
-    <button (click)="subir()">
-        Subir imagen
-    </button>
-    <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
-    
-    <button (click)="enviar()"> SUBMIT </button>
 
-    <app-table [columnas] = "columnas" [filas]="filas" (accion)="acciones($event)"></app-table>
+    <label for="" (click)="select_Tabla('P')"> Publicaciones </label>
+    <label for="" (click)="select_Tabla('S')"> Sectores </label>
+    <label for="" (click)="select_Tabla('U')"> Usuarios </label>
+
+    <div class="admin-publicaciones" *ngIf="cual == 'P'">
+        <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
+        <label for=""> Descripcion <input type="text" [(ngModel)]="pub.descripcion"></label>
+        <select [(ngModel)]="pub.id_Sector">
+            <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
+        </select>
+        <br>
+        <button (click)="subir()">
+            Subir imagen
+        </button>
+        <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
+        
+        <button *ngIf="!modificar" (click)="enviarPub()"> SUBMIT </button>
+        <button *ngIf="modificar" (click)="modificarPub()"> MODIFICAR </button>
+    </div>
+
+    <div class="admin-sectores" *ngIf="cual == 'S'">
+        <label for=""> Descripcion <input type="text" [(ngModel)]="sec.descripcion"></label>
+        <button *ngIf="!modificar" (click)="enviarSec()"> SUBMIT </button>
+        <button *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
+    </div>
+
+    <div class="admin-usuarios" *ngIf="cual == 'U'">
+        <label for=""> Nombre De usuario <input type="text" [(ngModel)]="userTemp.nombre_Usuario"></label>
+        <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
+        <label for=""> Rol <input type="text" [(ngModel)]="userTemp.rol"></label> 
+        <button *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
+        <button *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+    </div>
+
+    <div>
+        <app-table *ngIf="cual != ''" [columnas] = "columnas" [filas]="filas" (accion)="acciones($event)"></app-table>
+    </div>
 </div>
