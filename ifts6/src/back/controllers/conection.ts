@@ -7,6 +7,7 @@ const config = {
     // SQL SERVER -> LOGIN -> USER MAPPING
     // Y EL NIVEL DE PERMISO
     database: 'prueba',
+    //database: 'prueba_leppen',
     options: {
         // PARA CONECTARSE DIRECTAMENTE CON WINDOWS
         // trustedConnection : true,
