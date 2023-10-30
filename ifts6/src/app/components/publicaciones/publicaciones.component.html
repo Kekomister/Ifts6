@@ -5,13 +5,13 @@
         <div class="contenedor-img">
             <img class="imagen-pub" src='data:image/png;base64, {{fila.imagen}}' alt="1">
         </div>
-        <p>{{fila.descripcion}}</p>
+        <h3><p>{{fila.descripcion}}</p></h3>
         <br>
-        <label for=""> Fecha de publicacion : {{fila.fecha_Publicacion}} </label>
+       <h3> <label for=""> Fecha de publicacion : {{fila.fecha_Publicacion}} </label></h3>
         <br>
-        <label for=""> Publicado por : {{convertirUsuario(fila.id_Usuario)}}</label>
+        <h3><label for=""> Publicado por : {{convertirUsuario(fila.id_Usuario)}}</label></h3>
         <br>
-        <label for=""> Sector : {{convertirSector(fila.id_Sector)}} </label>
+        <h3><label for=""> Sector : {{convertirSector(fila.id_Sector)}} </label></h3>
     </div>
 </div>
 

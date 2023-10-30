@@ -18,9 +18,10 @@
   
   /* Estilo para el título de la publicación */
   .pub h2 {
-    font-size: 20px;
+    font-size: 22px;
     margin: 0;
-    color: #333;
+    color: #19c3e3;
+    font-family: 'Open Sans', sans-serif;
   }
   
   /* Estilo para la imagen de la publicación */
@@ -37,6 +38,7 @@
   /* Estilo para el párrafo de descripción */
   .pub p {
     margin: 10px 0;
+   
   }
   
   /* Estilo para las etiquetas de información */
