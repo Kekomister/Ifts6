@@ -21,7 +21,12 @@
     font-size: 22px;
     margin: 0;
     color: #19c3e3;
-    font-family: 'Open Sans', sans-serif;
+    font-family:  Helvetica, Arial, sans-serif;
+  }
+
+  .pub h3{
+    font-family:  Helvetica, Arial, sans-serif;
+    
   }
   
   /* Estilo para la imagen de la publicación */
