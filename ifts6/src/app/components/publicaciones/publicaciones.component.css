@@ -1,25 +1,48 @@
-.contenedor-pub{
+/* Estilo para el contenedor de publicaciones */
+.contenedor-pub {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    height: 500px;
-    margin-top: 1rem;
     flex-wrap: wrap;
-}
-
-.pub{
-    width: 20%;
-    border: 1px solid rgba(0, 0, 0, 0.575);
-}
-
-.contenedor-img{
-    height: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.imagen-pub{
-    max-width: 90%;
-    max-height: 90%;
-}
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  /* Estilo para cada publicación individual */
+  .pub {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(33.33% - 20px); /* Ajustar el ancho de acuerdo a tus necesidades */
+  }
+  
+  /* Estilo para el título de la publicación */
+  .pub h2 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Estilo para la imagen de la publicación */
+  .contenedor-img {
+    text-align: center;
+  }
+  
+  .imagen-pub {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+  }
+  
+  /* Estilo para el párrafo de descripción */
+  .pub p {
+    margin: 10px 0;
+  }
+  
+  /* Estilo para las etiquetas de información */
+  .pub label {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+  }

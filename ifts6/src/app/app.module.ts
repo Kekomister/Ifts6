@@ -15,10 +15,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicacionesComponent } from './components/publicaciones/publicaciones.component';
 import { TableComponent } from './components/table/table.component';
+import { ButtonModule } from 'primeng/button';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { Error404Component } from './components/error404/error404.component';
 
 
 @NgModule({
@@ -36,13 +38,15 @@ import { TableModule } from 'primeng/table';
     FooterComponent,
     PublicacionesComponent,
     TableComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    TableModule
+    TableModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
