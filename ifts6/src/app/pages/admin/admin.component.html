@@ -8,13 +8,15 @@
 
 <div *ngIf="conectado">
 
-    <label for="" (click)="select_Tabla('P')"> Publicaciones </label>
-    <label for="" (click)="select_Tabla('S')"> Sectores </label>
-    <label for="" (click)="select_Tabla('U')"> Usuarios </label>
+    <label for="" (click)="select_Tabla('Pub')"> Publicaciones </label>
+    <label for="" (click)="select_Tabla('Sec')"> Sectores </label>
+    <label for="" (click)="select_Tabla('User')"> Usuarios </label>
+    <label for="" (click)="select_Tabla('Pag')"> Paginas </label>
 
-    <div class="admin-publicaciones" *ngIf="cual == 'P'">
+    <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
         <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
         <label for=""> Descripcion <input type="text" [(ngModel)]="pub.descripcion"></label>
+        <label for=""> Sector </label>
         <select [(ngModel)]="pub.id_Sector">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
         </select>
@@ -28,17 +30,30 @@
         <button *ngIf="modificar" (click)="modificarPub()"> MODIFICAR </button>
     </div>
 
-    <div class="admin-sectores" *ngIf="cual == 'S'">
+    <div class="admin-sectores" *ngIf="cual == 'Sec'">
         <label for=""> Descripcion <input type="text" [(ngModel)]="sec.descripcion"></label>
         <button *ngIf="!modificar" (click)="enviarSec()"> SUBMIT </button>
         <button *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
     </div>
 
-    <div class="admin-usuarios" *ngIf="cual == 'U'">
+    <div class="admin-usuarios" *ngIf="cual == 'User'">
         <label for=""> Nombre De usuario <input type="text" [(ngModel)]="userTemp.nombre_Usuario"></label>
         <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
         <label for=""> Rol <input type="text" [(ngModel)]="userTemp.rol"></label> 
         <button *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
+        <button *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+    </div>
+
+    <div class="admin-paginas" *ngIf="cual == 'Pag'">
+        <label for=""> Pagina </label>
+        <select [(ngModel)]="pagina.id_Pagina">
+            <option *ngFor="let pag of paginas" value="{{pag.id_Pagina}}">{{pag.nombre}}</option>
+        </select>
+        <label for=""> Sector </label>
+        <select [(ngModel)]="pagina.sectores">
+            <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
+        </select>
+        <button (click)="enviarSecPag()"> SUBMIT </button>
         <button *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
     </div>
 

@@ -14,10 +14,12 @@ const port = 3000;
 const publicacion = require("./routes/publicacion");
 const sector = require("./routes/sector");
 const usuario = require("./routes/usuario");
+const pagina = require("./routes/pagina");
 
 app.use("/publicacion",publicacion);
 app.use("/sector",sector);
 app.use("/usuario",usuario);
+app.use("/pagina",pagina)
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

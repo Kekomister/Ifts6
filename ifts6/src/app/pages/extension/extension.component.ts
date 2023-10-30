@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConexionService } from 'src/app/services/conexion.service';
 
 @Component({
   selector: 'app-extension',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./extension.component.css']
 })
 export class ExtensionComponent {
+  
+  criterioPag : any;
 
+  constructor(private conexion : ConexionService){
+    this.traerPag();
+  }
+
+  async traerPag(){
+    (await this.conexion.traerPagina("Extension terciaria")).subscribe(async res =>{
+      this.criterioPag = await res[0].descripcion;
+    });
+  }
 }

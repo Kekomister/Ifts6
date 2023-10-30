@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/classes/usuario.model';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { Column } from 'src/app/classes/column.model';
 import { Sector } from 'src/app/classes/sector.model';
+import { Pagina } from 'src/app/classes/pagina.model';
 
 @Component({
   selector: 'app-admin',
@@ -23,6 +24,7 @@ export class AdminComponent {
   pub: Publicacion = new Publicacion();
   sec: Sector = new Publicacion();
   userTemp: Usuario = new Usuario();
+  pagina : Pagina = new Pagina();
 
   modificar: boolean = false;
 
@@ -32,6 +34,7 @@ export class AdminComponent {
   sectores: any;
   publicaciones: any;
   usuarios: any;
+  paginas: any;
 
   cual: string = "";
 
@@ -92,17 +95,21 @@ export class AdminComponent {
   select_Tabla(cual: string) {
     this.cual = cual;
     switch (this.cual) {
-      case "S":
+      case "Sec":
         this.traerSect();
         this.filas = this.sectores;
         break;
-      case "P":
+      case "Pub":
         this.traerPub();
         this.filas = this.publicaciones;
         break;
-      case "U":
+      case "User":
         this.traerUsers();
         this.filas = this.usuarios;
+        break;
+      case "Pag":
+        this.traerPags();
+        this.filas = this.paginas;
         break;
       default:
         break;
@@ -150,6 +157,17 @@ export class AdminComponent {
     });
   }
 
+  traerPags(){
+    this.columnas = [
+      { field: "nombre", header: "Nombre de la pagina" },
+      { field: "descripcion", header: "Sectores asignados"}
+    ];
+
+    this.http.get(this.conexion.urlPagina + "/Legible").subscribe(async res => {
+      this.paginas = await res;
+    });
+  }
+
   subir() {
     const fileUpload = this.fileUpload.nativeElement; fileUpload.onchange = () => {
       for (let index = 0; index < fileUpload.files.length; index++) {
@@ -171,14 +189,21 @@ export class AdminComponent {
 
   enviarSec() {
     this.http.post(this.conexion.urlSector, this.sec).subscribe(async res => {
-      this.select_Tabla("S");
+      this.select_Tabla("Sec");
     })
     this.vaciarCampos();
   }
 
   enviarUser() {
     this.http.post(this.conexion.urlUsuario, this.userTemp).subscribe(async res => {
-      this.select_Tabla("U");
+      this.select_Tabla("User");
+    })
+    this.vaciarCampos();
+  }
+
+  enviarSecPag(){
+    this.http.post(this.conexion.urlPaginaConexion, this.pagina).subscribe(async res => {
+      this.select_Tabla("Pag");
     })
     this.vaciarCampos();
   }
@@ -226,12 +251,14 @@ export class AdminComponent {
 
   borrarMensaje(objeto) {
     switch (this.cual) {
-      case "S":
+      case "Sec":
         return "Descripcion : " + objeto.descripcion;
-      case "P":
+      case "Pub":
         return "Titulo : " + objeto.titulo;
-      case "U":
+      case "User":
         return "Nombre del usuario : " + objeto.nombre_Usuario;
+      case "Pag":
+        return `Nombre de la pagina : ${objeto.nombre}, nombre del sector : ${objeto.descripcion}`;
       default:
         return "ERROR";
     }
@@ -239,20 +266,27 @@ export class AdminComponent {
 
   async borrarAlguno(objeto) {
     switch (this.cual) {
-      case "S":
+      case "Sec":
         await this.http.delete(this.conexion.urlSector + "/" + objeto.id_Sector)
           .subscribe();
-        this.select_Tabla("S");
+        this.select_Tabla("Sec");
         break;
-      case "P":
+      case "Pub":
         await this.http.delete(this.conexion.urlPublicacion + "/" + objeto.id_Publicacion)
           .subscribe();
-        this.select_Tabla("P");
+        this.select_Tabla("Pub");
         break;
-      case "U":
+      case "User":
         await this.http.delete(this.conexion.urlUsuario + "/" + objeto.id_Usuario)
           .subscribe();
-        this.select_Tabla("U");
+        this.select_Tabla("User");
+        break;
+      case "Pag":
+        console.log(objeto);
+        
+        await this.http.delete(this.conexion.urlPaginaConexion + "/" + objeto.id_Conexion)
+          .subscribe();
+        this.select_Tabla("Pag");
         break;
       default:
         break;
@@ -261,7 +295,7 @@ export class AdminComponent {
 
   modificarUser() {
     this.http.put(this.conexion.urlUsuario + "/" + this.userTemp.id_Usuario, this.userTemp).subscribe(async res => {
-      this.select_Tabla("U");
+      this.select_Tabla("User");
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
@@ -277,15 +311,15 @@ export class AdminComponent {
     formData.append('fecha_Publicacion', this.pub.fecha_Publicacion)
 
     this.http.put(this.conexion.urlPublicacion + "/" + this.pub.id_Publicacion, formData).subscribe(async res => {
-      this.select_Tabla("P");
+      this.select_Tabla("Pub");
     })
-    this.msj.success("Se ha modificado con exito!","Genial");
+    this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
   }
 
   modificarSec() {
     this.http.put(this.conexion.urlSector + "/" + this.sec.id_Sector, this.sec).subscribe(async res => {
-      this.select_Tabla("S");
+      this.select_Tabla("Sec");
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
@@ -293,11 +327,11 @@ export class AdminComponent {
 
   llenarCampos(objeto) {
     switch (this.cual) {
-      case "S":
+      case "Sec":
         this.sec.descripcion = objeto.descripcion;
         this.sec.id_Sector = objeto.id_Sector;
         break;
-      case "P":
+      case "Pub":
         this.pub.descripcion = objeto.descripcion;
         this.pub.fecha_Publicacion = objeto.fecha_Publicacion;
         this.pub.id_Publicacion = objeto.id_Publicacion;
@@ -306,7 +340,7 @@ export class AdminComponent {
         this.pub.imagen = objeto.imagen;
         this.pub.titulo = objeto.titulo;
         break;
-      case "U":
+      case "User":
         this.userTemp.id_Usuario = objeto.id_Usuario;
         this.userTemp.clave = objeto.clave;
         this.userTemp.nombre_Usuario = objeto.nombre_Usuario;
@@ -330,6 +364,7 @@ export class AdminComponent {
     this.pub = new Publicacion();
     this.sec = new Sector();
     this.userTemp = new Usuario();
+    this.pagina = new Pagina();
     this.modificar = false;
   }
 

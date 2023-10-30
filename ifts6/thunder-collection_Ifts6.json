@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Ifts6",
-    "dateExported": "2023-10-27T18:34:25.612Z",
+    "dateExported": "2023-10-30T20:59:28.955Z",
     "version": "1.1",
     "folders": [
         {
@@ -24,6 +24,13 @@
             "containerId": "",
             "created": "2023-10-27T18:21:50.059Z",
             "sortNum": 40000
+        },
+        {
+            "_id": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "Paginas",
+            "containerId": "",
+            "created": "2023-10-30T19:13:17.638Z",
+            "sortNum": 50000
         }
     ],
     "requests": [
@@ -88,11 +95,11 @@
             "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
             "containerId": "0c7245bc-7bf3-4679-acc1-0b117cfb3171",
             "name": "put publicaciones",
-            "url": "http://localhost:3000/publicacion/55",
+            "url": "http://localhost:3000/publicacion/24",
             "method": "PUT",
             "sortNum": 30000,
             "created": "2023-10-27T18:01:14.220Z",
-            "modified": "2023-10-27T18:11:32.986Z",
+            "modified": "2023-10-28T20:29:16.363Z",
             "headers": [],
             "params": [],
             "body": {
@@ -123,7 +130,7 @@
                 "files": [
                     {
                         "name": "imagen",
-                        "value": "d:\\Keko\\COSAS APARTES\\1.png"
+                        "value": "d:\\Keko\\Ryujinx\\share\\icons\\Adwaita\\512x512\\legacy\\document-properties.png"
                     }
                 ]
             },
@@ -271,6 +278,114 @@
             "sortNum": 100000,
             "created": "2023-10-27T18:33:47.637Z",
             "modified": "2023-10-27T18:33:56.416Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5022e13f-65b9-48f8-9a06-cd60448a9553",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "get paginas",
+            "url": "http://localhost:3000/pagina",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-10-30T19:13:23.956Z",
+            "modified": "2023-10-30T19:35:27.024Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f0d0dd60-ffe6-43bf-921e-82c214ea3a9f",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "get conexion base",
+            "url": "http://localhost:3000/pagina/conexion",
+            "method": "GET",
+            "sortNum": 112500,
+            "created": "2023-10-30T19:48:39.430Z",
+            "modified": "2023-10-30T19:48:52.149Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4d341757-1ff4-4464-a047-1c27fd4d75c8",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "get conexion",
+            "url": "http://localhost:3000/pagina/conexion",
+            "method": "GET",
+            "sortNum": 115000,
+            "created": "2023-10-30T19:22:12.354Z",
+            "modified": "2023-10-30T20:57:32.026Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4012c075-026f-4a8c-8146-4e16cca8244a",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "post pagina",
+            "url": "http://localhost:3000/pagina",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2023-10-30T19:14:01.404Z",
+            "modified": "2023-10-30T19:35:03.087Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\" : \"Contacto\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "24a41e24-57b3-443f-95c3-e59b977f1db0",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "post conexion",
+            "url": "http://localhost:3000/pagina/conexion",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2023-10-30T19:15:42.455Z",
+            "modified": "2023-10-30T19:50:45.720Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"sectores\" : 5,\n  \"id_Pagina\" : 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0e196bff-6186-447f-96bf-e5b88cf7e824",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "delete conexion",
+            "url": "http://localhost:3000/pagina/conexion/17",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2023-10-30T19:22:46.995Z",
+            "modified": "2023-10-30T20:57:39.885Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "67d8fd75-73ed-4cd5-b183-036b603cb073",
+            "colId": "ea6206a3-9b2d-4d7b-9d47-899661da0fe3",
+            "containerId": "9711a32c-d831-4b23-bfa1-16a8c2b269e9",
+            "name": "delete pagina",
+            "url": "http://localhost:3000/pagina/8",
+            "method": "DELETE",
+            "sortNum": 170000,
+            "created": "2023-10-30T20:56:45.415Z",
+            "modified": "2023-10-30T20:58:05.206Z",
             "headers": [],
             "params": [],
             "tests": []
