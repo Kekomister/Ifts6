@@ -1,33 +1,56 @@
-/*======================
-    404 page
-=======================*/
-
-
-.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+.page_404 {
+    padding: 40px 0;
+    background: #fff;
+    font-family: 'Arvo', serif;
+    display: flex; /* Agregamos un contenedor flexible */
+    justify-content:space-evenly; /* Centramos horizontalmente */
+    align-items: center; /* Centramos verticalmente */
+    height: 100vh; /* Establecemos la altura de la ventana del navegador */
 }
 
-.page_404  img{ width:100%;}
+.page_404 img {
+    width: 100%;
+}
 
-.four_zero_four_bg{
- 
- background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+.four_zero_four_bg {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
     height: 400px;
     background-position: center;
- }
- 
- 
- .four_zero_four_bg h1{
- font-size:80px;
- }
- 
-  .four_zero_four_bg h3{
-			 font-size:80px;
-			 }
-			 
-			 .link_404{			 
-	color: #fff!important;
-    padding: 10px 20px;
+   
+}
+
+.four_zero_four_bg h1 {
+    font-size: 80px;
+}
+
+.four_zero_four_bg h3 {
+    font-size: 80px;
+}
+
+.link_404 {
+    color: #fff !important;
+    padding: 15px 30px; /* Aumentar el tamaño del botón */
     background: #39ac31;
     margin: 20px 0;
-    display: inline-block;}
-	.contant_box_404{ margin-top:-50px;}
+    display: inline-block;
+    font-family: 'NuevaFuente', sans-serif; /* Cambiar la fuente */
+    font-size: 20px; /* Aumentar el tamaño del texto */
+    text-decoration: none; /* Quitar subrayado del enlace */
+    border-radius: 5px; /* Agregar bordes redondeados */
+}
+.link_404:hover {
+    background: #298e28; /* Cambiar el color de fondo al pasar el mouse */
+}
+
+.contant_box_404 {
+    margin-top: -30px; /* Aumenta el margen superior para bajar el contenido */
+    padding: 20px; /* Añade espacio interno para aumentar el tamaño del contenido */
+    background: rgba(255, 255, 255, 0.8); /* Agrega un fondo semitransparente al contenido */
+    border-radius: 10px; /* Añade bordes redondeados al contenido */
+}
+
+.contant_box_404 h3 {
+    font-size: 24px; /* Aumenta el tamaño del texto */
+}
+
+
