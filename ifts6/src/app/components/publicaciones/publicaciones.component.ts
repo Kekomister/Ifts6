@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Publicacion } from 'src/app/classes/publicacion.model';
 import { Sector } from 'src/app/classes/sector.model';
 import { Usuario } from 'src/app/classes/usuario.model';
-import { Buffer } from 'buffer';
 import { ConexionService } from 'src/app/services/conexion.service';
 
 
@@ -27,7 +27,7 @@ export class PublicacionesComponent {
   imagen: any;
 
   constructor(private http: HttpClient, public sanitizer: DomSanitizer, 
-    private conexion : ConexionService) { }
+    private conexion : ConexionService, private router : Router) { }
 
   ngOnInit() {
     this.getSectores();
@@ -107,7 +107,7 @@ export class PublicacionesComponent {
   }
 
   detalle(pub: Publicacion) {
-    alert("Ir a " + pub.titulo)
+    this.router.navigate(['/detalle',pub.id_Publicacion]);
   }
 
 }

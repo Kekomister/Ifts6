@@ -30,7 +30,7 @@ const getPublicacion = (async (req: Request, res: Response) => {
     }
 });
 
-const getPublicacionLegible = (async (req: Request, res: Response) => {
+const getPublicacionesLegible = (async (req: Request, res: Response) => {
     try {
         let publicaciones;
         const pool = await new sql.ConnectionPool(config).connect();
@@ -50,6 +50,27 @@ const getPublicacionLegible = (async (req: Request, res: Response) => {
     }
 });
 
+const getPublicacionLegible = (async (req: Request, res: Response) => {
+    try {
+        let publicaciones;
+        const pool = await new sql.ConnectionPool(config).connect();
+        let query = `SELECT 
+        id_Publicacion, titulo, Publicaciones.descripcion, imagen, fecha_Publicacion, 
+        Sectores.descripcion as sector, Usuarios.nombre_Usuario 
+        FROM Publicaciones
+        INNER JOIN Sectores ON Sectores.id_Sector = Publicaciones.id_Sector
+        INNER JOIN Usuarios ON Usuarios.id_Usuario = Publicaciones.id_Usuario
+        WHERE id_Publicacion = @id`;
+        var respuesta = await pool.request().input('id',sql.Int,req.params.id).query(query);
+        publicaciones = respuesta.recordset;
+        console.log("Publicacion : ", publicaciones);
+        publicaciones = convertirAImagenes(publicaciones);
+        res.send(publicaciones);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
 function convertirAImagenes(array: any) {
     console.log(array.length);
     for (let i = 0; i < array.length; i++) {
@@ -60,6 +81,8 @@ function convertirAImagenes(array: any) {
 
 const createPublicacion = (async (req: Request, res: Response) => {
     let bod = req.body;
+    console.log(req.body);
+    
     try {
         handleMultipartData(req, res, async (err: { message: any; }) => {
             if (err) {
@@ -181,6 +204,7 @@ const deletePublicacion = (async (req: Request, res: Response) => {
 
 module.exports = {
     getPublicacion,
+    getPublicacionesLegible,
     getPublicacionLegible,
     createPublicacion,
     updatePublicacion,

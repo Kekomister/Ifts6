@@ -1,8 +1,5 @@
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1170px;
-        width: 100%;
-    }
+header{
+    width: 100%;
 }
 
 .fondo {
@@ -10,11 +7,14 @@
 }
 
 .container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
+    width: 85%;
+    margin: 0 auto;
+ }
+
+ .header-logo-derecha{
+    width: 100px;
+    margin-left: -1.7rem;
+ }
 
 .text-right {
     float: right;
@@ -51,4 +51,11 @@
  
     border-radius: 10px; /* Radio de las esquinas (ajusta según tus preferencias) */
     
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 95%;
+        margin: 0 auto;
+     }
 }

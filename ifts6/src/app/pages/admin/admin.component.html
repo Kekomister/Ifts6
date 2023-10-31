@@ -15,7 +15,7 @@
 
     <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
         <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
-        <label for=""> Descripcion <input type="text" [(ngModel)]="pub.descripcion"></label>
+        <label for=""> Descripcion <textarea name="" id="" cols="30" rows="30" [(ngModel)]="pub.descripcion"></textarea></label>
         <label for=""> Sector </label>
         <select [(ngModel)]="pub.id_Sector">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>

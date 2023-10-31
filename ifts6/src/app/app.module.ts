@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { Error404Component } from './components/error404/error404.component';
+import { DetalleComponent } from './pages/detalle/detalle.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { Error404Component } from './components/error404/error404.component';
     PublicacionesComponent,
     TableComponent,
     Error404Component,
+    DetalleComponent,
   ],
   imports: [
     BrowserModule,

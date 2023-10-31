@@ -6,6 +6,10 @@ export class Publicacion{
     fecha_Publicacion : string;
     id_Usuario : number;
     id_Sector : number;
+
+    
+    nombre_Usuario : string;
+    sector : string;
     
     constructor(){}
 }

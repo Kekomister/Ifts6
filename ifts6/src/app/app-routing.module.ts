@@ -9,6 +9,7 @@ import { ConveniosComponent } from './pages/convenios/convenios.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { Error404Component } from './components/error404/error404.component';
+import { DetalleComponent } from './pages/detalle/detalle.component';
 
 const routes: Routes = [
 {path:'', component: InicioComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
 {path:'contacto', component: ContactoComponent},
 {path:'admin', component: AdminComponent},
 {path:'admin/:id', component: AdminComponent},
+{path:'detalle/:id', component: DetalleComponent},
 {path: '**',component: Error404Component}
 
 ];

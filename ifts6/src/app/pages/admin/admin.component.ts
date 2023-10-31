@@ -216,9 +216,9 @@ export class AdminComponent {
     formData.append('id_Usuario', String(this.user.id_Usuario));
     formData.append('id_Sector', String(this.pub.id_Sector));
     file.inProgress = true;
-
+    
     (await this.sendFormData(formData)).subscribe((event: any) => {
-      this.select_Tabla("P");
+      this.select_Tabla("Pub");
     });
   }
 

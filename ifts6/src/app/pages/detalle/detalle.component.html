@@ -1,0 +1,16 @@
+<div class="contenedor-pub">
+    <h1> {{publicacion.titulo}} </h1>
+    <br>
+    <h3> <label for=""> Fecha de publicacion : {{publicacion.fecha_Publicacion}} </label></h3>
+    <br>
+    <h3><label for=""> Sector : {{publicacion.sector}} </label></h3>
+    <br>
+    <div class="contenedor-img">
+        <img class="imagen-pub" src='data:image/png;base64, {{publicacion.imagen}}' alt="1">
+    </div>
+    <h3>
+        <p>{{publicacion.descripcion}}</p>
+    </h3>
+    <br>
+    <h3><label for=""> Publicado por : {{publicacion.nombre_Usuario}}</label></h3>
+</div>

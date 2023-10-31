@@ -10,9 +10,7 @@
 }
 
 .container {
-    max-width: 1300px;
     width: 100%;
-    margin: 50px;
 }
 
 .contact-section {
@@ -22,6 +20,12 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+.map{
+    height: 40vh;
+    width: 100%;
+}
+
 h1, h2 {
     
     margin-bottom: 10px;

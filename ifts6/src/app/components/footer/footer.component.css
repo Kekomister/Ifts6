@@ -1,24 +1,22 @@
 footer {
- 
   bottom: 0;
   width: 100%;
-  background-color:#FFD300;
+  background-color: #FFD300;
   color: #333;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px 0
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  width: 85%;
+  margin: 0 auto;
 }
 
 .footer-left {
   text-align: left;
-  padding-left: 60px;
- 
 }
 
 .footer-center {
@@ -27,7 +25,6 @@ footer {
 
 .footer-right {
   text-align: right;
-  padding-right:75px;
 }
 
 .icon-container {
@@ -35,7 +32,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
+
 }
 
 /* Estilos opcionales para los iconos */
@@ -49,4 +46,15 @@ footer {
   height: auto;
   padding-left: 4px;
   padding-right: 4px;
+}
+
+.footer-logo-derecha {
+  width: 140px;
+  margin-right: 1.1rem;
+}
+
+@media (min-width: 1200px) {
+  .footer-content {
+    width: 95%;
+  }
 }

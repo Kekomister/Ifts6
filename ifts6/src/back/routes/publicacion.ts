@@ -8,6 +8,7 @@ router.use(express.json());
 
 const  { 
     getPublicacion,
+    getPublicacionesLegible,
     getPublicacionLegible,
     createPublicacion,
     updatePublicacion,
@@ -16,7 +17,9 @@ const  {
 
 router.get('/',getPublicacion)
 
-router.get('/legible',getPublicacionLegible)
+router.get('/legible',getPublicacionesLegible)
+
+router.get('/legible/:id',getPublicacionLegible)
 
 router.post('/', upload.any(),createPublicacion)
 
