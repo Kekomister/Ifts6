@@ -13,9 +13,12 @@ header{
 
  .header-logo-derecha{
     width: 100px;
-    margin-left: -1.7rem;
- }
 
+ }
+ .header-logo-izquierda{
+    width: 50px;
+    margin-top: 20px;
+ }
 .text-right {
     float: right;
     text-align: right;
@@ -53,6 +56,23 @@ header{
     
 }
 
+.titulo_instituto {
+    font-weight: bold;
+    margin-top: -35px;
+    margin-left: 70px;
+    float: left;
+    text-align: left;
+    font-size: 24px;
+
+}
+.titulo_web {
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 40px;
+    white-space: nowrap;
+
+}
 @media (min-width: 1200px) {
     .container {
         width: 95%;
