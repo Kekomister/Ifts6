@@ -1,12 +1,14 @@
-<div class="logIn" *ngIf="!conectado">
-    <label for=""> Usuario / Username <input type="text" [(ngModel)]="user.nombre_Usuario"></label>
-    <label for=""> Clave / Password <input type="password" [(ngModel)]="user.clave"></label>
-    <button (click)="chequeoUsuario()">
-        Ingresar
-    </button>
+<div class="login" *ngIf="!conectado">
+    <div class="login-cuadrado">
+        <label class="login-texto" for=""> Usuario / Username <input class="login-input" type="text" [(ngModel)]="user.nombre_Usuario"></label>
+        <label class="login-texto" for=""> Clave / Password <input class="login-input" type="password" [(ngModel)]="user.clave"></label>
+        <button class="login-boton" (click)="chequeoUsuario()">
+            Ingresar
+        </button>
+    </div>
 </div>
 
-<div *ngIf="conectado">
+<div class="admin" *ngIf="conectado">
 
     <div class="contenedor-botones">
         <a (click)="select_Tabla('Pub')"><button class="btn btn-custom">Publicaciones</button></a>
@@ -17,20 +19,32 @@
 
 
     <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
-        <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>
-        <label for=""> Descripcion <textarea name="" id="" cols="30" rows="30" [(ngModel)]="pub.descripcion"></textarea></label>
-        <label for=""> Sector </label>
-        <select [(ngModel)]="pub.id_Sector">
-            <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
-        </select>
-        <br>
-        <button (click)="subir()">
-            Subir imagen
-        </button>
-        <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
+        <div class="admin-publicaciones-textos">
+            <label class="admin-publicaciones-texto" for=""> Titulo </label>
+            <input class="admin-publicaciones-input" type="text" [(ngModel)]="pub.titulo">
+            <label class="admin-publicaciones-texto" for=""> Descripcion </label>
+            <textarea (click)="entrarDescripcion()" class="admin-publicaciones-textarea" cols="30" rows="30" [(ngModel)]="pub.descripcion"></textarea>
+            <label class="admin-publicaciones-texto" for=""> Sector </label>
+            <select class="admin-publicaciones-select" [(ngModel)]="pub.id_Sector">
+                <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
+            </select>
+        </div>
         
-        <button *ngIf="!modificar" (click)="enviarPub()"> SUBMIT </button>
-        <button *ngIf="modificar" (click)="modificarPub()"> MODIFICAR </button>
+        <div class="admin-publicaciones-botones">
+            <button class="admin-publicaciones-button" (click)="subir()">
+                Subir imagen
+            </button>
+            <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
+            
+            <button class="admin-publicaciones-button" *ngIf="!modificar" (click)="enviarPub()"> SUBMIT </button>
+            <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarPub()"> MODIFICAR </button>    
+        </div>
+       
+        <div id="descripcion" class="admin-publicaciones-descripcion">
+            <button class="admin-publicaciones-descripcion-button" (click)="salirDescripcion()"> X </button>
+            <label class="admin-publicaciones-descripcion-label" for=""> Ingrese la descripcion de su publicacion </label>
+            <textarea class="admin-publicaciones-descripcion-textarea" cols="100" rows="20" [(ngModel)]="pub.descripcion"></textarea>
+        </div>
     </div>
 
     <div class="admin-sectores" *ngIf="cual == 'Sec'">

@@ -1,11 +1,124 @@
 @import "primeicons/primeicons.css";
 
+/*------------LOGIN-----------------------*/
+
+.login {
+    height: 52.3vh;
+    display: flex;
+}
+
+.login-cuadrado {
+    margin: 0 auto;
+    width: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.login-texto {
+    margin-bottom: 10px;
+}
+
+.login-input {
+    padding: 3px;
+    margin: 10px;
+    border-radius: 4px;
+}
+
+.login-boton {
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/*------------ADMIN-----------------------*/
+
+.admin {
+    height: 52.3vh;
+    margin: 0 auto;
+}
+
 .contenedor-botones {
-    text-align: center; /* Centra los botones horizontalmente */
-     background-color:rgba(29, 161, 161, 0.818);  
+    text-align: center;
+    /* Centra los botones horizontalmente */
+    background-color: rgba(29, 161, 161, 0.818);
 }
 
 .btn {
-    margin: 5px; /* Añade espacio entre los botones */ 
-    border-radius: 10px; /* Radio de las esquinas (ajusta según tus preferencias) */    
+    margin: 5px;
+    /* Añade espacio entre los botones */
+    border-radius: 10px;
+    /* Radio de las esquinas (ajusta según tus preferencias) */
 }
+
+/*------------ADMIN PUBLICACIONES-----------------------*/
+
+.admin-publicaciones{
+    display: grid;
+    grid-template-columns: 75% 25%;
+    max-height: 25vh;
+}
+
+.admin-publicaciones-textos{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 1vh;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.admin-publicaciones-texto {}
+
+.admin-publicaciones-input {}
+
+.admin-publicaciones-textarea {
+    max-height: 5vh;
+    resize: none;
+}
+
+.admin-publicaciones-descripcion {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 3px solid  #FFD300;
+    z-index: 9;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
+}
+
+.admin-publicaciones-descripcion-button{
+    width: 3vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: red;
+}
+
+.admin-publicaciones-descripcion-label{
+    margin: 1vh;
+}
+
+.admin-publicaciones-select {
+
+}
+
+.admin-publicaciones-botones{
+    display: flex;
+    align-items: end;
+}
+
+.admin-publicaciones-button{
+    width: 10vh;
+    height: 5vh;
+    padding: 1vh;
+    margin: 0 auto;
+}
+

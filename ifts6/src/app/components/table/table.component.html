@@ -1,5 +1,12 @@
 <div class="card">
-    <p-table id="customers"[columns]="columnas" [value]="filas" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table id="customers"
+    [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"
+    [columns]="columnas" 
+    [value]="filas" 
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Viendo del registro {first} hasta el {last} de {totalRecords} registros">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -20,6 +27,12 @@
                     <button class="pi pi-pencil icono_edit" (click) = "modificar(rowData)">  </button>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
         </ng-template>
     </p-table>
 </div>

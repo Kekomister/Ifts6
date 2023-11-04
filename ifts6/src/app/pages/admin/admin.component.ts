@@ -24,7 +24,7 @@ export class AdminComponent {
   pub: Publicacion = new Publicacion();
   sec: Sector = new Publicacion();
   userTemp: Usuario = new Usuario();
-  pagina : Pagina = new Pagina();
+  pagina: Pagina = new Pagina();
 
   modificar: boolean = false;
 
@@ -39,8 +39,13 @@ export class AdminComponent {
   cual: string = "";
 
   constructor(private conexion: ConexionService, private http: HttpClient,
-    private msj: MensajesService) {
+    private msj: MensajesService) { }
+
+  ngOnInit() {
     this.traerPub();
+    this.traerUsers();
+    this.traerSect();
+    this.traerPags();
   }
 
   async chequeoUsuario() {
@@ -157,10 +162,10 @@ export class AdminComponent {
     });
   }
 
-  traerPags(){
+  traerPags() {
     this.columnas = [
       { field: "nombre", header: "Nombre de la pagina" },
-      { field: "descripcion", header: "Sectores asignados"}
+      { field: "descripcion", header: "Sectores asignados" }
     ];
 
     this.http.get(this.conexion.urlPagina + "/Legible").subscribe(async res => {
@@ -184,13 +189,16 @@ export class AdminComponent {
     this.files.forEach(file => {
       this.sendFile(file);
     });
+    this.msj.success("Se ha agregado con exito!", "Genial");
     this.vaciarCampos();
+    console.log(this.files);
   }
 
   enviarSec() {
     this.http.post(this.conexion.urlSector, this.sec).subscribe(async res => {
       this.select_Tabla("Sec");
     })
+    this.msj.success("Se ha agregado con exito!", "Genial");
     this.vaciarCampos();
   }
 
@@ -198,13 +206,15 @@ export class AdminComponent {
     this.http.post(this.conexion.urlUsuario, this.userTemp).subscribe(async res => {
       this.select_Tabla("User");
     })
+    this.msj.success("Se ha agregado con exito!", "Genial");
     this.vaciarCampos();
   }
 
-  enviarSecPag(){
+  enviarSecPag() {
     this.http.post(this.conexion.urlPaginaConexion, this.pagina).subscribe(async res => {
       this.select_Tabla("Pag");
     })
+    this.msj.success("Se ha agregado con exito!", "Genial");
     this.vaciarCampos();
   }
 
@@ -216,7 +226,7 @@ export class AdminComponent {
     formData.append('id_Usuario', String(this.user.id_Usuario));
     formData.append('id_Sector', String(this.pub.id_Sector));
     file.inProgress = true;
-    
+
     (await this.sendFormData(formData)).subscribe((event: any) => {
       this.select_Tabla("Pub");
     });
@@ -283,7 +293,7 @@ export class AdminComponent {
         break;
       case "Pag":
         console.log(objeto);
-        
+
         await this.http.delete(this.conexion.urlPaginaConexion + "/" + objeto.id_Conexion)
           .subscribe();
         this.select_Tabla("Pag");
@@ -365,7 +375,16 @@ export class AdminComponent {
     this.sec = new Sector();
     this.userTemp = new Usuario();
     this.pagina = new Pagina();
+    this.files = [];
     this.modificar = false;
+  }
+
+  entrarDescripcion() {
+    document.getElementById("descripcion").style.display = "flex";
+  }
+
+  salirDescripcion() {
+    document.getElementById("descripcion").style.display = "none";
   }
 
 }
