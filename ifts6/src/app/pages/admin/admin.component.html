@@ -8,10 +8,13 @@
 
 <div *ngIf="conectado">
 
-    <label for="" (click)="select_Tabla('Pub')"> Publicaciones </label>
-    <label for="" (click)="select_Tabla('Sec')"> Sectores </label>
-    <label for="" (click)="select_Tabla('User')"> Usuarios </label>
-    <label for="" (click)="select_Tabla('Pag')"> Paginas </label>
+    <div class="contenedor-botones">
+        <a (click)="select_Tabla('Pub')"><button class="btn btn-custom">Publicaciones</button></a>
+        <a (click)="select_Tabla('Sec')"><button class="btn btn-custom">Sectores</button></a>
+        <a (click)="select_Tabla('User')"><button class="btn btn-custom">Usuarios</button></a>
+        <a (click)="select_Tabla('Pag')"><button class="btn btn-custom">Paginas</button></a>
+    </div>
+
 
     <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
         <label for=""> Titulo <input type="text" [(ngModel)]="pub.titulo"></label>

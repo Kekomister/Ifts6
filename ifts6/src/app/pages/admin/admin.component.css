@@ -1,1 +1,11 @@
 @import "primeicons/primeicons.css";
+
+.contenedor-botones {
+    text-align: center; /* Centra los botones horizontalmente */
+     background-color:rgba(29, 161, 161, 0.818);  
+}
+
+.btn {
+    margin: 5px; /* Añade espacio entre los botones */ 
+    border-radius: 10px; /* Radio de las esquinas (ajusta según tus preferencias) */    
+}
