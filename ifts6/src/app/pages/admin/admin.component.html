@@ -11,20 +11,20 @@
 <div class="admin" *ngIf="conectado">
 
     <div class="contenedor-botones">
-        <a (click)="select_Tabla('Pub')"><button class="btn btn-custom">Publicaciones</button></a>
-        <a (click)="select_Tabla('Sec')"><button class="btn btn-custom">Sectores</button></a>
-        <a (click)="select_Tabla('User')"><button class="btn btn-custom">Usuarios</button></a>
-        <a (click)="select_Tabla('Pag')"><button class="btn btn-custom">Paginas</button></a>
+        <a (click)="select_Tabla('Pub')"><button class="btn btn-custom"><b>Publicaciones</b></button></a>
+        <a (click)="select_Tabla('Sec')"><button class="btn btn-custom"><b>Sectores</b></button></a>
+        <a (click)="select_Tabla('User')"><button class="btn btn-custom"><b>Usuarios</b></button></a>
+        <a (click)="select_Tabla('Pag')"><button class="btn btn-custom"><b>Paginas</b></button></a>
     </div>
 
 
     <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
         <div class="admin-publicaciones-textos">
-            <label class="admin-publicaciones-texto" for=""> Titulo </label>
+            <label class="admin-publicaciones-texto" for=""><b>Titulo </b> </label>
             <input class="admin-publicaciones-input" type="text" [(ngModel)]="pub.titulo">
-            <label class="admin-publicaciones-texto" for=""> Descripcion </label>
+            <label class="admin-publicaciones-texto" for=""> <b>Descripcion</b> </label>
             <textarea (click)="entrarDescripcion()" class="admin-publicaciones-textarea" cols="30" rows="30" [(ngModel)]="pub.descripcion"></textarea>
-            <label class="admin-publicaciones-texto" for=""> Sector </label>
+            <label class="admin-publicaciones-texto" for=""> <b>Sector </b></label>
             <select class="admin-publicaciones-select" [(ngModel)]="pub.id_Sector">
                 <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
             </select>
@@ -32,7 +32,7 @@
         
         <div class="admin-publicaciones-botones">
             <button class="admin-publicaciones-button" (click)="subir()">
-                Subir imagen
+             Subir imagen
             </button>
             <input type="file" #fileUpload id="fileUpload"  enctype="multipart/form-data" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;"/>
             
@@ -46,19 +46,20 @@
             <textarea class="admin-publicaciones-descripcion-textarea" cols="100" rows="20" [(ngModel)]="pub.descripcion"></textarea>
         </div>
     </div>
-
+    
     <div class="admin-sectores" *ngIf="cual == 'Sec'">
-        <label for=""> Descripcion <input type="text" [(ngModel)]="sec.descripcion"></label>
-        <button *ngIf="!modificar" (click)="enviarSec()"> SUBMIT </button>
-        <button *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
+        <label for=""> <b>git add .</b><input type="text" [(ngModel)]="sec.descripcion"></label>
+        <button class="admin-publicaciones-button" *ngIf="!modificar" (click)="enviarSec()"> SUBMIT </button>
+        <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
     </div>
+    
 
     <div class="admin-usuarios" *ngIf="cual == 'User'">
         <label for=""> Nombre De usuario <input type="text" [(ngModel)]="userTemp.nombre_Usuario"></label>
         <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
         <label for=""> Rol <input type="text" [(ngModel)]="userTemp.rol"></label> 
-        <button *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
-        <button *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+        <button class="admin-publicaciones-button" *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
+        <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
     </div>
 
     <div class="admin-paginas" *ngIf="cual == 'Pag'">
@@ -70,8 +71,8 @@
         <select [(ngModel)]="pagina.sectores">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
         </select>
-        <button (click)="enviarSecPag()"> SUBMIT </button>
-        <button *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+        <button class="admin-publicaciones-button" (click)="enviarSecPag()"> SUBMIT </button>
+        <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
     </div>
 
     <div>
