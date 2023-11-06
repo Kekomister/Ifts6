@@ -69,8 +69,6 @@ export class PublicacionesComponent {
   }
 
   verCriterio() {
-    console.log(this.publicaciones);
-
     if (this.criterio == "" || this.criterio == null) {
       this.publicacionesMostrar = this.publicaciones;
     } else {

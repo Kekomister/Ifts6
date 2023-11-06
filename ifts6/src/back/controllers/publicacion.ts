@@ -94,38 +94,36 @@ const createPublicacion = (async (req: Request, res: Response) => {
     console.log(req.body);
     
     let dat = new Date().toISOString();
-    const timeZone: string = 'America/Buenos_Aires';
-    // const formattedDate = dayjs(dat).tz(timeZone).format('DD/MM/YYYY');
-    const formattedDate = dayjs(dat).tz(timeZone);
+    const timeZone: string = 'America/Argentina/Buenos_Aires'; 
+    const formattedDate = dayjs(dat).tz(timeZone).format('YYYY-MM-DDThh:mm:ss');
     console.log(formattedDate); // Salida: 06/11/2023
-    res.send();
-    // try {
-    //     handleMultipartData(req, res, async (err: { message: any; }) => {
-    //         if (err) {
-    //             //res.json({ msgs: err.message });
-    //         }
-    //         let pool = await new sql.ConnectionPool(config).connect();
 
-    //         let img = await convertirABuffer(req.files);
+    try {
+        handleMultipartData(req, res, async (err: { message: any; }) => {
+            if (err) {
+                //res.json({ msgs: err.message });
+            }
+            let pool = await new sql.ConnectionPool(config).connect();
 
-    //         let query =
-    //             `INSERT INTO Publicaciones 
-    //         (titulo, descripcion, imagen, fecha_Publicacion, id_Usuario, id_Sector)
-    //         VALUES (@titulo, @desc, @img, @fecha, @user, @sector)`
-    //         let result = await pool.request()
-    //             .input('titulo', sql.VarChar, bod.titulo)
-    //             .input('desc', sql.VarChar, bod.descripcion)
-    //             .input('img', sql.VarBinary, img)
-    //             .input('fecha', sql.Date, formattedDate)
-    //             .input('user', sql.Int, bod.id_Usuario)
-    //             .input('sector', sql.Int, bod.id_Sector)
-    //             .query(query);
-    //         vaciarCarpeta();
-    //         res.send(result);
-    //     });
-    // } catch (e) {
-    //     console.log(e);
-    // }
+            let img = await convertirABuffer(req.files);
+
+            let query =
+                `INSERT INTO Publicaciones 
+            (titulo, descripcion, imagen, fecha_Publicacion, id_Usuario, id_Sector)
+            VALUES (@titulo, @desc, @img, GETDATE(), @user, @sector)`
+            let result = await pool.request()
+                .input('titulo', sql.VarChar, bod.titulo)
+                .input('desc', sql.VarChar, bod.descripcion)
+                .input('img', sql.VarBinary, img)
+                .input('user', sql.Int, bod.id_Usuario)
+                .input('sector', sql.Int, bod.id_Sector)
+                .query(query);
+            vaciarCarpeta();
+            res.send(result);
+        });
+    } catch (e) {
+        console.log(e);
+    }
 })
 
 async function vaciarCarpeta() {

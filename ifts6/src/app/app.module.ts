@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { Error404Component } from './components/error404/error404.component';
 import { DetalleComponent } from './pages/detalle/detalle.component';
+import { DiaPipe } from './pipes/dia.pipe';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { DetalleComponent } from './pages/detalle/detalle.component';
     TableComponent,
     Error404Component,
     DetalleComponent,
+    DiaPipe,
   ],
   imports: [
     BrowserModule,
