@@ -3,6 +3,11 @@ import { Request, Response } from 'express';
 import * as sql from 'mssql';
 import { Buffer } from 'buffer';
 import folder from 'fs/promises';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import 'dayjs/locale/es';
+
 
 const {
     config
@@ -80,10 +85,18 @@ function convertirAImagenes(array: any) {
     return array;
 }
 
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 const createPublicacion = (async (req: Request, res: Response) => {
     let bod = req.body;
     console.log(req.body);
     
+    let dat = new Date().toISOString();
+    const timeZone: string = 'America/Buenos_Aires';
+    const formattedDate = dayjs(dat).tz(timeZone).format('DD/MM/YYYY');
+    //console.log(formattedDate); // Salida: 06/11/2023
     try {
         handleMultipartData(req, res, async (err: { message: any; }) => {
             if (err) {
@@ -101,7 +114,7 @@ const createPublicacion = (async (req: Request, res: Response) => {
                 .input('titulo', sql.VarChar, bod.titulo)
                 .input('desc', sql.VarChar, bod.descripcion)
                 .input('img', sql.VarBinary, img)
-                .input('fecha', sql.Date, new Date().toISOString())
+                .input('fecha', sql.Date, formattedDate)
                 .input('user', sql.Int, bod.id_Usuario)
                 .input('sector', sql.Int, bod.id_Sector)
                 .query(query);
