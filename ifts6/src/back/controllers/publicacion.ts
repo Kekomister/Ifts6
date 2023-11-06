@@ -39,7 +39,8 @@ const getPublicacionesLegible = (async (req: Request, res: Response) => {
         Sectores.descripcion as sector, Usuarios.nombre_Usuario 
         FROM Publicaciones
         INNER JOIN Sectores ON Sectores.id_Sector = Publicaciones.id_Sector
-        INNER JOIN Usuarios ON Usuarios.id_Usuario = Publicaciones.id_Usuario`;
+        INNER JOIN Usuarios ON Usuarios.id_Usuario = Publicaciones.id_Usuario
+        ORDER BY fecha_Publicacion DESC`;
         var respuesta = await pool.request().query(query);
         publicaciones = respuesta.recordset;
         console.log("Publicaciones : ", publicaciones);

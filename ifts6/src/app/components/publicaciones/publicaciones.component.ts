@@ -59,7 +59,7 @@ export class PublicacionesComponent {
 
   getPublicaciones() {
     try {
-      this.http.get<Publicacion[]>(this.conexion.urlPublicacion).subscribe(res => {
+      this.http.get<Publicacion[]>(this.conexion.urlPublicacion+"/legible").subscribe(res => {
         this.publicaciones = res;
         this.verCriterio();
       });
@@ -76,12 +76,17 @@ export class PublicacionesComponent {
     } else {
       this.publicacionesMostrar = [];
       for (let i = 0; i < this.publicaciones.length; i++) {
+        console.log(this.publicaciones[i]);
         let nomSector = this.convertirSector(this.publicaciones[i].id_Sector);
         if (nomSector == this.criterio) {
           this.publicacionesMostrar.push(this.publicaciones[i]);
         }
       }
     }
+  }
+
+  detalle(pub: Publicacion) {
+    this.router.navigate(['/detalle',pub.id_Publicacion]);
   }
 
   convertirUsuario(id: number) {
@@ -104,10 +109,6 @@ export class PublicacionesComponent {
       }
     }
     return sector;
-  }
-
-  detalle(pub: Publicacion) {
-    this.router.navigate(['/detalle',pub.id_Publicacion]);
   }
 
 }
