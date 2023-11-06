@@ -60,7 +60,7 @@
 .contenedor-botones {
     text-align: center;
     /* Centra los botones horizontalmente */
-    background-color:#18b596;
+    background-color:#007bff;
 }
 
 .btn {
@@ -163,3 +163,40 @@
   background-color: #0056b3; /* Cambio de color al pasar el cursor sobre el botón */
 }
 
+.admin-publicaciones-buttonusu {
+  width: 10vh; /* Reduce el ancho del botón */
+  height: 4vh; /* Reduce la altura del botón */
+  padding: 1vh 2vh;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px; /* Reduce el tamaño de fuente */
+  transition: background-color 0.3s;
+  margin-left: 10px; /* Ajusta la distancia desde el último input de "Rol" */
+}
+
+.admin-publicaciones-buttonusu:hover {
+  background-color: #0056b3; /* Cambio de color al pasar el cursor sobre el botón */
+}
+
+.admin-publicaciones-buttonSec {
+  width: 10vh; /* Deja que el ancho se ajuste automáticamente al contenido */
+  height: 4vh; /* Reduce la altura del botón */
+  padding: 1vh 2vh;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px; /* Reduce el tamaño de fuente */
+  transition: background-color 0.3s;
+  margin-left: 95px; /* Ajusta la distancia desde el input de "Sector" */
+}
+
+.admin-sectores label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

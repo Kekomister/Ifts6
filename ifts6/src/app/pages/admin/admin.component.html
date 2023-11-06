@@ -48,9 +48,9 @@
     </div>
     
     <div class="admin-sectores" *ngIf="cual == 'Sec'">
-        <label for=""> <b>git add .</b><input type="text" [(ngModel)]="sec.descripcion"></label>
-        <button class="admin-publicaciones-button" *ngIf="!modificar" (click)="enviarSec()"> SUBMIT </button>
-        <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
+        <label for=""> <b>Sector</b><input type="text" [(ngModel)]="sec.descripcion"></label>
+        <button class="admin-publicaciones-buttonSec" *ngIf="!modificar" (click)="enviarSec()"> SUBMIT </button>
+        <button class="admin-publicaciones-buttonSec" *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
     </div>
     
 
@@ -58,8 +58,8 @@
         <label for=""> Nombre De usuario <input type="text" [(ngModel)]="userTemp.nombre_Usuario"></label>
         <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
         <label for=""> Rol <input type="text" [(ngModel)]="userTemp.rol"></label> 
-        <button class="admin-publicaciones-button" *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
-        <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+        <button class="admin-publicaciones-buttonusu" *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
+        <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
     </div>
 
     <div class="admin-paginas" *ngIf="cual == 'Pag'">
@@ -71,8 +71,8 @@
         <select [(ngModel)]="pagina.sectores">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
         </select>
-        <button class="admin-publicaciones-button" (click)="enviarSecPag()"> SUBMIT </button>
-        <button class="admin-publicaciones-button" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+        <button class="admin-publicaciones-buttonusu" (click)="enviarSecPag()"> SUBMIT </button>
+        <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
     </div>
 
     <div>
