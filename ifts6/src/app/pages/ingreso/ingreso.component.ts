@@ -11,6 +11,9 @@ export class IngresoComponent {
   criterioPag : any;
 
   constructor(private conexion : ConexionService){
+  }
+
+  ngOnInit(){
     this.traerPag();
   }
 

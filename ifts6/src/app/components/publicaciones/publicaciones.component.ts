@@ -23,6 +23,7 @@ export class PublicacionesComponent {
   sectores: Sector[] = [];
 
   @Input() criterio: string = "";
+  @Input() cantidad: number = 9999999999999;
   publicacionesMostrar: Publicacion[] = [];
   imagen: any;
 
@@ -74,12 +75,12 @@ export class PublicacionesComponent {
     } else {
       this.publicacionesMostrar = [];
       for (let i = 0; i < this.publicaciones.length; i++) {
-        console.log(this.publicaciones[i]);
-        let nomSector = this.convertirSector(this.publicaciones[i].id_Sector);
-        if (nomSector == this.criterio) {
+        //console.log(this.publicaciones[i]);
+        if (this.publicaciones[i].sector == this.criterio) {
           this.publicacionesMostrar.push(this.publicaciones[i]);
         }
       }
+      this.cantidad = this.publicacionesMostrar.length;
     }
   }
 

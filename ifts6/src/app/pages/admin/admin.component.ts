@@ -7,6 +7,7 @@ import { MensajesService } from 'src/app/services/mensajes.service';
 import { Column } from 'src/app/classes/column.model';
 import { Sector } from 'src/app/classes/sector.model';
 import { Pagina } from 'src/app/classes/pagina.model';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-admin',
@@ -16,7 +17,6 @@ import { Pagina } from 'src/app/classes/pagina.model';
 export class AdminComponent {
 
   user: Usuario = new Usuario();
-  conectado: boolean = false;
 
   @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef;
   files = [];
@@ -39,7 +39,7 @@ export class AdminComponent {
   cual: string = "";
 
   constructor(private conexion: ConexionService, private http: HttpClient,
-    private msj: MensajesService) { }
+    private msj: MensajesService, public login : LoginService) { }
 
   ngOnInit() {
     this.traerPub();
@@ -63,7 +63,7 @@ export class AdminComponent {
   }
 
   conectar() {
-    this.conectado = true;
+    this.login.setConectado(true);
     this.traerSect();
     //CONDICION PARA ADMIN
     if (true) {

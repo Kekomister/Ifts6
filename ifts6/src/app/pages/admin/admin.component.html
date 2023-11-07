@@ -1,4 +1,4 @@
-<div class="login" *ngIf="!conectado">
+<div class="login" *ngIf="!login.getConectado()">
     <div class="login-cuadrado">
         <label class="login-texto" for=""> Usuario / Username <input class="login-input" type="text" [(ngModel)]="user.nombre_Usuario"></label>
         <label class="login-texto" for=""> Clave / Password <input class="login-input" type="password" [(ngModel)]="user.clave"></label>
@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="admin" *ngIf="conectado">
+<div class="admin" *ngIf="login.getConectado()">
 
     <div class="contenedor-botones">
         <a (click)="select_Tabla('Pub')"><button class="btn btn-custom"><b>Publicaciones</b></button></a>

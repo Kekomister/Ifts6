@@ -1,21 +1,22 @@
-
 <div class="contenedor-pub">
-    <div class="pub" *ngFor="let fila of publicacionesMostrar" (click)="detalle(fila)">
+    <div class="pub" *ngFor="let fila of publicacionesMostrar | slice:0:cantidad" (click)="detalle(fila)">
+
         <h2>{{fila.titulo}}</h2>
         <div class="contenedor-img">
             <img class="imagen-pub" src='data:image/png;base64, {{fila.imagen}}' alt="1">
         </div>
-        <h3><p>{{fila.descripcion}}</p></h3>
+        <h3>
+            <p>{{fila.descripcion}}</p>
+        </h3>
         <br>
         <h3><label for="">Fecha de publicación: {{fila.fecha_Publicacion | date:'dd-MM-YY'}}</label></h3>
         <br>
         <!-- <h3><label for="">Publicado por: {{convertirUsuario(fila.id_Usuario)}}</label></h3>
-        <br>
-        <h3><label for="">Sector: {{convertirSector(fila.id_Sector)}}</label></h3> -->
+            <br>
+            <h3><label for="">Sector: {{convertirSector(fila.id_Sector)}}</label></h3> -->
         <h3><label for="">Publicado por: {{fila.nombre_Usuario}}</label></h3>
         <br>
         <h3><label for="">Sector: {{fila.sector}}</label></h3>
+
     </div>
 </div>
-
-

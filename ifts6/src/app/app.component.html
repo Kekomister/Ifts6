@@ -1,5 +1,8 @@
 <app-header></app-header>
 
+<p> {{login.getConectado()}}</p>
+<button (click)="login.setConectado(false)"> Cerrar Sesion </button>
+
 <router-outlet></router-outlet>
 
 <app-footer></app-footer>
