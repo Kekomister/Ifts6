@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Publicacion } from 'src/app/classes/publicacion.model';
 import { ConexionService } from 'src/app/services/conexion.service';
 import { Usuario } from 'src/app/classes/usuario.model';
@@ -14,7 +14,7 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent{
 
   user: Usuario = new Usuario();
 
@@ -42,33 +42,26 @@ export class AdminComponent {
     private msj: MensajesService, public login : LoginService) { }
 
   ngOnInit() {
-    this.traerPub();
     this.traerUsers();
     this.traerSect();
     this.traerPags();
+    this.traerPub();
   }
 
   async chequeoUsuario() {
+    this.login.setAdmin(false);
     this.http.get(this.conexion.urlUsuario).subscribe(async res => {
       let usuarios = await res;
       let cant = this.cuantos(usuarios);
       if (this.usuarioEsta(cant, usuarios)) {
-        this.conectar();
+        this.login.setConectado(true);
+        this.select_Tabla("");
         this.msj.success("Ha ingresado con exito!", "Okey");
       } else {
         this.msj.error("Hubo un problema", "Usuario / clave incorrecta.", "Okey");
       }
     });
 
-  }
-
-  conectar() {
-    this.login.setConectado(true);
-    this.traerSect();
-    //CONDICION PARA ADMIN
-    if (true) {
-      this.traerUsers();
-    }
   }
 
   cuantos(usuarios): number {
@@ -85,16 +78,22 @@ export class AdminComponent {
   }
 
   usuarioEsta(cant, usuarios): boolean {
-    // FALTA CONDICION ADMIN
-
-    for (let i = 0; i < cant; i++) {
-      if (this.user.nombre_Usuario == usuarios[i].nombre_Usuario &&
-        this.user.clave == usuarios[i].clave) {
-        this.user.id_Usuario = usuarios[i].id_Usuario;
-        return true;
+    let admin = this.login.getAdmin();
+    if(this.user.nombre_Usuario == admin.nombre_Usuario 
+      && this.user.clave == admin.clave){
+      this.login.getAdmin().conectado = true;
+      this.user.id_Usuario = 8;
+      return true;
+    }else{
+      for (let i = 0; i < cant; i++) {
+        if (this.user.nombre_Usuario == usuarios[i].nombre_Usuario &&
+          this.user.clave == usuarios[i].clave) {
+          this.user.id_Usuario = usuarios[i].id_Usuario;
+          return true;
+        }
       }
+      return false;
     }
-    return false;
   }
 
   select_Tabla(cual: string) {
@@ -102,21 +101,18 @@ export class AdminComponent {
     switch (this.cual) {
       case "Sec":
         this.traerSect();
-        this.filas = this.sectores;
         break;
       case "Pub":
         this.traerPub();
-        this.filas = this.publicaciones;
         break;
       case "User":
         this.traerUsers();
-        this.filas = this.usuarios;
         break;
       case "Pag":
         this.traerPags();
-        this.filas = this.paginas;
         break;
       default:
+        this.filas = [];
         break;
     }
     this.vaciarCampos();
@@ -129,6 +125,7 @@ export class AdminComponent {
     ];
     this.http.get(this.conexion.urlSector).subscribe(async res => {
       this.sectores = await res;
+      this.filas = this.sectores;
     });
   }
 
@@ -145,6 +142,7 @@ export class AdminComponent {
 
     this.http.get(this.conexion.urlPublicacion + "/legible").subscribe(async res => {
       this.publicaciones = await res;
+      this.filas = this.publicaciones;
     });
 
   }
@@ -159,6 +157,15 @@ export class AdminComponent {
 
     this.http.get(this.conexion.urlUsuario).subscribe(async res => {
       this.usuarios = await res;
+      // PARA SACAR A ADMIN
+      let index;
+      this.usuarios.forEach(element => {
+        if(element.id_Usuario == 8){
+          index = element;
+        }
+      });
+      this.usuarios.splice(this.usuarios.indexOf(index), 1);
+      this.filas = this.usuarios;
     });
   }
 
@@ -170,6 +177,7 @@ export class AdminComponent {
 
     this.http.get(this.conexion.urlPagina + "/Legible").subscribe(async res => {
       this.paginas = await res;
+      this.filas = this.paginas;
     });
   }
 
