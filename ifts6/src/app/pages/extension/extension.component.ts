@@ -8,15 +8,7 @@ import { ConexionService } from 'src/app/services/conexion.service';
 })
 export class ExtensionComponent {
   
-  criterioPag : any;
+  criterioPag : string = "Extension terciaria";
 
-  constructor(private conexion : ConexionService){
-    this.traerPag();
-  }
-
-  async traerPag(){
-    (await this.conexion.traerPagina("Extension terciaria")).subscribe(async res =>{
-      this.criterioPag = await res[0].descripcion;
-    });
-  }
+  constructor(private conexion : ConexionService){}
 }

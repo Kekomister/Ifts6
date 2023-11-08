@@ -25,12 +25,12 @@ const createUsuario = (async (req: Request, res: Response) => {
     try {
         let pool = await new sql.ConnectionPool(config).connect();
         let query =
-            `INSERT INTO Usuarios (nombre_Usuario, clave, rol) 
-            VALUES (@nomUser, @clave, @rol)`
+            `INSERT INTO Usuarios (nombre_Usuario, clave, id_Sector) 
+            VALUES (@nomUser, @clave, @secID)`
         let result = await pool.request()
             .input('nomUser', sql.VarChar, req.body.nombre_Usuario)
             .input('clave', sql.VarChar, req.body.clave)
-            .input('rol', sql.VarChar, req.body.rol)
+            .input('secID', sql.VarChar, req.body.rol)
             .query(query);
         res.send(result);
     } catch (e) {

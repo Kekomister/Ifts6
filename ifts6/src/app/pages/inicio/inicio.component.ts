@@ -8,16 +8,8 @@ import { ConexionService } from 'src/app/services/conexion.service';
 })
 export class InicioComponent {
 
-  criterioPag : any;
+  criterioPag : string = "Inicio";
 
-  constructor(private conexion : ConexionService){
-    this.traerPag();
-  }
-
-  async traerPag(){
-    (await this.conexion.traerPagina("Inicio")).subscribe(async res =>{
-      this.criterioPag = await res[0].descripcion;
-    });
-  }
+  constructor(private conexion : ConexionService){}
 
 }

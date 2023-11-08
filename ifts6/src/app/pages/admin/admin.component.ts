@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Publicacion } from 'src/app/classes/publicacion.model';
 import { ConexionService } from 'src/app/services/conexion.service';
 import { Usuario } from 'src/app/classes/usuario.model';
@@ -8,13 +8,14 @@ import { Column } from 'src/app/classes/column.model';
 import { Sector } from 'src/app/classes/sector.model';
 import { Pagina } from 'src/app/classes/pagina.model';
 import { LoginService } from 'src/app/services/login.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent{
+export class AdminComponent implements OnInit {
 
   user: Usuario = new Usuario();
 
@@ -22,7 +23,7 @@ export class AdminComponent{
   files = [];
 
   pub: Publicacion = new Publicacion();
-  sec: Sector = new Publicacion();
+  sec: Sector = new Sector();
   userTemp: Usuario = new Usuario();
   pagina: Pagina = new Pagina();
 
@@ -39,13 +40,64 @@ export class AdminComponent{
   cual: string = "";
 
   constructor(private conexion: ConexionService, private http: HttpClient,
-    private msj: MensajesService, public login : LoginService) { }
+    private msj: MensajesService, public login: LoginService) { }
 
   ngOnInit() {
-    this.traerUsers();
+    this.iniciarAdmin();
+  }
+
+  iniciarAdmin() {
     this.traerSect();
-    this.traerPags();
+    this.traerUsers()
     this.traerPub();
+    // NO ESPERA A LOS DEMAS
+    this.chequeo_Conectado();
+  }
+
+  private chequeo_Conectado() {
+    //console.log(this.login.getUsuario());
+    this.user.nombre_Usuario = this.login.getConectado().nombre_Usuario;
+    if (this.login.getConectado().conectado) {
+      if (this.login.getAdmin().conectado) {
+        console.log("ENTRO ADMIN");
+        this.traerAdmin();
+      } else {
+
+        //console.log("Usuarios: ");
+        this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+
+          let array_Users: any = await res;
+          array_Users.forEach(element => {
+
+            if (element.nombre_Usuario == this.user.nombre_Usuario) {
+              this.user = element;
+              this.seleccionarPaginas();
+            }
+
+          });
+
+        });
+        // for (let i = 0; i < this.usuarios.length; i++) {
+        //   if (this.user.nombre_Usuario == this.usuarios[i].nombre_Usuario) {
+        //     this.user = this.usuarios[i];
+        //     this.seleccionarPaginas();
+        //   }
+        // }
+      }
+    }
+  }
+
+  private traerAdmin() {
+    this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+      let array_Users: any = await res;
+
+      array_Users.forEach(element => {
+        if (element.nombre_Usuario == "Admin") {
+          this.user.id_Usuario = element.id_Usuario;
+        }
+      });
+    });
+
   }
 
   async chequeoUsuario() {
@@ -54,7 +106,7 @@ export class AdminComponent{
       let usuarios = await res;
       let cant = this.cuantos(usuarios);
       if (this.usuarioEsta(cant, usuarios)) {
-        this.login.setConectado(true);
+        this.login.setConectado(this.user.nombre_Usuario, true);
         this.select_Tabla("");
         this.msj.success("Ha ingresado con exito!", "Okey");
       } else {
@@ -79,21 +131,44 @@ export class AdminComponent{
 
   usuarioEsta(cant, usuarios): boolean {
     let admin = this.login.getAdmin();
-    if(this.user.nombre_Usuario == admin.nombre_Usuario 
-      && this.user.clave == admin.clave){
+    if (this.user.nombre_Usuario == admin.nombre_Usuario
+      && this.user.clave == admin.clave) {
       this.login.getAdmin().conectado = true;
-      this.user.id_Usuario = 8;
+      this.traerAdmin();
       return true;
-    }else{
+    } else {
       for (let i = 0; i < cant; i++) {
         if (this.user.nombre_Usuario == usuarios[i].nombre_Usuario &&
           this.user.clave == usuarios[i].clave) {
-          this.user.id_Usuario = usuarios[i].id_Usuario;
+          this.user = usuarios[i];
+          this.seleccionarPaginas();
           return true;
         }
       }
       return false;
     }
+  }
+
+  seleccionarPaginas() {
+    //console.log(this.user.id_Sector);
+    let nombre;
+
+    this.sectores.forEach(sector => {
+      if (sector.id_Sector == this.user.id_Sector) {
+        nombre = sector.nombre.split(", ");
+      }
+    });
+    let pag = [];
+    
+    this.paginas.forEach((p: Pagina) => {
+      for (let i = 0; i < nombre.length; i++) {
+        //console.log("P.nombre : "+p.nombre +", nombre[i]: " + nombre[i]);
+        if (p.nombre == nombre[i]) {
+          pag.push(p);
+        }
+      }
+    });
+    this.paginas = pag;
   }
 
   select_Tabla(cual: string) {
@@ -108,9 +183,6 @@ export class AdminComponent{
       case "User":
         this.traerUsers();
         break;
-      case "Pag":
-        this.traerPags();
-        break;
       default:
         this.filas = [];
         break;
@@ -120,13 +192,40 @@ export class AdminComponent{
 
   traerSect() {
     this.columnas = [
-      { field: "id_Sector", header: "ID" },
-      { field: "descripcion", header: "Descripcion" },
+      { field: "descripcion", header: "Sectores" },
+      { field: "nombre", header: "Paginas en las que puede publicar" }
     ];
-    this.http.get(this.conexion.urlSector).subscribe(async res => {
+
+    this.http.get<Sector[]>(this.conexion.urlPagina + "/Legible").subscribe(async res => {
       this.sectores = await res;
+
+      this.sacar_Repetidos();
       this.filas = this.sectores;
     });
+
+    this.http.get<Pagina[]>(this.conexion.urlPagina).subscribe(async res => {
+      this.paginas = await res;
+    });
+  }
+
+  private sacar_Repetidos() {
+    let s: Sector[] = [];
+
+    for (let i = 0; i < this.sectores.length; i++) {
+      let esta = 0;
+      for (let j = 1 + i; j < this.sectores.length; j++) {
+        if (this.sectores[i].id_Sector == this.sectores[j].id_Sector) {
+          this.sectores[i].nombre += ", " + this.sectores[j].nombre;
+          esta++;
+        }
+      }
+      s.push(this.sectores[i]);
+      if (esta != 0) {
+        i += esta;
+      }
+    }
+    //console.log(s);
+    this.sectores = s;
   }
 
   traerPub() {
@@ -152,32 +251,20 @@ export class AdminComponent{
       { field: "id_Usuario", header: "ID" },
       { field: "nombre_Usuario", header: "Nombre del usuario" },
       //{ field: "clave", header: "Contraseña" },
-      { field: "rol", header: "Rol" },
+      { field: "id_Sector", header: "Rol" },
     ];
 
-    this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+    this.http.get<Usuario[]>(this.conexion.urlUsuario).subscribe(async res => {
       this.usuarios = await res;
       // PARA SACAR A ADMIN
       let index;
       this.usuarios.forEach(element => {
-        if(element.id_Usuario == 8){
+        if (element.nombre_Usuario == "Admin") {
           index = element;
         }
       });
       this.usuarios.splice(this.usuarios.indexOf(index), 1);
       this.filas = this.usuarios;
-    });
-  }
-
-  traerPags() {
-    this.columnas = [
-      { field: "nombre", header: "Nombre de la pagina" },
-      { field: "descripcion", header: "Sectores asignados" }
-    ];
-
-    this.http.get(this.conexion.urlPagina + "/Legible").subscribe(async res => {
-      this.paginas = await res;
-      this.filas = this.paginas;
     });
   }
 
@@ -211,6 +298,8 @@ export class AdminComponent{
   }
 
   enviarUser() {
+    console.log(this.userTemp);
+
     this.http.post(this.conexion.urlUsuario, this.userTemp).subscribe(async res => {
       this.select_Tabla("User");
     })
@@ -218,13 +307,6 @@ export class AdminComponent{
     this.vaciarCampos();
   }
 
-  enviarSecPag() {
-    this.http.post(this.conexion.urlPaginaConexion, this.pagina).subscribe(async res => {
-      this.select_Tabla("Pag");
-    })
-    this.msj.success("Se ha agregado con exito!", "Genial");
-    this.vaciarCampos();
-  }
 
   async sendFile(file) {
     const formData = new FormData();
@@ -232,7 +314,7 @@ export class AdminComponent{
     formData.append('titulo', this.pub.titulo);
     formData.append('descripcion', this.pub.descripcion);
     formData.append('id_Usuario', String(this.user.id_Usuario));
-    formData.append('id_Sector', String(this.pub.id_Sector));
+    formData.append('id_Pagina', String(this.pub.id_Pagina));
     file.inProgress = true;
 
     (await this.sendFormData(formData)).subscribe((event: any) => {
@@ -254,8 +336,8 @@ export class AdminComponent{
       let res = await this.msj.preguntar
         ("Estas seguro de querer borrar?", mensaje, "Si", "Cambie de opinion")
       if (res.isConfirmed) {
-        this.msj.info("Se ha borrado correctamente", "Entendido");
         this.borrarAlguno(accion[1]);
+        this.msj.info("Se ha borrado correctamente", "Entendido");
       } else {
         this.msj.info("Se ha cancelado", "Gracias");
       }
@@ -325,7 +407,7 @@ export class AdminComponent{
     formData.append('titulo', this.pub.titulo);
     formData.append('descripcion', this.pub.descripcion);
     formData.append('id_Usuario', String(this.user.id_Usuario));
-    formData.append('id_Sector', String(this.pub.id_Sector));
+    formData.append('id_Pagina', String(this.pub.id_Pagina));
     formData.append('fecha_Publicacion', this.pub.fecha_Publicacion)
 
     this.http.put(this.conexion.urlPublicacion + "/" + this.pub.id_Publicacion, formData).subscribe(async res => {
@@ -341,6 +423,35 @@ export class AdminComponent{
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
+  }
+
+  enviarSecPag() {
+    console.log(this.pagina);
+    if (!this.chequeo_Pagina_Repetida()) {
+      this.http.post(this.conexion.urlPaginaConexion, this.pagina).subscribe(async res => {
+        this.select_Tabla("Sec");
+      })
+      this.msj.success("Se ha agregado con exito!", "Genial");
+    } else {
+      this.msj.error("Error", "Ya tiene permiso en esa pagina", "Ah perdon");
+    }
+    this.vaciarCampos();
+  }
+
+  private chequeo_Pagina_Repetida() {
+    let yaTiene = false;
+    this.sectores.forEach(sector => {
+      if (sector.id_Sector == this.pagina.sectores) {
+        let nombre: string = sector.nombre;
+        if (nombre == null) {
+          nombre = sector.descripcion;
+        }
+        let pag = this.buscar_Pagina();
+        //console.log(nombre);
+        yaTiene = nombre.includes(pag);
+      }
+    });
+    return yaTiene;
   }
 
   llenarCampos(objeto) {
@@ -369,13 +480,22 @@ export class AdminComponent{
     }
   }
 
-  buscarSector(desc: string): number {
+  private buscarSector(desc: string): number {
     for (let i = 0; i < this.sectores.length; i++) {
       if (this.sectores[i].descripcion == desc) {
         return this.sectores[i].id_Sector;
       }
     }
     return 0;
+  }
+
+  private buscar_Pagina(): string {
+    for (let i = 0; i < this.paginas.length; i++) {
+      if (this.paginas[i].id_Pagina == this.pagina.id_Pagina) {
+        return this.paginas[i].nombre;
+      }
+    }
+    return "";
   }
 
   vaciarCampos() {

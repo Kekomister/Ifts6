@@ -1,6 +1,7 @@
 export class Sector{
     id_Sector : number;
     descripcion : string;
+    paginas? : number[];
 
     constructor(){}
 }

@@ -39,10 +39,11 @@ const getPaginasLegibles = (async (req: Request, res: Response) => {
         let paginas;
         const pool = await new sql.ConnectionPool(config).connect();
         let query = `SELECT 
-        PaginasXSectores.id_Conexion, Paginas.id_Pagina,Paginas.nombre, Sectores.descripcion
-        FROM Paginas
-		LEFT JOIN PaginasXSectores ON Paginas.id_Pagina = PaginasXSectores.id_Pagina
-        LEFT JOIN Sectores ON Sectores.id_Sector = PaginasXSectores.id_Sector`;
+        PaginasXSectores.id_Conexion, Sectores.id_Sector , Paginas.id_Pagina ,
+        Sectores.descripcion,Paginas.nombre
+        FROM Sectores
+		LEFT JOIN PaginasXSectores ON Sectores.id_Sector = PaginasXSectores.id_Sector
+		LEFT JOIN Paginas ON Paginas.id_Pagina = PaginasXSectores.id_Pagina`;
         var respuesta = await pool.request().query(query);
         paginas = respuesta.recordset;
         console.log("Paginas : ", paginas);

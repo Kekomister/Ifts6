@@ -5,9 +5,9 @@ export class Publicacion{
     imagen : any;
     fecha_Publicacion : string;
     id_Usuario : number;
-    id_Sector : number;
+    id_Pagina : number;
 
-    
+    id_Sector : number;
     nombre_Usuario : string;
     sector : string;
     

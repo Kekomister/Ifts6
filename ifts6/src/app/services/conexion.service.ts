@@ -14,10 +14,6 @@ export class ConexionService {
 
   constructor(private http : HttpClient){}
 
-  public async traerPagina(nombre){
-    return this.http.get(this.urlPagina + "/legible/" + nombre)
-  }
-
   public async traerPublicacion(id){
     return this.http.get(this.urlPublicacion + "/legible/" + id)
   }

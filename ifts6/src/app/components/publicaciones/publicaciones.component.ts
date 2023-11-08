@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Pagina } from 'src/app/classes/pagina.model';
 import { Publicacion } from 'src/app/classes/publicacion.model';
 import { Sector } from 'src/app/classes/sector.model';
 import { Usuario } from 'src/app/classes/usuario.model';
@@ -21,26 +22,28 @@ export class PublicacionesComponent {
   publicaciones: Publicacion[] = [];
   usuarios: Usuario[] = [];
   sectores: Sector[] = [];
+  paginas: Pagina[] = [];
 
   @Input() criterio: string = "";
   @Input() cantidad: number = 9999999999999;
   publicacionesMostrar: Publicacion[] = [];
   imagen: any;
 
-  constructor(private http: HttpClient, public sanitizer: DomSanitizer, 
-    private conexion : ConexionService, private router : Router) { }
+  constructor(private http: HttpClient, public sanitizer: DomSanitizer,
+    private conexion: ConexionService, private router: Router) { }
 
   ngOnInit() {
     this.getSectores();
     this.getUsuarios();
     this.getPublicaciones();
+    this.getPaginas();
   }
 
   getUsuarios() {
     try {
-      this.http.get<Usuario[]>(this.conexion.urlUsuario).subscribe(res => {
+      this.http.get<Usuario[]>(this.conexion.urlUsuario).subscribe(async res => {
         //console.log("USUARIOS : " + res);
-        this.usuarios = res;
+        this.usuarios = await res;
       });
     } catch (e) {
       console.log("ERROR: " + e);
@@ -49,9 +52,9 @@ export class PublicacionesComponent {
 
   getSectores() {
     try {
-      this.http.get<Sector[]>(this.conexion.urlSector).subscribe(res => {
+      this.http.get<Sector[]>(this.conexion.urlSector).subscribe(async res => {
         //console.log("SECTORES : " + res);
-        this.sectores = res;
+        this.sectores = await res;
       });
     } catch (e) {
       console.log("ERROR: " + e);
@@ -60,8 +63,8 @@ export class PublicacionesComponent {
 
   getPublicaciones() {
     try {
-      this.http.get<Publicacion[]>(this.conexion.urlPublicacion+"/legible").subscribe(res => {
-        this.publicaciones = res;
+      this.http.get<Publicacion[]>(this.conexion.urlPublicacion + "/legible").subscribe(async res => {
+        this.publicaciones = await res;
         this.verCriterio();
       });
     } catch (e) {
@@ -69,23 +72,41 @@ export class PublicacionesComponent {
     }
   }
 
+  getPaginas() {
+    this.http.get<Pagina[]>(this.conexion.urlPagina).subscribe(async res => {
+      this.paginas = await res;
+    });
+  }
+
   verCriterio() {
-    if (this.criterio == "" || this.criterio == null) {
+    //console.log(this.publicaciones);
+
+    if (this.criterio == "Inicio") {
       this.publicacionesMostrar = this.publicaciones;
     } else {
       this.publicacionesMostrar = [];
-      for (let i = 0; i < this.publicaciones.length; i++) {
-        //console.log(this.publicaciones[i]);
-        if (this.publicaciones[i].sector == this.criterio) {
-          this.publicacionesMostrar.push(this.publicaciones[i]);
+      let sec: any;
+      this.http.get(this.conexion.urlPagina + "/Legible" + "/" + this.criterio).subscribe(async res => {
+        sec = await res;
+        //console.log(sec);
+
+        for (let i = 0; i < this.publicaciones.length; i++) {
+          //console.log(this.publicaciones[i]);
+          for (let j = 0; j < sec.length; j++) {
+            //console.log(this.convertirSector(sec[j].id_Sector));
+            if (sec[j].id_Sector != null && this.publicaciones[i].sector == this.convertirSector(sec[j].id_Sector)) {
+              this.publicacionesMostrar.push(this.publicaciones[i]);
+            }
+          }
         }
-      }
-      this.cantidad = this.publicacionesMostrar.length;
+        this.cantidad = this.publicacionesMostrar.length;
+      });
+      //console.log(this.publicacionesMostrar);
     }
   }
 
   detalle(pub: Publicacion) {
-    this.router.navigate(['/detalle',pub.id_Publicacion]);
+    this.router.navigate(['/detalle', pub.id_Publicacion]);
   }
 
   convertirUsuario(id: number) {

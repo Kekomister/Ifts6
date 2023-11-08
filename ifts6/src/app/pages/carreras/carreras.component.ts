@@ -10,13 +10,6 @@ export class CarrerasComponent {
   
   criterioPag : any;
 
-  constructor(private conexion : ConexionService){
-    this.traerPag();
-  }
+  constructor(){}
 
-  async traerPag(){
-    (await this.conexion.traerPagina("Carreras")).subscribe(async res =>{
-      this.criterioPag = await res[0].descripcion;
-    });
-  }
 }

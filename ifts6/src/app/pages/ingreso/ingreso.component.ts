@@ -8,18 +8,9 @@ import { ConexionService } from 'src/app/services/conexion.service';
 })
 export class IngresoComponent {
   
-  criterioPag : any;
+  criterioPag : string = "Ingreso";
 
   constructor(private conexion : ConexionService){
   }
 
-  ngOnInit(){
-    this.traerPag();
-  }
-
-  async traerPag(){
-    (await this.conexion.traerPagina("Ingreso")).subscribe(async res =>{
-      this.criterioPag = await res[0].descripcion;
-    });
-  }
 }

@@ -2,7 +2,8 @@ export class Usuario{
     id_Usuario : number;
     nombre_Usuario : string;
     clave : string;
-    rol : string;
+    rol : number;
+    id_Sector
 
     constructor(){}
 }

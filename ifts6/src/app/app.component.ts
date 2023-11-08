@@ -29,7 +29,7 @@ export class AppComponent {
   async cerrarSesion(){
     let res = await this.msj.preguntar("Cerrar Sesion","Estas seguro de querer salir?","Si","No");
     if(res.isConfirmed){
-      this.login.setConectado(false);
+      this.login.setConectado("",false);
     }
   }
 
