@@ -6,6 +6,7 @@ router.use(express.json());
 
 const  { 
     getPaginas,
+    getPagina,
     getPaginasLegibles,
     getPaginaLegible,
     getConexion,
@@ -17,7 +18,9 @@ const  {
 
 router.get('/',getPaginas)
 
-router.get('/legible',getPaginasLegibles)
+router.get('/:nombre',getPagina)
+
+router.get('/sector/legible',getPaginasLegibles)
 
 router.get('/legible/:nombre',getPaginaLegible)
 

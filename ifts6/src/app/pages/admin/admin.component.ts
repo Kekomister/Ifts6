@@ -48,7 +48,7 @@ export class AdminComponent implements OnInit {
 
   iniciarAdmin() {
     this.traerSect();
-    this.traerUsers()
+    this.traerUsers();
     this.traerPub();
     // NO ESPERA A LOS DEMAS
     this.chequeo_Conectado();
@@ -64,9 +64,9 @@ export class AdminComponent implements OnInit {
       } else {
 
         //console.log("Usuarios: ");
-        this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+        this.conexion.traerUsuarios().subscribe(async res => {
 
-          let array_Users: any = await res;
+          let array_Users: Usuario[] = await res;
           array_Users.forEach(element => {
 
             if (element.nombre_Usuario == this.user.nombre_Usuario) {
@@ -102,7 +102,7 @@ export class AdminComponent implements OnInit {
 
   async chequeoUsuario() {
     this.login.setAdmin(false);
-    this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+    this.conexion.traerUsuarios().subscribe(async res => {
       let usuarios = await res;
       let cant = this.cuantos(usuarios);
       if (this.usuarioEsta(cant, usuarios)) {
@@ -155,19 +155,23 @@ export class AdminComponent implements OnInit {
 
     this.sectores.forEach(sector => {
       if (sector.id_Sector == this.user.id_Sector) {
-        nombre = sector.nombre.split(", ");
-      }
-    });
-    let pag = [];
-    
-    this.paginas.forEach((p: Pagina) => {
-      for (let i = 0; i < nombre.length; i++) {
-        //console.log("P.nombre : "+p.nombre +", nombre[i]: " + nombre[i]);
-        if (p.nombre == nombre[i]) {
-          pag.push(p);
+        if (sector.nombre != null) {
+          nombre = sector.nombre.split(", ");
         }
       }
     });
+    let pag = [];
+
+    if (nombre != undefined) {
+      this.paginas.forEach((p: Pagina) => {
+        for (let i = 0; i < nombre.length; i++) {
+          //console.log("P.nombre : "+p.nombre +", nombre[i]: " + nombre[i]);
+          if (p.nombre == nombre[i]) {
+            pag.push(p);
+          }
+        }
+      });
+    }
     this.paginas = pag;
   }
 
@@ -196,14 +200,20 @@ export class AdminComponent implements OnInit {
       { field: "nombre", header: "Paginas en las que puede publicar" }
     ];
 
-    this.http.get<Sector[]>(this.conexion.urlPagina + "/Legible").subscribe(async res => {
+    this.conexion.traerSectores().subscribe(async res => {
       this.sectores = await res;
-
       this.sacar_Repetidos();
+      let index;
+      this.sectores.forEach(element => {
+        if (element.descripcion == "Admin") {
+          index = element;
+        }
+      });
+      this.sectores.splice(this.sectores.indexOf(index), 1);
       this.filas = this.sectores;
     });
 
-    this.http.get<Pagina[]>(this.conexion.urlPagina).subscribe(async res => {
+    this.conexion.traerPagina().subscribe(async res => {
       this.paginas = await res;
     });
   }
@@ -237,13 +247,24 @@ export class AdminComponent implements OnInit {
       { field: "fecha_Publicacion", header: "Fecha de Publicacion" },
       { field: "nombre_Usuario", header: "Usuario que lo publico" },
       { field: "sector", header: "Sector" },
+      { field: "pagina", header: "Pagina donde se ve" }
     ];
 
-    this.http.get(this.conexion.urlPublicacion + "/legible").subscribe(async res => {
-      this.publicaciones = await res;
-      this.filas = this.publicaciones;
-    });
-
+    if (this.login.getAdmin().conectado) {
+      this.conexion.traerPublicaciones().subscribe(async res => {
+        this.publicaciones = await res;
+        this.filas = this.publicaciones;
+      });
+    } else {
+      if (this.login.getConectado().conectado) {
+        this.conexion.traerPublicacionesUsuario
+          (this.login.getConectado().nombre_Usuario)
+          .subscribe(async res => {
+            this.publicaciones = await res;
+            this.filas = this.publicaciones;
+          })
+      }
+    }
   }
 
   traerUsers() {
@@ -251,10 +272,10 @@ export class AdminComponent implements OnInit {
       { field: "id_Usuario", header: "ID" },
       { field: "nombre_Usuario", header: "Nombre del usuario" },
       //{ field: "clave", header: "Contraseña" },
-      { field: "id_Sector", header: "Rol" },
+      { field: "descripcion", header: "Rol" },
     ];
 
-    this.http.get<Usuario[]>(this.conexion.urlUsuario).subscribe(async res => {
+    this.conexion.traerUsuarios().subscribe(async res => {
       this.usuarios = await res;
       // PARA SACAR A ADMIN
       let index;
@@ -280,17 +301,30 @@ export class AdminComponent implements OnInit {
   }
 
   enviarPub() {
-    this.fileUpload.nativeElement.value = '';
-    this.files.forEach(file => {
-      this.sendFile(file);
-    });
-    this.msj.success("Se ha agregado con exito!", "Genial");
+    if (this.paginas.length != 0) {
+      this.fileUpload.nativeElement.value = '';
+      this.files.forEach(file => {
+        this.sendFile(file);
+      });
+      this.msj.success("Se ha agregado con exito!", "Genial");
+      console.log(this.files);
+    } else {
+      this.msj.error("Error", "No tenes permiso en ninguna pagina, chequea con el admin.", "Okey");
+    }
     this.vaciarCampos();
-    console.log(this.files);
   }
 
   enviarSec() {
-    this.http.post(this.conexion.urlSector, this.sec).subscribe(async res => {
+    let array = [];
+    for (let i = 0; i < this.paginas.length; i++) {
+      let check = document.getElementById(`checkbox${i}`) as HTMLInputElement | null;
+      if (check.checked) {
+        array.push(Number(check.value));
+      }
+    }
+    
+    this.conexion.crearSector(this.sec).subscribe(async res => {
+      this.enviarSecPag(array);
       this.select_Tabla("Sec");
     })
     this.msj.success("Se ha agregado con exito!", "Genial");
@@ -394,7 +428,7 @@ export class AdminComponent implements OnInit {
   }
 
   modificarUser() {
-    this.http.put(this.conexion.urlUsuario + "/" + this.userTemp.id_Usuario, this.userTemp).subscribe(async res => {
+    this.conexion.modificarUsuario(this.userTemp).subscribe(async res => {
       this.select_Tabla("User");
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
@@ -403,16 +437,23 @@ export class AdminComponent implements OnInit {
 
   modificarPub() {
     const formData = new FormData();
-    formData.append('file', this.pub.imagen);
     formData.append('titulo', this.pub.titulo);
     formData.append('descripcion', this.pub.descripcion);
     formData.append('id_Usuario', String(this.user.id_Usuario));
     formData.append('id_Pagina', String(this.pub.id_Pagina));
-    formData.append('fecha_Publicacion', this.pub.fecha_Publicacion)
 
-    this.http.put(this.conexion.urlPublicacion + "/" + this.pub.id_Publicacion, formData).subscribe(async res => {
-      this.select_Tabla("Pub");
-    })
+    if (this.files.length == 0) {
+      this.conexion.modificarPublicacionSinImagen(this.pub.id_Publicacion, formData).subscribe(async res => {
+        this.select_Tabla("Pub");
+      })
+    } else {
+      const formData = new FormData();
+      formData.append('file', this.pub.imagen);
+      this.conexion.modificarPublicacion(this.pub.id_Publicacion, formData).subscribe(async res => {
+        this.select_Tabla("Pub");
+      })
+    }
+
     this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
   }
@@ -425,33 +466,33 @@ export class AdminComponent implements OnInit {
     this.vaciarCampos();
   }
 
-  enviarSecPag() {
-    console.log(this.pagina);
-    if (!this.chequeo_Pagina_Repetida()) {
-      this.http.post(this.conexion.urlPaginaConexion, this.pagina).subscribe(async res => {
-        this.select_Tabla("Sec");
-      })
+  enviarSecPag(arrayPag : number[]) {
+    let repetidas = false;
+    
+    for(let i = 0; i < arrayPag.length; i++){
+      this.conexion.crearConexionSectoresPagina(arrayPag[i]).subscribe(async res => {})
       this.msj.success("Se ha agregado con exito!", "Genial");
-    } else {
-      this.msj.error("Error", "Ya tiene permiso en esa pagina", "Ah perdon");
+    }
+    if (repetidas) {
+      this.msj.error("Error", "Ya tenia permiso en algunas paginas", "Ah perdon");
     }
     this.vaciarCampos();
   }
 
-  private chequeo_Pagina_Repetida() {
-    let yaTiene = false;
-    this.sectores.forEach(sector => {
-      if (sector.id_Sector == this.pagina.sectores) {
-        let nombre: string = sector.nombre;
-        if (nombre == null) {
-          nombre = sector.descripcion;
-        }
-        let pag = this.buscar_Pagina();
-        //console.log(nombre);
-        yaTiene = nombre.includes(pag);
-      }
-    });
-    return yaTiene;
+  private chequeo_Pagina_Repetida(pag: number) {
+    // let yaTiene = false;
+    // this.sectores.forEach(sector => {
+    //   if (sector.id_Sector == this.pagina.sectores) {
+    //     let nombre: string = sector.nombre;
+    //     if (nombre == null) {
+    //       nombre = sector.descripcion;
+    //     }
+    //     let pag = this.convertir_Pagina();
+    //     //console.log(nombre);
+    //     yaTiene = nombre.includes(pag);
+    //   }
+    // });
+    // return yaTiene;
   }
 
   llenarCampos(objeto) {
@@ -468,12 +509,15 @@ export class AdminComponent implements OnInit {
         this.pub.id_Usuario = this.user.id_Usuario;
         this.pub.imagen = objeto.imagen;
         this.pub.titulo = objeto.titulo;
+        this.pub.id_Pagina = this.buscar_Pagina(objeto.pagina);
+
+        console.log(this.pub);
         break;
       case "User":
         this.userTemp.id_Usuario = objeto.id_Usuario;
         this.userTemp.clave = objeto.clave;
         this.userTemp.nombre_Usuario = objeto.nombre_Usuario;
-        this.userTemp.rol = objeto.rol;
+        this.userTemp.id_Sector = objeto.id_Sector;
         break;
       default:
         break;
@@ -489,13 +533,22 @@ export class AdminComponent implements OnInit {
     return 0;
   }
 
-  private buscar_Pagina(): string {
+  private convertir_Pagina(): string {
     for (let i = 0; i < this.paginas.length; i++) {
       if (this.paginas[i].id_Pagina == this.pagina.id_Pagina) {
         return this.paginas[i].nombre;
       }
     }
     return "";
+  }
+
+  private buscar_Pagina(pagina: string): number {
+    for (let i = 0; i < this.paginas.length; i++) {
+      if (this.paginas[i].nombre == pagina) {
+        return this.paginas[i].id_Pagina;
+      }
+    }
+    return -1;
   }
 
   vaciarCampos() {

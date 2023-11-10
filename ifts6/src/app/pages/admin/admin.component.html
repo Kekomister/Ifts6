@@ -55,35 +55,28 @@
     </div>
 
     <div class="admin-sectores" *ngIf="cual == 'Sec'">
-        <label for=""> Agregar Sector </label>
-        <br><br>
         <label for=""> <b>Sector</b><input type="text" [(ngModel)]="sec.descripcion"></label>
-        <button class="admin-publicaciones-buttonSec" *ngIf="!modificar" (click)="enviarSec()"> Enviar Sector </button>
-        
-        <label for=""> Agregar Pagina a Sector </label>
 
-        <div class="admin-paginas">
-            <label for=""> Sector </label>
-            <select [(ngModel)]="pagina.sectores">
-                <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
-            </select>
-
-            <label for=""> Pagina </label>
-            <select [(ngModel)]="pagina.id_Pagina">
-                <option *ngFor="let pag of paginas" value="{{pag.id_Pagina}}">{{pag.nombre}}</option>
-            </select>
-            <button class="admin-publicaciones-buttonusu" (click)="enviarSecPag()"> Enviar Pagina </button>
-            <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
+        <label for=""> Paginas : </label>
+        <br>
+        <div>
+            <label for="" *ngFor="let pag of paginas, let i = index">
+                {{pag.nombre}}
+                <input type="checkbox" id="checkbox{{i}}" name="" value="{{pag.id_Pagina}}">
+            </label>
         </div>
-    
+
+        <button class="admin-publicaciones-buttonSec" *ngIf="!modificar" (click)="enviarSec()"> Enviar Sector </button>
+        <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
+
     </div>
 
 
     <div class="admin-usuarios" *ngIf="cual == 'User'">
         <label for=""> Nombre De usuario <input type="text" [(ngModel)]="userTemp.nombre_Usuario"></label>
         <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
-        <label for=""> Rol </label>
-        <select class="admin-publicaciones-select" [(ngModel)]="userTemp.rol">
+        <label for="" *ngIf="!modificar"> Rol </label>
+        <select *ngIf="!modificar" class="admin-publicaciones-select" [(ngModel)]="userTemp.id_Sector">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
         </select>
         <button class="admin-publicaciones-buttonusu" *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>

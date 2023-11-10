@@ -38,16 +38,42 @@ const getPublicacion = (async (req: Request, res: Response) => {
     }
 });
 
+const getPublicacionesUsuarioLegible = (async (req: Request, res: Response) => {
+    try {
+        let publicaciones;
+        const pool = await new sql.ConnectionPool(config).connect();
+        let query = `SELECT 
+        id_Publicacion, titulo, Publicaciones.descripcion, imagen, fecha_Publicacion, 
+        Sectores.descripcion as sector, Usuarios.nombre_Usuario, Paginas.nombre as pagina
+        FROM Publicaciones
+        INNER JOIN Usuarios ON Usuarios.id_Usuario = Publicaciones.id_Usuario
+        INNER JOIN Sectores ON Sectores.id_Sector = Usuarios.id_Sector
+		INNER JOIN Paginas ON Paginas.id_Pagina = Publicaciones.id_Pagina
+		WHERE Usuarios.nombre_Usuario = @nomUser
+        ORDER BY fecha_Publicacion DESC`;
+        var respuesta = await pool.request()
+            .input('nomUser', sql.VarChar, req.params.nombre)
+            .query(query);
+        publicaciones = respuesta.recordset;
+        console.log("Publicaciones : ", publicaciones);
+        publicaciones = convertirAImagenes(publicaciones);
+        res.send(publicaciones);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
 const getPublicacionesLegible = (async (req: Request, res: Response) => {
     try {
         let publicaciones;
         const pool = await new sql.ConnectionPool(config).connect();
         let query = `SELECT 
         id_Publicacion, titulo, Publicaciones.descripcion, imagen, fecha_Publicacion, 
-        Sectores.descripcion as sector, Usuarios.nombre_Usuario 
+        Sectores.descripcion as sector, Usuarios.nombre_Usuario, Paginas.nombre as pagina
         FROM Publicaciones
         INNER JOIN Usuarios ON Usuarios.id_Usuario = Publicaciones.id_Usuario
         INNER JOIN Sectores ON Sectores.id_Sector = Usuarios.id_Sector
+		INNER JOIN Paginas ON Paginas.id_Pagina = Publicaciones.id_Pagina
         ORDER BY fecha_Publicacion DESC`;
         var respuesta = await pool.request().query(query);
         publicaciones = respuesta.recordset;
@@ -70,7 +96,7 @@ const getPublicacionLegible = (async (req: Request, res: Response) => {
         INNER JOIN Usuarios ON Usuarios.id_Usuario = Publicaciones.id_Usuario
         INNER JOIN Sectores ON Sectores.id_Sector = Usuarios.id_Sector
         WHERE id_Publicacion = @id`;
-        var respuesta = await pool.request().input('id',sql.Int,req.params.id).query(query);
+        var respuesta = await pool.request().input('id', sql.Int, req.params.id).query(query);
         publicaciones = respuesta.recordset;
         console.log("Publicacion : ", publicaciones);
         publicaciones = convertirAImagenes(publicaciones);
@@ -158,8 +184,6 @@ const handleMultipartData = multer({
 
 const updatePublicacion = (async (req: Request, res: Response) => {
     let bod = req.body;
-    let img = Buffer.from(req.body.file);
-    console.log(`Img : ${img}`);
     try {
         handleMultipartData(req, res, async (err: { message: any; }) => {
             if (err) {
@@ -167,30 +191,63 @@ const updatePublicacion = (async (req: Request, res: Response) => {
                 console.log("ERROR : " + err);
             }
 
-            let pool = await new sql.ConnectionPool(config).connect();
-            console.log(bod.fecha_Publicacion);
+            console.log(bod);
             
-            //let img = await convertirABuffer(req.files);
+            let pool = await new sql.ConnectionPool(config).connect();
 
+            let img = await convertirABuffer(req.files);
+            
+                let query =
+                    `UPDATE Publicaciones SET 
+            titulo = @titulo,
+            descripcion = @desc,
+            imagen = @img,
+            fecha_Publicacion = GETDATE(),
+            id_Usuario = @user,
+            id_Pagina = @pagID
+            WHERE id_Publicacion = @id`;
+                let result = await pool.request()
+                    .input('titulo', sql.VarChar, bod.titulo)
+                    .input('desc', sql.VarChar, bod.descripcion)
+                    .input('img', sql.VarBinary, img)
+                    .input('user', sql.Int, bod.id_Usuario)
+                    .input('pagID', sql.Int, bod.id_Pagina)
+                    .input('id', sql.Int, req.params.id)
+                    .query(query);
+            vaciarCarpeta();
+            res.send(result);
+        });
+    } catch (e) {
+        console.log(e);
+    }
+})
+
+const updatePublicacionSinImagen = (async (req: Request, res: Response) => {
+    try {
+        handleMultipartData(req, res, async (err: { message: any; }) => {
+            if (err) {
+                //res.json({ msgs: err.message });
+                console.log("ERROR : " + err);
+            }
+            let bod = req.body;
+            console.log(bod);
+            
+            let pool = await new sql.ConnectionPool(config).connect();
             let query =
                 `UPDATE Publicaciones SET 
         titulo = @titulo,
         descripcion = @desc,
-        imagen = @img,
-        fecha_Publicacion = @fecha,
+        fecha_Publicacion = GETDATE(),
         id_Usuario = @user,
         id_Pagina = @pagID
         WHERE id_Publicacion = @id`;
             let result = await pool.request()
                 .input('titulo', sql.VarChar, bod.titulo)
                 .input('desc', sql.VarChar, bod.descripcion)
-                .input('img', sql.VarBinary, img)
-                .input('fecha', sql.Date, new Date(Date.parse(bod.fecha_Publicacion)))
                 .input('user', sql.Int, bod.id_Usuario)
                 .input('pagID', sql.Int, bod.id_Pagina)
                 .input('id', sql.Int, req.params.id)
                 .query(query);
-            vaciarCarpeta();
             res.send(result);
         });
     } catch (e) {
@@ -215,7 +272,9 @@ module.exports = {
     getPublicacion,
     getPublicacionesLegible,
     getPublicacionLegible,
+    getPublicacionesUsuarioLegible,
     createPublicacion,
     updatePublicacion,
+    updatePublicacionSinImagen,
     deletePublicacion
 };

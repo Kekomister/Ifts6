@@ -7,6 +7,7 @@ export class Publicacion{
     id_Usuario : number;
     id_Pagina : number;
 
+    pagina : string;
     id_Sector : number;
     nombre_Usuario : string;
     sector : string;

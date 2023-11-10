@@ -6,12 +6,15 @@ router.use(express.json());
 
 const  { 
     getUsuario,
+    getUsuarioLegible,
     createUsuario,
     updateUsuario,
     deleteUsuario
 } = require('../controllers/usuario')
 
 router.get('/',getUsuario)
+
+router.get('/legible',getUsuarioLegible)
 
 router.post('/',createUsuario)
 

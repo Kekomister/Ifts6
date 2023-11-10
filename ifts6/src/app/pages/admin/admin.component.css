@@ -203,7 +203,11 @@
   margin-left: 95px; /* Ajusta la distancia desde el input de "Sector" */
 }
 
-.admin-sectores label {
+
+/*------------ADMIN SECTORES-----------------------*/
+
+
+.admin-sectores {
   display: flex;
   justify-content: space-between;
   align-items: center;
