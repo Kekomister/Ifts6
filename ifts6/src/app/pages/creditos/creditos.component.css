@@ -1,0 +1,41 @@
+.contenedor-principal {
+    margin-left: 0;
+    padding: 100px ;
+    display:contents;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    flex-direction: column;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+}
+
+.contact-section {
+    margin-top: 20px;
+}
+.map-section {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.map{
+    height: 40vh;
+    width: 100%;
+}
+
+h1, h2 {
+    
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+iframe {
+    margin-top: 20px;
+}
