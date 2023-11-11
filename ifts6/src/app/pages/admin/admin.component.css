@@ -212,3 +212,56 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.botones-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente los botones */
+  align-items: center; /* Centra verticalmente los botones */
+  margin: 10px; /* Agrega un margen entre los botones */
+}
+
+.botones-container a {
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+.botones-container .btn {
+  margin: 5px; /* Ajusta el margen entre los botones */
+
+  
+}
+  /**/
+
+/* Agrega estilos para el paginador */
+.paginador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.paginador-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+}
+
+.paginador-button-anterior,
+.paginador-button-siguiente {
+  background-color: #e5e5e5;
+  color: #1d1c1a;
+  cursor: not-allowed;
+}
+
+.paginador-button-activo {
+  background-color: #0056b3;
+}
+
+.paginador-button:hover {
+  background-color: #0056b3;
+}

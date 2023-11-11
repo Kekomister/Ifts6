@@ -13,12 +13,15 @@
 <div class="admin" *ngIf="login.getConectado().conectado">
 
     <div class="contenedor-botones">
+        <div class="botones-container">
         <a (click)="select_Tabla('Pub')"><button class="btn btn-custom"><b>Publicaciones</b></button></a>
         <div *ngIf="login.getAdmin().conectado">
             <a (click)="select_Tabla('Sec')"><button class="btn btn-custom"><b>Sectores</b></button></a>
             <a (click)="select_Tabla('User')"><button class="btn btn-custom"><b>Usuarios</b></button></a>
         </div>
+        </div>
     </div>
+    
 
 
     <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
@@ -55,10 +58,10 @@
     </div>
 
     <div class="admin-sectores" *ngIf="cual == 'Sec'">
-        <label for=""> <b>Sector</b><input type="text" [(ngModel)]="sec.descripcion"></label>
+        <label for=""> <b>Sector</b><br><input type="text" [(ngModel)]="sec.descripcion"></label> 
 
         <label for=""> Paginas : </label>
-        <br>
+        
         <div>
             <label for="" *ngFor="let pag of paginas, let i = index">
                 {{pag.nombre}}
