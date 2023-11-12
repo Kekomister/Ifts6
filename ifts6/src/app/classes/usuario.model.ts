@@ -3,7 +3,8 @@ export class Usuario{
     nombre_Usuario : string;
     clave : string;
     rol : number;
-    id_Sector
+    email : string;
+    id_Sector : number;
 
     constructor(){}
 }

@@ -78,6 +78,7 @@
     <div class="admin-usuarios" *ngIf="cual == 'User'">
         <label for=""> Nombre De usuario <input type="text" [(ngModel)]="userTemp.nombre_Usuario"></label>
         <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
+        <label for=""> E-mail <input type="text" [(ngModel)]="userTemp.email"></label>
         <label for="" *ngIf="!modificar"> Rol </label>
         <select *ngIf="!modificar" class="admin-publicaciones-select" [(ngModel)]="userTemp.id_Sector">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>

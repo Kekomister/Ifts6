@@ -26,7 +26,7 @@ const getUsuarioLegible = (async (req: Request, res: Response) => {
         let usuarios;
         const pool = await new sql.ConnectionPool(config).connect();
         var respuesta = await pool.request().query(
-        `SELECT id_Usuario, nombre_Usuario, clave, Usuarios.id_Sector, descripcion
+        `SELECT id_Usuario, nombre_Usuario, clave, Usuarios.id_Sector, descripcion, email
         FROM Usuarios
         INNER JOIN Sectores ON Usuarios.id_Sector = Sectores.id_Sector`);
         usuarios = respuesta.recordset;
@@ -41,11 +41,12 @@ const createUsuario = (async (req: Request, res: Response) => {
     try {
         let pool = await new sql.ConnectionPool(config).connect();
         let query =
-            `INSERT INTO Usuarios (nombre_Usuario, clave, id_Sector) 
-            VALUES (@nomUser, @clave, @secID)`
+            `INSERT INTO Usuarios (nombre_Usuario, clave, email,id_Sector) 
+            VALUES (@nomUser, @clave, @mail, @secID)`
         let result = await pool.request()
             .input('nomUser', sql.VarChar, req.body.nombre_Usuario)
             .input('clave', sql.VarChar, req.body.clave)
+            .input('mail',sql.VarChar,req.body.email)
             .input('secID', sql.VarChar, req.body.id_Sector)
             .query(query);
         res.send(result);
@@ -61,12 +62,14 @@ const updateUsuario = (async (req: Request, res: Response) => {
         let query =
             `UPDATE Usuarios SET 
             nombre_Usuario = @nomUser, 
-            clave = @clave
+            clave = @clave,
+            email = @mail
             WHERE id_Usuario = @id`;
         let pool = await new sql.ConnectionPool(config).connect();
         let result = await pool.request()
             .input('nomUser', sql.VarChar, req.body.nombre_Usuario)
             .input('clave', sql.VarChar, req.body.clave)
+            .input('mail', sql.VarChar, req.body.email)
             .input('id', sql.Int, req.params.id)
             .query(query);
         res.send(result);

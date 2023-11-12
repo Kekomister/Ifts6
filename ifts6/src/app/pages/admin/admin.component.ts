@@ -276,6 +276,7 @@ export class AdminComponent implements OnInit {
     this.columnas = [
       { field: "id_Usuario", header: "ID" },
       { field: "nombre_Usuario", header: "Nombre del usuario" },
+      { field: "email", header: "E-mail" },
       //{ field: "clave", header: "Contraseña" },
       { field: "descripcion", header: "Rol" },
     ];
@@ -519,6 +520,7 @@ export class AdminComponent implements OnInit {
         this.userTemp.clave = objeto.clave;
         this.userTemp.nombre_Usuario = objeto.nombre_Usuario;
         this.userTemp.id_Sector = objeto.id_Sector;
+        this.userTemp.email = objeto.email;
         break;
       default:
         break;
