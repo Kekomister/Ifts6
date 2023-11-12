@@ -10,6 +10,6 @@ export class InicioComponent {
 
   criterioPag : string = "Inicio";
 
-  constructor(private conexion : ConexionService){}
+  constructor(){}
 
 }

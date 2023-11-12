@@ -8,8 +8,6 @@ import { ConexionService } from 'src/app/services/conexion.service';
 })
 export class CarrerasComponent {
   
-  criterioPag : any;
-
   constructor(){}
 
 }

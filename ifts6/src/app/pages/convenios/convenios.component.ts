@@ -10,5 +10,5 @@ export class ConveniosComponent {
   
   criterioPag : string = "Convenios";
 
-  constructor(private conexion : ConexionService){}
+  constructor(){}
 }

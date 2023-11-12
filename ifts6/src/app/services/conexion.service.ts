@@ -28,8 +28,16 @@ export class ConexionService {
 
 
 
+  public traerUsuariosComun(){
+    return this.http.get<Usuario[]>(this.urlUsuario);
+  }
+
   public traerUsuarios(){
     return this.http.get<Usuario[]>(this.urlUsuario+"/legible");
+  }
+
+  public crearUsuario(userTemp){
+    return this.http.post(this.urlUsuario, userTemp);
   }
 
   public modificarUsuario(userTemp : Usuario){
@@ -41,6 +49,10 @@ export class ConexionService {
   }
   
 
+
+  public traerSectoresComun(){
+    return this.http.get<Sector[]>(this.urlSector);
+  }
 
   public traerSectores(){
     return this.http.get(this.urlPagina + "/sector/legible");
@@ -84,6 +96,13 @@ export class ConexionService {
 
   public traerPublicacionesUsuario(nombre){
     return this.http.get(this.urlPublicacion + "/usuario/legible/" + nombre);
+  }
+
+  public crearPublicacion(formData){
+    return this.http.post(this.urlPublicacion, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
   }
 
   public modificarPublicacion(id : number, formData : FormData){

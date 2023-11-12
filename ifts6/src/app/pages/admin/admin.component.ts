@@ -8,7 +8,6 @@ import { Column } from 'src/app/classes/column.model';
 import { Sector } from 'src/app/classes/sector.model';
 import { Pagina } from 'src/app/classes/pagina.model';
 import { LoginService } from 'src/app/services/login.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -39,8 +38,7 @@ export class AdminComponent implements OnInit {
 
   cual: string = "";
 
-  constructor(private conexion: ConexionService, private http: HttpClient,
-    private msj: MensajesService, public login: LoginService) { }
+  constructor(private conexion: ConexionService, private msj: MensajesService, public login: LoginService) { }
 
   ngOnInit() {
     this.iniciarAdmin();
@@ -88,7 +86,7 @@ export class AdminComponent implements OnInit {
   }
 
   private traerAdmin() {
-    this.http.get(this.conexion.urlUsuario).subscribe(async res => {
+    this.conexion.traerUsuariosComun().subscribe(async res => {
       let array_Users: any = await res;
 
       array_Users.forEach(element => {
@@ -334,7 +332,7 @@ export class AdminComponent implements OnInit {
   enviarUser() {
     console.log(this.userTemp);
 
-    this.http.post(this.conexion.urlUsuario, this.userTemp).subscribe(async res => {
+    this.conexion.crearUsuario(this.userTemp).subscribe(async res => {
       this.select_Tabla("User");
     })
     this.msj.success("Se ha agregado con exito!", "Genial");
@@ -357,10 +355,7 @@ export class AdminComponent implements OnInit {
   }
 
   public async sendFormData(formData: FormData) {
-    return this.http.post(this.conexion.urlPublicacion, formData, {
-      reportProgress: true,
-      observe: 'events',
-    });
+    return this.conexion.crearUsuario(formData);
   }
 
   async acciones(accion: any[]) {

@@ -29,7 +29,7 @@ export class PublicacionesComponent {
   publicacionesMostrar: Publicacion[] = [];
   imagen: any;
 
-  constructor(private http: HttpClient, public sanitizer: DomSanitizer,
+  constructor(public sanitizer: DomSanitizer,
     private conexion: ConexionService, private router: Router) { }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class PublicacionesComponent {
 
   getUsuarios() {
     try {
-      this.http.get<Usuario[]>(this.conexion.urlUsuario).subscribe(async res => {
+      this.conexion.traerUsuariosComun().subscribe(async res => {
         //console.log("USUARIOS : " + res);
         this.usuarios = await res;
       });
@@ -52,7 +52,7 @@ export class PublicacionesComponent {
 
   getSectores() {
     try {
-      this.http.get<Sector[]>(this.conexion.urlSector).subscribe(async res => {
+      this.conexion.traerSectoresComun().subscribe(async res => {
         //console.log("SECTORES : " + res);
         this.sectores = await res;
       });
@@ -74,7 +74,7 @@ export class PublicacionesComponent {
   }
 
   getPaginas() {
-    this.http.get<Pagina[]>(this.conexion.urlPagina).subscribe(async res => {
+    this.conexion.traerPagina().subscribe(async res => {
       this.paginas = await res;
     });
   }

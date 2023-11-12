@@ -10,5 +10,5 @@ export class ExtensionComponent {
   
   criterioPag : string = "Extension terciaria";
 
-  constructor(private conexion : ConexionService){}
+  constructor(){}
 }

@@ -10,5 +10,5 @@ export class InstitucionalComponent {
   
   criterioPag : string = "Institucional";
 
-  constructor(private conexion : ConexionService){}
+  constructor(){}
 }

@@ -10,7 +10,7 @@ export class IngresoComponent {
   
   criterioPag : string = "Ingreso";
 
-  constructor(private conexion : ConexionService){
+  constructor(){
   }
 
 }
