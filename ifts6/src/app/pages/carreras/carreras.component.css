@@ -5,6 +5,7 @@
     word-wrap: break-word; /* Permite que las palabras se rompan y continúen en la línea siguiente */
     white-space: normal;   /* Permite el desbordamiento de palabras para ajustarse al contenedor */
     overflow-wrap: break-word; /* Alternativa para navegadores que no admiten word-wrap */
+    height: 46vh;
 }
 
 .Generalidades {

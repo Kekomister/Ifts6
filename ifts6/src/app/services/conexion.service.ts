@@ -35,6 +35,10 @@ export class ConexionService {
   public modificarUsuario(userTemp : Usuario){
     return this.http.put(this.urlUsuario + "/" + userTemp.id_Usuario, userTemp);
   }
+
+  public borrarUsuario(objeto : any){
+    return this.http.delete(this.urlUsuario + "/" + objeto.id_Usuario);
+  }
   
 
 
@@ -46,12 +50,26 @@ export class ConexionService {
     return this.http.post(this.urlSector, sec);
   }
 
-  public crearConexionSectoresPagina(pag : number,id? : number,){
+  public modificarSector(sec : Sector){
+    console.log(sec);
+    
+    return this.http.put(this.urlSector + "/" + sec.id_Sector, sec);
+  }
+
+  public borrarSector(objeto : any){
+    return this.http.delete(this.urlSector + "/" + objeto.id_Sector);
+  }
+
+  public crearConexionSectorPagina(pag : number,id? : number){
     if(id != undefined){
       return this.http.post(this.urlPaginaConexion, {id_Pagina: pag});
     }else{
       return this.http.post(this.urlPaginaConexion, {id_Pagina: pag, sectores:id});
     }
+  }
+
+  public borrarConexionSectorPagina(id_Conexion){
+    return this.http.delete(this.urlPaginaConexion + "/" + id_Conexion);
   }
 
 
@@ -74,5 +92,9 @@ export class ConexionService {
 
   public modificarPublicacionSinImagen(id : number, formData : FormData){
     return this.http.put(this.urlPublicacion + "/sinImagen/" + id, formData);
+  }
+
+  public borrarPublicacion(objeto){
+    return this.http.delete(this.urlPublicacion + "/" + objeto.id_Publicacion);
   }
 }

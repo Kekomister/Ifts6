@@ -3,6 +3,8 @@ export class Sector{
     descripcion : string;
     paginas : number[];
 
+    conexion : number[];
+
     constructor(){}
 }
 

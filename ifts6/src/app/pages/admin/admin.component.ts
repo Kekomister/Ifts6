@@ -220,13 +220,18 @@ export class AdminComponent implements OnInit {
 
   private sacar_Repetidos() {
     let s: Sector[] = [];
-
+    
     for (let i = 0; i < this.sectores.length; i++) {
       let esta = 0;
+      let con = 1;
+      this.sectores[i].conexion = [];
+      this.sectores[i].conexion[0] = this.sectores[i].id_Conexion;
       for (let j = 1 + i; j < this.sectores.length; j++) {
         if (this.sectores[i].id_Sector == this.sectores[j].id_Sector) {
           this.sectores[i].nombre += ", " + this.sectores[j].nombre;
+          this.sectores[i].conexion[con] = this.sectores[j].id_Conexion;
           esta++;
+          con++;
         }
       }
       s.push(this.sectores[i]);
@@ -315,13 +320,7 @@ export class AdminComponent implements OnInit {
   }
 
   enviarSec() {
-    let array = [];
-    for (let i = 0; i < this.paginas.length; i++) {
-      let check = document.getElementById(`checkbox${i}`) as HTMLInputElement | null;
-      if (check.checked) {
-        array.push(Number(check.value));
-      }
-    }
+    let array = this.traerCheckbox();
     
     this.conexion.crearSector(this.sec).subscribe(async res => {
       this.enviarSecPag(array);
@@ -401,30 +400,41 @@ export class AdminComponent implements OnInit {
   async borrarAlguno(objeto) {
     switch (this.cual) {
       case "Sec":
-        await this.http.delete(this.conexion.urlSector + "/" + objeto.id_Sector)
-          .subscribe();
+        await this.borrarConexiones(objeto);
+        await this.conexion.borrarSector(objeto).subscribe();
         this.select_Tabla("Sec");
         break;
       case "Pub":
-        await this.http.delete(this.conexion.urlPublicacion + "/" + objeto.id_Publicacion)
-          .subscribe();
+        await this.conexion.borrarPublicacion(objeto).subscribe();
         this.select_Tabla("Pub");
         break;
       case "User":
-        await this.http.delete(this.conexion.urlUsuario + "/" + objeto.id_Usuario)
-          .subscribe();
+        await this.conexion.borrarUsuario(objeto).subscribe();
         this.select_Tabla("User");
-        break;
-      case "Pag":
-        console.log(objeto);
-
-        await this.http.delete(this.conexion.urlPaginaConexion + "/" + objeto.id_Conexion)
-          .subscribe();
-        this.select_Tabla("Pag");
         break;
       default:
         break;
     }
+  }
+
+  traerCheckbox(){
+    let array = [];
+    for (let i = 0; i < this.paginas.length; i++) {
+      let check = document.getElementById(`checkbox${i}`) as HTMLInputElement | null;
+      if (check.checked) {
+        array.push(Number(check.value));
+      }
+    }
+    return array;
+  }
+
+  async borrarConexiones(objeto){
+    if(objeto.conexion.length > 1){
+      for(let i = 0; i < objeto.conexion.length; i++){
+        await this.conexion.borrarConexionSectorPagina(objeto.conexion[i]).subscribe();
+      };
+    }
+    this.select_Tabla("Sec");
   }
 
   modificarUser() {
@@ -458,8 +468,12 @@ export class AdminComponent implements OnInit {
     this.vaciarCampos();
   }
 
-  modificarSec() {
-    this.http.put(this.conexion.urlSector + "/" + this.sec.id_Sector, this.sec).subscribe(async res => {
+  async modificarSec() {
+    let s = this.sec;
+    await this.borrarConexiones(this.sec);
+    let array = this.traerCheckbox();
+    this.conexion.modificarSector(s).subscribe(async res => {
+      this.enviarSecPag(array);
       this.select_Tabla("Sec");
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
@@ -470,7 +484,7 @@ export class AdminComponent implements OnInit {
     let repetidas = false;
     
     for(let i = 0; i < arrayPag.length; i++){
-      this.conexion.crearConexionSectoresPagina(arrayPag[i]).subscribe(async res => {})
+      this.conexion.crearConexionSectorPagina(arrayPag[i]).subscribe(async res => {})
       this.msj.success("Se ha agregado con exito!", "Genial");
     }
     if (repetidas) {
@@ -479,27 +493,14 @@ export class AdminComponent implements OnInit {
     this.vaciarCampos();
   }
 
-  private chequeo_Pagina_Repetida(pag: number) {
-    // let yaTiene = false;
-    // this.sectores.forEach(sector => {
-    //   if (sector.id_Sector == this.pagina.sectores) {
-    //     let nombre: string = sector.nombre;
-    //     if (nombre == null) {
-    //       nombre = sector.descripcion;
-    //     }
-    //     let pag = this.convertir_Pagina();
-    //     //console.log(nombre);
-    //     yaTiene = nombre.includes(pag);
-    //   }
-    // });
-    // return yaTiene;
-  }
-
   llenarCampos(objeto) {
     switch (this.cual) {
       case "Sec":
+        console.log(objeto.nombre);
+        this.llenarCheckbox(objeto.nombre);
         this.sec.descripcion = objeto.descripcion;
         this.sec.id_Sector = objeto.id_Sector;
+        this.sec.conexion = objeto.conexion;
         break;
       case "Pub":
         this.pub.descripcion = objeto.descripcion;
@@ -521,6 +522,17 @@ export class AdminComponent implements OnInit {
         break;
       default:
         break;
+    }
+  }
+
+  llenarCheckbox(nombrePags : string){
+    if(nombrePags != null){
+      for (let i = 0; i < this.paginas.length; i++) {
+        if(nombrePags.includes(this.paginas[i].nombre)){
+          let check = document.getElementById(`checkbox${i}`) as HTMLInputElement | null;
+          check.checked = true;
+        }
+      }
     }
   }
 
