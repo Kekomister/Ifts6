@@ -14,7 +14,7 @@ const getSector = (async (req: Request, res: Response) => {
         const pool = await new sql.ConnectionPool(config).connect();
         var respuesta = await pool.request().query('SELECT * FROM Sectores');
         sectores = respuesta.recordset;
-        console.log("Sectores : ", sectores);
+        //console.log("Sectores : ", sectores);
         res.send(sectores);
     } catch (e) {
         res.send(e);

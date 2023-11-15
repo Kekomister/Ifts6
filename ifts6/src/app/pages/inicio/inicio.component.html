@@ -1,1 +1,3 @@
-<app-publicaciones [criterio]="criterioPag" [cantidad]="6"></app-publicaciones>
+<button (click)="verTodas()" *ngIf="cant == 6"> Ver todas las publicaciones </button>
+
+<app-publicaciones [criterio]="criterioPag" [cantidad]="cant"></app-publicaciones>

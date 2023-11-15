@@ -14,7 +14,7 @@ const getUsuario = (async (req: Request, res: Response) => {
         const pool = await new sql.ConnectionPool(config).connect();
         var respuesta = await pool.request().query('SELECT * FROM Usuarios');
         usuarios = respuesta.recordset;
-        console.log("Usuarios : ", usuarios);
+        //console.log("Usuarios : ", usuarios);
         res.send(usuarios);
     } catch (e) {
         res.send(e);
@@ -30,7 +30,7 @@ const getUsuarioLegible = (async (req: Request, res: Response) => {
         FROM Usuarios
         INNER JOIN Sectores ON Usuarios.id_Sector = Sectores.id_Sector`);
         usuarios = respuesta.recordset;
-        console.log("Usuarios : ", usuarios);
+        //console.log("Usuarios : ", usuarios);
         res.send(usuarios);
     } catch (e) {
         res.send(e);

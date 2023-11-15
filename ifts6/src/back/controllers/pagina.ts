@@ -14,7 +14,7 @@ const getPaginas = (async (req: Request, res: Response) => {
         const pool = await new sql.ConnectionPool(config).connect();
         var respuesta = await pool.request().query('SELECT * FROM Paginas');
         paginas = respuesta.recordset;
-        console.log("Paginas : ", paginas);
+        //console.log("Paginas : ", paginas);
         res.send(paginas);
     } catch (e) {
         res.send(e);
@@ -29,7 +29,7 @@ const getPagina = (async (req: Request, res: Response) => {
             .input('nom', sql.VarChar, req.params.nombre)
             .query(`SELECT * FROM Paginas WHERE nombre = @nom`);
         paginas = respuesta.recordset;
-        console.log("Paginas : ", paginas);
+        //console.log("Paginas : ", paginas);
         res.send(paginas);
     } catch (e) {
         res.send(e);
@@ -42,7 +42,7 @@ const getConexion = (async (req: Request, res: Response) => {
         const pool = await new sql.ConnectionPool(config).connect();
         var respuesta = await pool.request().query('SELECT * FROM PaginasXSectores');
         paginas = respuesta.recordset;
-        console.log("Conexiones : ", paginas);
+        //console.log("Conexiones : ", paginas);
         res.send(paginas);
     } catch (e) {
         res.send(e);
@@ -61,7 +61,7 @@ const getPaginasLegibles = (async (req: Request, res: Response) => {
 		LEFT JOIN Paginas ON Paginas.id_Pagina = PaginasXSectores.id_Pagina`;
         var respuesta = await pool.request().query(query);
         paginas = respuesta.recordset;
-        console.log("Paginas : ", paginas);
+        //console.log("Paginas : ", paginas);
         res.send(paginas);
     } catch (e) {
         res.send(e);
@@ -82,7 +82,7 @@ const getPaginaLegible = (async (req: Request, res: Response) => {
         var respuesta =
             await pool.request().input('nom', sql.VarChar, req.params.nombre).query(query);
         paginas = respuesta.recordset;
-        console.log("Pagina : ", paginas);
+        //console.log("Pagina : ", paginas);
         res.send(paginas);
     } catch (e) {
         res.send(e);

@@ -7,17 +7,14 @@
         </div>
         
         <h3>
-            <p>{{fila.descripcion}}</p>
+            <p class="descripcion">{{fila.descripcion | descripcion}}</p>
         </h3>
         <br>
         <h3><label for="">Fecha de publicación: {{fila.fecha_Publicacion | date:'dd-MM-YY'}}</label></h3>
         <br>
-        <!-- <h3><label for="">Publicado por: {{convertirUsuario(fila.id_Usuario)}}</label></h3>
-            <br>
-            <h3><label for="">Sector: {{convertirSector(fila.id_Sector)}}</label></h3> -->
         <h3><label for="">Publicado por: {{fila.nombre_Usuario}}</label></h3>
         <br>
-        <h3><label for="">Sector: {{fila.sector}}</label></h3>
+        <h3><label for="" *ngIf="criterio == 'Inicio'">Sector: {{fila.sector}}</label></h3>
 
     </div>
 </div>

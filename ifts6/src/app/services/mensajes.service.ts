@@ -66,4 +66,13 @@ export class MensajesService {
     });
   }
 
+  consulta() {
+    return Swal.fire({
+      title: 'Desea enviar la consulta?',
+      showDenyButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+    })
+  }
+
 }

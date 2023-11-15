@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ConexionService } from 'src/app/services/conexion.service';
 
 @Component({
   selector: 'app-inicio',
@@ -9,7 +8,12 @@ import { ConexionService } from 'src/app/services/conexion.service';
 export class InicioComponent {
 
   criterioPag : string = "Inicio";
+  cant : number = 6;
 
   constructor(){}
+
+  verTodas(){
+    this.cant = 999999999;
+  }
 
 }

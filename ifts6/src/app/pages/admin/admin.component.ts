@@ -331,7 +331,6 @@ export class AdminComponent implements OnInit {
 
   enviarUser() {
     console.log(this.userTemp);
-
     this.conexion.crearUsuario(this.userTemp).subscribe(async res => {
       this.select_Tabla("User");
     })
@@ -348,14 +347,14 @@ export class AdminComponent implements OnInit {
     formData.append('id_Usuario', String(this.user.id_Usuario));
     formData.append('id_Pagina', String(this.pub.id_Pagina));
     file.inProgress = true;
-
+    
     (await this.sendFormData(formData)).subscribe((event: any) => {
       this.select_Tabla("Pub");
     });
   }
 
   public async sendFormData(formData: FormData) {
-    return this.conexion.crearUsuario(formData);
+    return this.conexion.crearPublicacion(formData);
   }
 
   async acciones(accion: any[]) {

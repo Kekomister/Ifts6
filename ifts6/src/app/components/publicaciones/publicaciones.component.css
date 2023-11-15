@@ -1,5 +1,6 @@
 /* Estilo para el contenedor de publicaciones */
 .contenedor-pub {
+    min-height: 50.3vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -36,7 +37,7 @@
   
   .imagen-pub {
     max-width: 100%;
-    height: auto;
+    height: 200px;
     border: 1px solid #ddd;
   }
   
@@ -44,6 +45,10 @@
   .pub p {
     margin: 10px 0;
    
+  }
+
+  .descripcion{
+    
   }
   
   /* Estilo para las etiquetas de información */

@@ -23,6 +23,7 @@ import { TableModule } from 'primeng/table';
 import { Error404Component } from './components/error404/error404.component';
 import { DetalleComponent } from './pages/detalle/detalle.component';
 import { DiaPipe } from './pipes/dia.pipe';
+import { DescripcionPipe } from './pipes/descripcion.pipe';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { DiaPipe } from './pipes/dia.pipe';
     Error404Component,
     DetalleComponent,
     DiaPipe,
+    DescripcionPipe,
   ],
   imports: [
     BrowserModule,

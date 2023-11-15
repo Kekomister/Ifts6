@@ -30,7 +30,7 @@ const getPublicacion = (async (req: Request, res: Response) => {
         const pool = await new sql.ConnectionPool(config).connect();
         var respuesta = await pool.request().query('SELECT * FROM Publicaciones');
         publicaciones = respuesta.recordset;
-        console.log("Publicaciones : ", publicaciones);
+        //console.log("Publicaciones : ", publicaciones);
         publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
@@ -55,7 +55,7 @@ const getPublicacionesUsuarioLegible = (async (req: Request, res: Response) => {
             .input('nomUser', sql.VarChar, req.params.nombre)
             .query(query);
         publicaciones = respuesta.recordset;
-        console.log("Publicaciones : ", publicaciones);
+        //console.log("Publicaciones : ", publicaciones);
         publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
@@ -77,7 +77,7 @@ const getPublicacionesLegible = (async (req: Request, res: Response) => {
         ORDER BY fecha_Publicacion DESC`;
         var respuesta = await pool.request().query(query);
         publicaciones = respuesta.recordset;
-        console.log("Publicaciones : ", publicaciones);
+        //console.log("Publicaciones : ", publicaciones);
         publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
@@ -98,7 +98,7 @@ const getPublicacionLegible = (async (req: Request, res: Response) => {
         WHERE id_Publicacion = @id`;
         var respuesta = await pool.request().input('id', sql.Int, req.params.id).query(query);
         publicaciones = respuesta.recordset;
-        console.log("Publicacion : ", publicaciones);
+        //console.log("Publicacion : ", publicaciones);
         publicaciones = convertirAImagenes(publicaciones);
         res.send(publicaciones);
     } catch (e) {
@@ -107,7 +107,7 @@ const getPublicacionLegible = (async (req: Request, res: Response) => {
 });
 
 function convertirAImagenes(array: any) {
-    console.log(array.length);
+    //console.log(array.length);
     for (let i = 0; i < array.length; i++) {
         array[i].imagen = Buffer.from(array[i].imagen).toString('base64');
     }
