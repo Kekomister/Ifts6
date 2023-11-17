@@ -1,7 +1,9 @@
 <app-header></app-header>
 
-<p> {{login.getConectado().conectado}}</p>
-<button (click)="cerrarSesion()" *ngIf="login.getConectado().conectado"> Cerrar Sesion </button>
+<div *ngIf="login.getConectado().conectado">
+    <p> {{login.getConectado().nombre_Usuario}}</p>
+    <button (click)="cerrarSesion()"> Cerrar Sesion </button>    
+</div>
 
 <router-outlet></router-outlet>
 

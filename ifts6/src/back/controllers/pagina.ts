@@ -111,12 +111,13 @@ const createConexionPagina = (async (req: Request, res: Response) => {
         let pool = await new sql.ConnectionPool(config).connect();
 
         let secID = req.body.sectores;
+        
         if (secID == undefined) {
             secID = await pool.request()
             .query(`SELECT TOP 1 * FROM Sectores
             ORDER BY id_Sector DESC`);
+            secID = secID.recordset[0].id_Sector;
         }
-        secID = secID.recordset[0].id_Sector;
         console.log("SEC ID : AA");
         console.log(secID);
 

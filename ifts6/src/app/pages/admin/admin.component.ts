@@ -57,7 +57,7 @@ export class AdminComponent implements OnInit {
     this.user.nombre_Usuario = this.login.getConectado().nombre_Usuario;
     if (this.login.getConectado().conectado) {
       if (this.login.getAdmin().conectado) {
-        console.log("ENTRO ADMIN");
+        //console.log("ENTRO ADMIN");
         this.traerAdmin();
       } else {
 
@@ -311,7 +311,7 @@ export class AdminComponent implements OnInit {
         this.sendFile(file);
       });
       this.msj.success("Se ha agregado con exito!", "Genial");
-      console.log(this.files);
+      //console.log(this.files);
     } else {
       this.msj.error("Error", "No tenes permiso en ninguna pagina, chequea con el admin.", "Okey");
     }
@@ -330,7 +330,7 @@ export class AdminComponent implements OnInit {
   }
 
   enviarUser() {
-    console.log(this.userTemp);
+    //console.log(this.userTemp);
     this.conexion.crearUsuario(this.userTemp).subscribe(async res => {
       this.select_Tabla("User");
     })
@@ -424,7 +424,7 @@ export class AdminComponent implements OnInit {
   }
 
   async borrarConexiones(objeto){
-    if(objeto.conexion.length > 1){
+    if(objeto.conexion.length > 0){
       for(let i = 0; i < objeto.conexion.length; i++){
         await this.conexion.borrarConexionSectorPagina(objeto.conexion[i]).subscribe();
       };
@@ -465,25 +465,23 @@ export class AdminComponent implements OnInit {
 
   async modificarSec() {
     let s = this.sec;
-    await this.borrarConexiones(this.sec);
     let array = this.traerCheckbox();
+    let l = await this.borrarConexiones(this.sec);
+    //console.log(array);
+    
     this.conexion.modificarSector(s).subscribe(async res => {
-      this.enviarSecPag(array);
+      this.enviarSecPag(array,s.id_Sector);
       this.select_Tabla("Sec");
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
   }
 
-  enviarSecPag(arrayPag : number[]) {
-    let repetidas = false;
-    
+  enviarSecPag(arrayPag : number[], id? : number) {
+
     for(let i = 0; i < arrayPag.length; i++){
-      this.conexion.crearConexionSectorPagina(arrayPag[i]).subscribe(async res => {})
+      this.conexion.crearConexionSectorPagina(arrayPag[i],id).subscribe(async res => {})
       this.msj.success("Se ha agregado con exito!", "Genial");
-    }
-    if (repetidas) {
-      this.msj.error("Error", "Ya tenia permiso en algunas paginas", "Ah perdon");
     }
     this.vaciarCampos();
   }
@@ -491,7 +489,7 @@ export class AdminComponent implements OnInit {
   llenarCampos(objeto) {
     switch (this.cual) {
       case "Sec":
-        console.log(objeto.nombre);
+        //console.log(objeto.nombre);
         this.llenarCheckbox(objeto.nombre);
         this.sec.descripcion = objeto.descripcion;
         this.sec.id_Sector = objeto.id_Sector;
@@ -507,7 +505,7 @@ export class AdminComponent implements OnInit {
         this.pub.titulo = objeto.titulo;
         this.pub.id_Pagina = this.buscar_Pagina(objeto.pagina);
 
-        console.log(this.pub);
+        //console.log(this.pub);
         break;
       case "User":
         this.userTemp.id_Usuario = objeto.id_Usuario;
@@ -541,14 +539,14 @@ export class AdminComponent implements OnInit {
     return 0;
   }
 
-  private convertir_Pagina(): string {
-    for (let i = 0; i < this.paginas.length; i++) {
-      if (this.paginas[i].id_Pagina == this.pagina.id_Pagina) {
-        return this.paginas[i].nombre;
-      }
-    }
-    return "";
-  }
+  // private convertir_Pagina(): string {
+  //   for (let i = 0; i < this.paginas.length; i++) {
+  //     if (this.paginas[i].id_Pagina == this.pagina.id_Pagina) {
+  //       return this.paginas[i].nombre;
+  //     }
+  //   }
+  //   return "";
+  // }
 
   private buscar_Pagina(pagina: string): number {
     for (let i = 0; i < this.paginas.length; i++) {

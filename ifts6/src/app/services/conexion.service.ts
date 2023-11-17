@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Publicacion } from '../classes/publicacion.model';
 import { Usuario } from '../classes/usuario.model';
 import { Pagina } from '../classes/pagina.model';
@@ -73,7 +73,7 @@ export class ConexionService {
   }
 
   public crearConexionSectorPagina(pag : number,id? : number){
-    if(id != undefined){
+    if(id == undefined){
       return this.http.post(this.urlPaginaConexion, {id_Pagina: pag});
     }else{
       return this.http.post(this.urlPaginaConexion, {id_Pagina: pag, sectores:id});

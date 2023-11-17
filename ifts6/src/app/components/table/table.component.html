@@ -1,12 +1,7 @@
 <div class="card">
-    <p-table id="customers"
-    [paginator]="true"
-    [rows]="5"
-    [showCurrentPageReport]="true"
-    [columns]="columnas" 
-    [value]="filas" 
-    [tableStyle]="{ 'min-width': '50rem' }"
-    currentPageReportTemplate="Viendo del registro {first} hasta el {last} de {totalRecords} registros">
+    <p-table id="customers" [paginator]="true" [rows]="5" [showCurrentPageReport]="true" [columns]="columnas"
+        [value]="filas" [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Viendo del registro {first} hasta el {last} de {totalRecords} registros">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -20,11 +15,18 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns">
-                    {{ rowData[col.field] }}
+                    <ng-container *ngIf="col.field == 'descripcion'">
+                        <div (click)="verDescripcion(rowData[col.field])">
+                            {{ rowData[col.field] | descripcion}}
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="col.field != 'descripcion'">
+                        {{ rowData[col.field]}}
+                    </ng-container>
                 </td>
                 <td>
-                    <button class="pi pi-pencil icono_edit" (click) = "modificar(rowData)">  </button>
-                    <button class="pi pi-trash icono_trash" (click) = "borrar(rowData)">  </button>
+                    <button class="pi pi-pencil icono_edit" (click)="modificar(rowData)"> </button>
+                    <button class="pi pi-trash icono_trash" (click)="borrar(rowData)"> </button>
                 </td>
             </tr>
         </ng-template>
@@ -35,4 +37,10 @@
             <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
         </ng-template>
     </p-table>
+</div>
+
+<div id="tabla-desc" class="descripcion">
+    <button class="descripcion-button" (click)="salirDescripcion()"> X </button>
+    <label class="descripcion-label" for=""> Descripcion </label>
+    <textarea id="descripcion-text" class="descripcion-textarea" cols="100" rows="20" readonly></textarea>
 </div>

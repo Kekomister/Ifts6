@@ -35,3 +35,30 @@
     color: red;
     
   }
+
+
+  .descripcion {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 3px solid  #FFD300;
+    z-index: 9;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
+}
+
+.descripcion-button{
+    width: 3vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: red;
+}
+
+.descripcion-label{
+    margin: 1vh;
+}

@@ -22,5 +22,14 @@ import { Column } from 'src/app/classes/column.model';
     modificar(info: any) {
       this.accion.emit(["modificar", info]);
     }
+
+    verDescripcion(descripcion : string){
+      document.getElementById("tabla-desc").style.display = "flex";
+      (<HTMLTextAreaElement>document.getElementById("descripcion-text")).value = descripcion;
+    }
+
+    salirDescripcion() {
+      document.getElementById("tabla-desc").style.display = "none";
+    }
   }
   
