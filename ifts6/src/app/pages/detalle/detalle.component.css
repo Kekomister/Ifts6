@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .contenedor-pub {
+    text-align: center; /* Centra el texto dentro del contenedor */
+    max-width: 600px; /* Establece un ancho máximo para la publicación */
+    margin: 0 auto; /* Centra el contenedor en el eje horizontal */
+  }
+  
+  .contenedor-img {
+    margin-top: 10px; /* Ajusta el margen superior de la imagen si es necesario */
+  }
+  
+  .imagen-pub {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+    height: auto; /* Permite que la altura se ajuste automáticamente según el ancho */
+  }
+  

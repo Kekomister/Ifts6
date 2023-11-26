@@ -3,7 +3,7 @@ export class Publicacion{
     titulo : string;
     descripcion : string;
     imagen : any;
-    fecha_Publicacion : string;
+    fecha_Publicacion : Date | undefined;
     id_Usuario : number;
     id_Pagina : number;
 

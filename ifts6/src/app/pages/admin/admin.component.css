@@ -174,7 +174,7 @@
 .admin-publicaciones-buttonusu {
   width: 10vh; /* Reduce el ancho del botón */
   height: 4vh; /* Reduce la altura del botón */
-  padding: 1vh 2vh;
+  padding: 1vh 1vh;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -183,6 +183,7 @@
   font-size: 12px; /* Reduce el tamaño de fuente */
   transition: background-color 0.3s;
   margin-left: 10px; /* Ajusta la distancia desde el último input de "Rol" */
+  text-align: center; 
 }
 
 .admin-publicaciones-buttonusu:hover {
@@ -191,7 +192,7 @@
 
 .admin-publicaciones-buttonSec {
   width: 10vh; /* Deja que el ancho se ajuste automáticamente al contenido */
-  height: 4vh; /* Reduce la altura del botón */
+  height: 10vh; /* Reduce la altura del botón */
   padding: 1vh 2vh;
   background-color: #007bff;
   color: #fff;
