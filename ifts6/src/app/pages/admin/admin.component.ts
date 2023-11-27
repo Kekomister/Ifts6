@@ -218,7 +218,7 @@ export class AdminComponent implements OnInit {
 
   private sacar_Repetidos() {
     let s: Sector[] = [];
-    
+
     for (let i = 0; i < this.sectores.length; i++) {
       let esta = 0;
       let con = 1;
@@ -320,7 +320,7 @@ export class AdminComponent implements OnInit {
 
   enviarSec() {
     let array = this.traerCheckbox();
-    
+
     this.conexion.crearSector(this.sec).subscribe(async res => {
       this.enviarSecPag(array);
       this.select_Tabla("Sec");
@@ -347,7 +347,7 @@ export class AdminComponent implements OnInit {
     formData.append('id_Usuario', String(this.user.id_Usuario));
     formData.append('id_Pagina', String(this.pub.id_Pagina));
     file.inProgress = true;
-    
+
     (await this.sendFormData(formData)).subscribe((event: any) => {
       this.select_Tabla("Pub");
     });
@@ -364,8 +364,12 @@ export class AdminComponent implements OnInit {
       let res = await this.msj.preguntar
         ("Estas seguro de querer borrar?", mensaje, "Si", "Cambie de opinion")
       if (res.isConfirmed) {
-        this.borrarAlguno(accion[1]);
-        this.msj.info("Se ha borrado correctamente", "Entendido");
+        if (this.chequeoSectorUsuario(accion[1].id_Sector)) {
+          this.borrarAlguno(accion[1]);
+          this.msj.info("Se ha borrado correctamente", "Entendido");
+        } else {
+          this.msj.error("Problema", "Hay usuarios utilizando este sector, por favor cambiele el sector a esos usuarios primero.", "Entendido");
+        }
       } else {
         this.msj.info("Se ha cancelado", "Gracias");
       }
@@ -412,7 +416,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  traerCheckbox(){
+  traerCheckbox() {
     let array = [];
     for (let i = 0; i < this.paginas.length; i++) {
       let check = document.getElementById(`checkbox${i}`) as HTMLInputElement | null;
@@ -423,9 +427,9 @@ export class AdminComponent implements OnInit {
     return array;
   }
 
-  async borrarConexiones(objeto){
-    if(objeto.conexion.length > 0){
-      for(let i = 0; i < objeto.conexion.length; i++){
+  async borrarConexiones(objeto) {
+    if (objeto.conexion.length > 0) {
+      for (let i = 0; i < objeto.conexion.length; i++) {
         await this.conexion.borrarConexionSectorPagina(objeto.conexion[i]).subscribe();
       };
     }
@@ -468,19 +472,19 @@ export class AdminComponent implements OnInit {
     let array = this.traerCheckbox();
     let l = await this.borrarConexiones(this.sec);
     //console.log(array);
-    
+
     this.conexion.modificarSector(s).subscribe(async res => {
-      this.enviarSecPag(array,s.id_Sector);
+      this.enviarSecPag(array, s.id_Sector);
       this.select_Tabla("Sec");
     })
     this.msj.success("Se ha modificado con exito!", "Genial");
     this.vaciarCampos();
   }
 
-  enviarSecPag(arrayPag : number[], id? : number) {
+  enviarSecPag(arrayPag: number[], id?: number) {
 
-    for(let i = 0; i < arrayPag.length; i++){
-      this.conexion.crearConexionSectorPagina(arrayPag[i],id).subscribe(async res => {})
+    for (let i = 0; i < arrayPag.length; i++) {
+      this.conexion.crearConexionSectorPagina(arrayPag[i], id).subscribe(async res => { })
       this.msj.success("Se ha agregado con exito!", "Genial");
     }
     this.vaciarCampos();
@@ -519,10 +523,10 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  llenarCheckbox(nombrePags : string){
-    if(nombrePags != null){
+  llenarCheckbox(nombrePags: string) {
+    if (nombrePags != null) {
       for (let i = 0; i < this.paginas.length; i++) {
-        if(nombrePags.includes(this.paginas[i].nombre)){
+        if (nombrePags.includes(this.paginas[i].nombre)) {
           let check = document.getElementById(`checkbox${i}`) as HTMLInputElement | null;
           check.checked = true;
         }
@@ -555,6 +559,17 @@ export class AdminComponent implements OnInit {
       }
     }
     return -1;
+  }
+
+  private chequeoSectorUsuario(sectID): boolean {
+    let usus: Usuario[] = this.usuarios;
+    let noEsta = true;
+    usus.forEach(usu => {
+      if (usu.id_Sector == sectID) {
+        noEsta = false;
+      }
+    });
+    return noEsta;
   }
 
   vaciarCampos() {

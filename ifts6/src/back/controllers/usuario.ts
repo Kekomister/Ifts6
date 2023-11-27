@@ -63,6 +63,7 @@ const updateUsuario = (async (req: Request, res: Response) => {
             `UPDATE Usuarios SET 
             nombre_Usuario = @nomUser, 
             clave = @clave,
+            id_Sector = @sectID,
             email = @mail
             WHERE id_Usuario = @id`;
         let pool = await new sql.ConnectionPool(config).connect();
@@ -70,6 +71,7 @@ const updateUsuario = (async (req: Request, res: Response) => {
             .input('nomUser', sql.VarChar, req.body.nombre_Usuario)
             .input('clave', sql.VarChar, req.body.clave)
             .input('mail', sql.VarChar, req.body.email)
+            .input('sectID', sql.Int, req.body.id_Sector)
             .input('id', sql.Int, req.params.id)
             .query(query);
         res.send(result);

@@ -1,0 +1,29 @@
+.contenedor-principal {
+    display:flex;
+    justify-content: center;
+    margin: 0 auto;
+    height: 50.3vh;
+    width: 65%;
+}
+
+p{
+    text-align: left;
+    font-size: large;
+}
+
+.pdfs{
+    display: flex;
+    padding-top: 1rem;
+    gap: 1rem;
+}
+
+a{
+    font-size: large;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 5px 5px black;
+}

@@ -80,7 +80,7 @@
         <label for=""> Clave <input type="password" [(ngModel)]="userTemp.clave"></label>
         <label for=""> E-mail <input type="text" [(ngModel)]="userTemp.email"></label>
         <label for="" *ngIf="!modificar"> Rol </label>
-        <select *ngIf="!modificar" class="admin-publicaciones-select" [(ngModel)]="userTemp.id_Sector">
+        <select class="admin-publicaciones-select" [(ngModel)]="userTemp.id_Sector">
             <option *ngFor="let sector of sectores" value="{{sector.id_Sector}}">{{sector.descripcion}}</option>
         </select>
         <button class="admin-publicaciones-buttonusu" *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
