@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   height: 54.3vh;
+  
 }
 
 /* Estilos para el cuadro de inicio de sesión */
@@ -80,6 +81,7 @@
   text-align: center;
   /* Centra los botones horizontalmente */
   background-color: #007bff;
+  margin: -0.65rem;
 }
 
 .btn {
@@ -213,6 +215,8 @@
   margin-left: 10px;
   /* Ajusta la distancia desde el último input de "Rol" */
   text-align: center;
+  margin-top: 10px;
+  
 }
 
 .admin-publicaciones-buttonusu:hover {
@@ -221,9 +225,9 @@
 }
 
 .admin-publicaciones-buttonSec {
-  width: 10vh;
+  width: 20vh;
   /* Deja que el ancho se ajuste automáticamente al contenido */
-  height: 10vh;
+  height: 5vh;
   /* Reduce la altura del botón */
   padding: 1vh 2vh;
   background-color: #007bff;
@@ -236,6 +240,8 @@
   transition: background-color 0.3s;
   margin-left: 95px;
   /* Ajusta la distancia desde el input de "Sector" */
+  margin-top: 10px;
+ 
 }
 
 
@@ -270,7 +276,7 @@
 
 }
 
-/**/
+
 
 /* Agrega estilos para el paginador */
 .paginador {
@@ -305,4 +311,13 @@
 
 .paginador-button:hover {
   background-color: #0056b3;
+}
+
+
+
+
+@media (min-height : 770px){
+  .admin {
+    height: 54.3vh;
+  }
 }

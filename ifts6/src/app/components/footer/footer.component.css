@@ -48,6 +48,15 @@ footer {
   padding-right: 4px;
 }
 
+/* Estilos para la imagen del logo */
+.iconsst {
+  width: 100px; /* Ajusta el ancho según tus necesidades */
+  height: auto; /* Esto mantiene la proporción original de la imagen */
+  display: block; /* Elimina espacio adicional debajo de la imagen */
+  margin: 10px 0; /* Agrega un margen opcional para separar la imagen de otros elementos */
+}
+
+
 .footer-logo-derecha {
   width: 160px;
   margin-right: 1.1rem;
