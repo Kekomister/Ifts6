@@ -331,13 +331,55 @@ export class AdminComponent implements OnInit {
 
   enviarUser() {
     //console.log(this.userTemp);
-    this.conexion.crearUsuario(this.userTemp).subscribe(async res => {
-      this.select_Tabla("User");
-    })
-    this.msj.success("Se ha agregado con exito!", "Genial");
-    this.vaciarCampos();
+    let check = this.chequeoCamposUsuario();
+    if(check){
+      this.conexion.crearUsuario(this.userTemp).subscribe(async res => {
+        this.select_Tabla("User");
+      })
+      this.msj.success("Se ha agregado con exito!", "Genial");
+      this.vaciarCampos();
+    }
   }
 
+  private chequeoCamposUsuario() : boolean {
+    let todoBien = true;
+    if (this.userTemp.nombre_Usuario == undefined) {
+      this.msj.error("Error", "El campo de nombre no debe estar vacio", "OK");
+      todoBien = false;
+    } else {
+      if (this.usuarioExistente()) {
+        this.msj.error("Error", "El nombre indicado ya esta siendo usado o no es permitido", "OK");
+        todoBien = false;
+      } else {
+        if (this.userTemp.clave == undefined) {
+          this.msj.error("Error", "La clave no debe estar vacia", "OK");
+          todoBien = false;
+        } else {
+          console.log(this.userTemp.id_Sector);
+          if (this.userTemp.id_Sector == undefined) {
+            this.msj.error("Error", "El rol debe ser seleccionado", "OK");
+            todoBien = false;
+          }
+        }
+      }
+    }
+    return todoBien;
+  }
+
+  private usuarioExistente() : boolean{
+    let yaExiste = false;
+
+    if(this.userTemp.nombre_Usuario.toLowerCase() == "admin"){
+      yaExiste = true;
+    }else{
+      this.usuarios.forEach(us => {
+        if(us.nombre_Usuario == this.userTemp.nombre_Usuario){
+          yaExiste = true;
+        }
+      });
+    }
+    return yaExiste;
+  }
 
   async sendFile(file) {
     const formData = new FormData();
@@ -358,14 +400,18 @@ export class AdminComponent implements OnInit {
   }
 
   async acciones(accion: any[]) {
-    // POR AHORA SOLO FUNCIONA PARA PUBLICACIONES
     if (accion[0] == "borrar") {
       let mensaje = this.borrarMensaje(accion[1]);
       let res = await this.msj.preguntar
         ("Estas seguro de querer borrar?", mensaje, "Si", "Cambie de opinion")
       if (res.isConfirmed) {
-        this.borrarAlguno(accion[1]);
-        this.msj.info("Se ha borrado correctamente", "Entendido");
+        let cheq = this.chequeoAlguno(accion[1]);
+        if (cheq == "") {
+          this.borrarAlguno(accion[1]);
+          this.msj.info("Se ha borrado correctamente", "Entendido");
+        } else {
+          this.msj.error("Error", cheq, "Entendido")
+        }
       } else {
         this.msj.info("Se ha cancelado", "Gracias");
       }
@@ -395,13 +441,9 @@ export class AdminComponent implements OnInit {
   async borrarAlguno(objeto) {
     switch (this.cual) {
       case "Sec":
-        if (this.chequeoSectorUsuario(objeto.id_Sector)) {
-          await this.borrarConexiones(objeto);
-          await this.conexion.borrarSector(objeto).subscribe();
-          this.select_Tabla("Sec");
-        } else {
-          this.msj.error("Problema", "Hay usuarios utilizando este sector, por favor cambiele el sector a esos usuarios primero.", "Entendido");
-        }
+        await this.borrarConexiones(objeto);
+        await this.conexion.borrarSector(objeto).subscribe();
+        this.select_Tabla("Sec");
         break;
       case "Pub":
         await this.conexion.borrarPublicacion(objeto).subscribe();
@@ -561,15 +603,47 @@ export class AdminComponent implements OnInit {
     return -1;
   }
 
+  private chequeoAlguno(objeto): string {
+    let esta = "";
+    switch (this.cual) {
+      case "Sec":
+        if (this.chequeoSectorUsuario(objeto.id_Sector)) {
+          esta = "Hay usuarios utilizando este sector, por favor cambiele el sector a esos usuarios primero.";
+        }
+        break;
+      case "Pub":
+        break;
+      case "User":
+        if (this.chequeoUsuarioPublicaciones(objeto.nombre_Usuario)) {
+          esta = "Hay publicaciones realizadas por este usuario, por favor borre dichas publicaciones primero.";
+        }
+        break;
+      default:
+        break;
+    }
+    return esta;
+  }
+
   private chequeoSectorUsuario(sectID): boolean {
     let usus: Usuario[] = this.usuarios;
-    let noEsta = true;
+    let esta = false;
     usus.forEach(usu => {
       if (usu.id_Sector == sectID) {
-        noEsta = false;
+        esta = true;
       }
     });
-    return noEsta;
+    return esta;
+  }
+
+  private chequeoUsuarioPublicaciones(userName): boolean {
+    let pubs: Publicacion[] = this.publicaciones;
+    let esta = false;
+    pubs.forEach(p => {
+      if (p.nombre_Usuario == userName) {
+        esta = true;
+      }
+    });
+    return esta;
   }
 
   vaciarCampos() {

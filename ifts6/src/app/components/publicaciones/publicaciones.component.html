@@ -1,4 +1,10 @@
+<div class="filtro-botones" *ngIf="todas">
+    <label for=""> Filtrar por : </label>
+    <button *ngFor="let s of sectores" (click) = "filtrar(s.descripcion)"> {{s.descripcion}} </button>
+</div>
+
 <div class="contenedor-pub">
+
     <div class="pub" *ngFor="let fila of publicacionesMostrar | slice:0:cantidad" (click)="detalle(fila)">
 
         <h2>{{fila.titulo}}</h2>

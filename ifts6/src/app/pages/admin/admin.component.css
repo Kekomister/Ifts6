@@ -77,11 +77,16 @@
   margin: 0 auto;
 }
 
+.ancho{
+  margin: 1rem;
+}
+
 .contenedor-botones {
+  margin-top: -0.65rem;
   text-align: center;
   /* Centra los botones horizontalmente */
   background-color: #007bff;
-  margin: -0.65rem;
+  margin-bottom: -0.65rem;
 }
 
 .btn {
@@ -312,9 +317,6 @@
 .paginador-button:hover {
   background-color: #0056b3;
 }
-
-
-
 
 @media (min-height : 770px){
   .admin {

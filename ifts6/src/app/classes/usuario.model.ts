@@ -1,6 +1,6 @@
 export class Usuario{
     id_Usuario : number;
-    nombre_Usuario : string;
+    nombre_Usuario! : string;
     clave : string;
     rol : number;
     email : string;

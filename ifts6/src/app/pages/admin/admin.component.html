@@ -23,6 +23,7 @@
     </div>
     
 
+    <div class="ancho">
 
     <div class="admin-publicaciones" *ngIf="cual == 'Pub'">
         <div class="admin-publicaciones-textos">
@@ -62,20 +63,18 @@
             <b>Sector:</b>
             <input type="text" [(ngModel)]="sec.descripcion">
         </label>
-    
-       
-    
+
         <div class="paginas-container"> <b>Paginas:</b>
             <label *ngFor="let pag of paginas, let i = index" for="checkbox{{i}}">
                 {{ pag.nombre }}
                 <input type="checkbox" id="checkbox{{i}}" name="paginas" value="{{ pag.id_Pagina }}">
             </label>
         </div>
-    
-        <button class="admin-publicaciones-buttonSec" *ngIf="!modificar" (click)="enviarSec()">Enviar Sector</button>
-        <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarSec()">MODIFICAR</button>
+
+        <button class="admin-publicaciones-buttonSec" *ngIf="!modificar" (click)="enviarSec()"> Enviar Sector </button>
+        <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarSec()"> MODIFICAR </button>
+
     </div>
-    
 
 
     <div class="admin-usuarios" *ngIf="cual == 'User'">
@@ -88,11 +87,9 @@
         </select>
         <button class="admin-publicaciones-buttonusu" *ngIf="!modificar" (click)="enviarUser()"> SUBMIT </button>
         <button class="admin-publicaciones-buttonusu" *ngIf="modificar" (click)="modificarUser()"> MODIFICAR </button>
-    
     </div>
-    
 
     <div>
         <app-table *ngIf="cual != ''" [columnas]="columnas" [filas]="filas" (accion)="acciones($event)"></app-table>
-   </div>
+    </div>
 </div>

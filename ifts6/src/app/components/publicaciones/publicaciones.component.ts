@@ -25,6 +25,7 @@ export class PublicacionesComponent {
   paginas: Pagina[] = [];
 
   @Input() criterio: string = "";
+  @Input() todas: boolean = false;
   @Input() cantidad: number = 9999999999999;
   publicacionesMostrar: Publicacion[] = [];
   imagen: any;
@@ -120,6 +121,22 @@ export class PublicacionesComponent {
       }
     }
     return sector;
+  }
+
+  filtrar(crit : string){
+    this.criterio = crit;
+    this.verSector();
+  }
+
+  verSector() {
+    this.publicacionesMostrar = [];
+    this.publicaciones.forEach(publicacion => {
+      if(publicacion.nombre_Usuario == this.criterio){
+        this.publicacionesMostrar.push(publicacion);
+      }
+    });
+    this.cantidad = this.publicacionesMostrar.length;
+    //console.log(this.publicacionesMostrar);
   }
 
 }
