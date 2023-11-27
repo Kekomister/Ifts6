@@ -17,17 +17,23 @@ body {
   
   .contenedor-img {
     margin-top: 10px; /* Ajusta el margen superior de la imagen si es necesario */
-    max-width: 600px; /* Establece un ancho máximo para la publicación */
+    width:50%; /* Establece un ancho máximo para la publicación */
     display:flex;
     align-self: center;
+    justify-content: center;
+    height: 50%;
   }
   
   .imagen-pub {
     max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
     height: auto; /* Permite que la altura se ajuste automáticamente según el ancho */
+    object-fit:contain;
+    
   }
   .descri p{
     width: 80%;
     text-align: left;
     margin: 0 auto;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 2;
   }

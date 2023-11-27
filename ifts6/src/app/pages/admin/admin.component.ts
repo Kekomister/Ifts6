@@ -350,7 +350,7 @@ export class AdminComponent implements OnInit {
       if (this.usuarioExistente()) {
         this.msj.error("Error", "El nombre indicado ya esta siendo usado o no es permitido", "OK");
         todoBien = false;
-      } else {
+      } else { console.log(this.userTemp.clave)
         if (this.userTemp.clave == undefined) {
           this.msj.error("Error", "La clave no debe estar vacia", "OK");
           todoBien = false;

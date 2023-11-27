@@ -27,9 +27,10 @@
   .pub {
     background-color: #f8f8f8;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 10px solid #ddd;
     border-radius: 5px;
     width: calc(33.33% - 20px); /* Ajustar el ancho de acuerdo a tus necesidades */
+    box-shadow:  -5px -5px rgba(53, 31, 3, 0.568);
   }
   
   /* Estilo para el título de la publicación */
