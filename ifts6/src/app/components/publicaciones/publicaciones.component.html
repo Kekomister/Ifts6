@@ -1,5 +1,6 @@
 <div class="filtro-botones" *ngIf="todas">
     <label for=""> Filtrar por : </label>
+    <button (click) = "filtrar('Todas')"> Todas </button>
     <button *ngFor="let s of sectores" (click) = "filtrar(s.descripcion)"> {{s.descripcion}} </button>
 </div>
 

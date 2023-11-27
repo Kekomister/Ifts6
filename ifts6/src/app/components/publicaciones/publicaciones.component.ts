@@ -66,7 +66,7 @@ export class PublicacionesComponent {
     try {
       this.conexion.traerPublicaciones().subscribe(async res => {
         this.publicaciones = await res;
-        
+
         this.verCriterio();
       });
     } catch (e) {
@@ -88,7 +88,7 @@ export class PublicacionesComponent {
     } else {
       this.publicacionesMostrar = [];
       this.publicaciones.forEach(publicacion => {
-        if(publicacion.pagina == this.criterio){
+        if (publicacion.pagina == this.criterio) {
           this.publicacionesMostrar.push(publicacion);
         }
       });
@@ -123,20 +123,23 @@ export class PublicacionesComponent {
     return sector;
   }
 
-  filtrar(crit : string){
+  filtrar(crit: string) {
     this.criterio = crit;
     this.verSector();
   }
 
   verSector() {
-    this.publicacionesMostrar = [];
-    this.publicaciones.forEach(publicacion => {
-      if(publicacion.nombre_Usuario == this.criterio){
-        this.publicacionesMostrar.push(publicacion);
-      }
-    });
+    if (this.criterio == "Todas") {
+      this.publicacionesMostrar = this.publicaciones;
+    } else {
+      this.publicacionesMostrar = [];
+      this.publicaciones.forEach(publicacion => {
+        if (publicacion.nombre_Usuario == this.criterio) {
+          this.publicacionesMostrar.push(publicacion);
+        }
+      });
+    }
     this.cantidad = this.publicacionesMostrar.length;
-    //console.log(this.publicacionesMostrar);
   }
 
 }

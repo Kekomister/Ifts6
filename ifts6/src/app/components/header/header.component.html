@@ -22,6 +22,7 @@
         </div>
         </div>
         <div class="header-negro">
+
             <div class="contenedor-botones">
                 <a (click)="irPagina('')"><button class="btn btn-custom">Inicio</button></a>
                 <a (click)="irPagina('institucional')"><button class="btn btn-custom">Institucional</button></a>
@@ -31,8 +32,9 @@
                 <a (click)="irPagina('convenios')"><button class="btn btn-custom">Convenios</button></a>
                 <a (click)="irPagina('contacto')"><button class="btn btn-custom">Contacto</button></a>
             </div>
+
             <div class="user" *ngIf="login.getConectado().conectado">
-                <p> {{login.getConectado().nombre_Usuario}}</p>
+                <p> Bienvenido {{login.getConectado().nombre_Usuario}}!</p>
                 <button (click)="cerrarSesion()"> Cerrar Sesion </button>    
             </div>
         </div>

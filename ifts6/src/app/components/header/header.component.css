@@ -97,8 +97,16 @@ header {
 
   .user{
     display: flex;
-    align-self: center;
+    align-items: center;
     color: white;
+    gap: 0.5rem;
+  }
+
+  .user button{
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px;
   }
 
   @media (min-width: 1200px) {
