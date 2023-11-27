@@ -343,19 +343,18 @@ export class AdminComponent implements OnInit {
 
   private chequeoCamposUsuario() : boolean {
     let todoBien = true;
-    if (this.userTemp.nombre_Usuario == undefined) {
+    if (this.userTemp.nombre_Usuario == undefined || this.userTemp.nombre_Usuario == "") {
       this.msj.error("Error", "El campo de nombre no debe estar vacio", "OK");
       todoBien = false;
     } else {
       if (this.usuarioExistente()) {
         this.msj.error("Error", "El nombre indicado ya esta siendo usado o no es permitido", "OK");
         todoBien = false;
-      } else { console.log(this.userTemp.clave)
-        if (this.userTemp.clave == undefined) {
+      } else {
+        if (this.userTemp.clave == undefined || this.userTemp.clave == "") {
           this.msj.error("Error", "La clave no debe estar vacia", "OK");
           todoBien = false;
         } else {
-          console.log(this.userTemp.id_Sector);
           if (this.userTemp.id_Sector == undefined) {
             this.msj.error("Error", "El rol debe ser seleccionado", "OK");
             todoBien = false;
