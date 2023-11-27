@@ -26,7 +26,7 @@ export class HeaderComponent {
   @HostListener('window:beforeunload', ['$event'])
   handleClose(e: BeforeUnloadEvent): void {
     //console.log(this.login.getConectado());
-    e.preventDefault();
+    //e.preventDefault();
     //e.returnValue = 'test';
     localStorage.clear();
     localStorage.setItem('Admin', JSON.stringify(this.login.getAdmin().conectado))

@@ -318,8 +318,8 @@
   background-color: #0056b3;
 }
 
-@media (min-height : 770px){
+@media (max-height : 770px){
   .admin {
-    height: 54.3vh;
+    height: 80vh;
   }
 }
