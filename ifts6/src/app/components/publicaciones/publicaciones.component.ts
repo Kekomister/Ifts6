@@ -134,9 +134,10 @@ export class PublicacionesComponent {
     } else {
       this.publicacionesMostrar = [];
       this.publicaciones.forEach(publicacion => {
-        if (publicacion.nombre_Usuario == this.criterio) {
+        if (publicacion.sector == this.criterio) {
           this.publicacionesMostrar.push(publicacion);
         }
+        console.log(publicacion)
       });
     }
     this.cantidad = this.publicacionesMostrar.length;

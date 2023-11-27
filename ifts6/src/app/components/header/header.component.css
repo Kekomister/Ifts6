@@ -65,6 +65,13 @@ header {
   .btn {
     margin: 5px;
     border-radius: 10px;
+    background-color: #424142;
+    color: #ffffff;
+    border: none;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
   .titulo_instituto {
@@ -99,11 +106,12 @@ header {
     display: flex;
     align-items: center;
     color: white;
-    gap: 0.5rem;
+  
+    width: 15%;
   }
 
   .user button{
-    padding: 10px;
+    padding: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 3px;
@@ -113,6 +121,19 @@ header {
     .container {
       width: 95%;
       margin: 0 auto;
+    }
+    .user{
+      display: flex;
+      align-items: center;
+      color: white;
+      gap: 0.5rem;
+    }
+  
+    .user button{
+      padding: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-radius: 3px;
     }
   }
   
