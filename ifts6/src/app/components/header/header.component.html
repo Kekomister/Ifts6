@@ -21,15 +21,21 @@
             <img class="imgifts6" src="assets/civil.png" alt="Imagen de encabezado">
         </div>
         </div>
-        <div class="contenedor-botones">
-            <a (click)="irPagina('')"><button class="btn btn-custom">Inicio</button></a>
-            <a (click)="irPagina('institucional')"><button class="btn btn-custom">Institucional</button></a>
-            <a (click)="irPagina('carreras')"><button class="btn btn-custom">Carrera</button></a>
-            <a (click)="irPagina('ingreso')"><button class="btn btn-custom">Ingreso</button></a>
-            <a (click)="irPagina('extension')"><button class="btn btn-custom">Extensión terciaria</button></a>
-            <a (click)="irPagina('convenios')"><button class="btn btn-custom">Convenios</button></a>
-            <a (click)="irPagina('contacto')"><button class="btn btn-custom">Contacto</button></a>
+        <div class="header-negro">
+            <div class="contenedor-botones">
+                <a (click)="irPagina('')"><button class="btn btn-custom">Inicio</button></a>
+                <a (click)="irPagina('institucional')"><button class="btn btn-custom">Institucional</button></a>
+                <a (click)="irPagina('carreras')"><button class="btn btn-custom">Carrera</button></a>
+                <a (click)="irPagina('ingreso')"><button class="btn btn-custom">Ingreso</button></a>
+                <a (click)="irPagina('extension')"><button class="btn btn-custom">Extensión terciaria</button></a>
+                <a (click)="irPagina('convenios')"><button class="btn btn-custom">Convenios</button></a>
+                <a (click)="irPagina('contacto')"><button class="btn btn-custom">Contacto</button></a>
+            </div>
+            <div class="user" *ngIf="login.getConectado().conectado">
+                <p> {{login.getConectado().nombre_Usuario}}</p>
+                <button (click)="cerrarSesion()"> Cerrar Sesion </button>    
+            </div>
         </div>
-
+        
     
 </header>

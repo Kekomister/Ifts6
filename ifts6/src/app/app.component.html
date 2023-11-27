@@ -1,10 +1,5 @@
 <app-header></app-header>
 
-<div *ngIf="login.getConectado().conectado">
-    <p> {{login.getConectado().nombre_Usuario}}</p>
-    <button (click)="cerrarSesion()"> Cerrar Sesion </button>    
-</div>
-
 <router-outlet></router-outlet>
 
 <app-footer></app-footer>

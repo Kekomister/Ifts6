@@ -364,12 +364,8 @@ export class AdminComponent implements OnInit {
       let res = await this.msj.preguntar
         ("Estas seguro de querer borrar?", mensaje, "Si", "Cambie de opinion")
       if (res.isConfirmed) {
-        if (this.chequeoSectorUsuario(accion[1].id_Sector)) {
-          this.borrarAlguno(accion[1]);
-          this.msj.info("Se ha borrado correctamente", "Entendido");
-        } else {
-          this.msj.error("Problema", "Hay usuarios utilizando este sector, por favor cambiele el sector a esos usuarios primero.", "Entendido");
-        }
+        this.borrarAlguno(accion[1]);
+        this.msj.info("Se ha borrado correctamente", "Entendido");
       } else {
         this.msj.info("Se ha cancelado", "Gracias");
       }
@@ -399,9 +395,13 @@ export class AdminComponent implements OnInit {
   async borrarAlguno(objeto) {
     switch (this.cual) {
       case "Sec":
-        await this.borrarConexiones(objeto);
-        await this.conexion.borrarSector(objeto).subscribe();
-        this.select_Tabla("Sec");
+        if (this.chequeoSectorUsuario(objeto.id_Sector)) {
+          await this.borrarConexiones(objeto);
+          await this.conexion.borrarSector(objeto).subscribe();
+          this.select_Tabla("Sec");
+        } else {
+          this.msj.error("Problema", "Hay usuarios utilizando este sector, por favor cambiele el sector a esos usuarios primero.", "Entendido");
+        }
         break;
       case "Pub":
         await this.conexion.borrarPublicacion(objeto).subscribe();

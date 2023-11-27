@@ -1,6 +1,6 @@
 /* Estilo para el contenedor de publicaciones */
 .contenedor-pub {
-    min-height: 50.3vh;
+    min-height: 54.3vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -58,3 +58,11 @@
     font-size: 14px;
     color: #666;
   }
+
+
+  
+  @media (max-height : 768) {
+    .contenedor-principal{
+        height: 40.3vh;
+    }
+}

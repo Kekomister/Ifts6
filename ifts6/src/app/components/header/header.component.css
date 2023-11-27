@@ -89,6 +89,18 @@ header {
  
   }
   
+  .header-negro{
+    background-color: #1d1c1a;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .user{
+    display: flex;
+    align-self: center;
+    color: white;
+  }
+
   @media (min-width: 1200px) {
     .container {
       width: 95%;

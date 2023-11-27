@@ -2,7 +2,7 @@
     display:flex;
     justify-content: center;
     margin: 0 auto;
-    height: 50.3vh;
+    height: 54.3vh;
     width: 65%;
 }
 
@@ -26,4 +26,27 @@ a{
     text-decoration: none;
     text-align: center;
     box-shadow: 5px 5px black;
+}
+
+@media (max-height : 770px) {
+    .contenedor-principal{
+        border: 1px solid red;
+        height: 60vh;
+    }
+
+    p{
+        text-align: left;
+        font-size: medium;
+    }
+
+    a{
+        font-size: medium;
+        padding: 5px;
+        background-color: #333;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        box-shadow: 5px 5px black;
+    }
 }
