@@ -1,9 +1,9 @@
 <div class="contenedor-pub">
-    <h1> {{publicacion.titulo}} </h1>
+    <h1 class="titulo"> {{publicacion.titulo}} </h1>
     <br>
-    <h3> <label for=""> Fecha de publicacion: {{publicacion.fecha_Publicacion | date:'dd/MM/yy'}} </label></h3>
+    <h3> <label for="" class="fecha"> Fecha de publicacion: {{publicacion.fecha_Publicacion | date:'dd/MM/yy'}} </label></h3>
     <br>
-    <h3><label for=""> Sector: {{publicacion.sector}} </label></h3>
+    <h3><label for="" class="sector"> Sector: {{publicacion.sector}} </label></h3>
     <br>
     <div class="contenedor-img">
         <img class="imagen-pub" src='data:image/png;base64, {{publicacion.imagen}}' alt="1">
@@ -12,5 +12,5 @@
         <p>{{publicacion.descripcion}}</p>
     </h3>
     <br>
-    <h3><label for=""> Publicado por: {{publicacion.nombre_Usuario}}</label></h3>
+    <h3><label for="" class="usuario"> Publicado por: {{publicacion.nombre_Usuario}}</label></h3>
 </div>

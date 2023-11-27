@@ -1,39 +1,55 @@
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .contenedor-pub {
-    text-align: center; /* Centra el texto dentro del contenedor */
-    margin: 0 auto; /* Centra el contenedor en el eje horizontal */
-    display:flex;
-    align-self: center;
-    flex-direction: column;
-  }
-  
-  .contenedor-img {
-    margin-top: 10px; /* Ajusta el margen superior de la imagen si es necesario */
-    width:50%; /* Establece un ancho máximo para la publicación */
-    display:flex;
-    align-self: center;
-    justify-content: center;
-    height: 50%;
-  }
-  
-  .imagen-pub {
-    max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
-    height: auto; /* Permite que la altura se ajuste automáticamente según el ancho */
-    object-fit:contain;
-    
-  }
-  .descri p{
-    width: 80%;
-    text-align: left;
-    margin: 0 auto;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    line-height: 2;
-  }
+.contenedor-pub {
+  text-align: center;
+  /* Centra el texto dentro del contenedor */
+  margin: 2rem auto;
+  /* Centra el contenedor en el eje horizontal */
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+}
+
+.titulo{
+  font-size: 50px;
+}
+
+.fecha{
+  font-size: 27px;
+}
+
+.sector{
+  font-size: 27px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.contenedor-img {
+  margin-top: 1rem;
+  /* Ajusta el margen superior de la imagen si es necesario */
+  width: 50%;
+  /* Establece un ancho máximo para la publicación */
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  height: 50%;
+  margin-bottom: 2rem;
+}
+
+.imagen-pub {
+  max-width: 100%;
+  /* Ajusta el tamaño máximo de la imagen */
+  height: auto;
+  /* Permite que la altura se ajuste automáticamente según el ancho */
+  object-fit: contain;
+
+}
+
+.descri p {
+  width: 80%;
+  text-align: left;
+  margin: 0 auto;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  line-height: 2;
+}
+
+.usuario{
+  font-size: 30px;
+}

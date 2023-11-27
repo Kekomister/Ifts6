@@ -24,13 +24,13 @@
         <div class="header-negro">
 
             <div class="contenedor-botones">
-                <a (click)="irPagina('')"><button class="btn btn-custom">Inicio</button></a>
-                <a (click)="irPagina('institucional')"><button class="btn btn-custom">Institucional</button></a>
-                <a (click)="irPagina('carreras')"><button class="btn btn-custom">Carrera</button></a>
-                <a (click)="irPagina('ingreso')"><button class="btn btn-custom">Ingreso</button></a>
-                <a (click)="irPagina('extension')"><button class="btn btn-custom">Extensión terciaria</button></a>
-                <a (click)="irPagina('convenios')"><button class="btn btn-custom">Convenios</button></a>
-                <a (click)="irPagina('contacto')"><button class="btn btn-custom">Contacto</button></a>
+                <a (click)="irPagina('')"><button class="btn">Inicio</button></a>
+                <a (click)="irPagina('institucional')"><button class="btn">Institucional</button></a>
+                <a (click)="irPagina('carreras')"><button class="btn">Carrera</button></a>
+                <a (click)="irPagina('ingreso')"><button class="btn">Ingreso</button></a>
+                <a (click)="irPagina('extension')"><button class="btn">Extensión terciaria</button></a>
+                <a (click)="irPagina('convenios')"><button class="btn">Convenios</button></a>
+                <a (click)="irPagina('contacto')"><button class="btn">Contacto</button></a>
             </div>
 
             <div class="user" *ngIf="login.getConectado().conectado">
