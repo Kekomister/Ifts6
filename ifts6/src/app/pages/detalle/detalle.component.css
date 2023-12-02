@@ -8,8 +8,23 @@
   flex-direction: column;
 }
 
+.goBack{
+  width: 5%;
+  margin-left: 10%;
+  padding: 0.5rem;
+  border: 0;
+  background-color: white;
+  cursor: pointer;
+}
+
+.bx-arrow-back{
+  font-size: 50px;
+}
+
 .titulo{
   font-size: 50px;
+  text-decoration: underline;
+  text-underline-offset: 20%;
 }
 
 .fecha{
