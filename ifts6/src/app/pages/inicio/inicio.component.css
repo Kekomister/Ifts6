@@ -1,14 +1,24 @@
-.ver{
+.ver {
     display: flex;
     justify-content: end;
-    margin : 1rem;
+    margin: 1rem;
 }
 
-button{
+button {
     background-color: #98FF1F;
     color: black;
     padding: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 3px;
+}
+
+@media (min-width : 1200px) {
+    button {
+        padding: 15px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-radius: 5px;
+        font-size: medium;
+    }
 }

@@ -24,4 +24,8 @@ export class DetalleComponent {
       })
     })
   }
+
+  goBack(){
+    window.history.back();
+  }
 }
