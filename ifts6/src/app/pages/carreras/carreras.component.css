@@ -1,48 +1,59 @@
-/* Estilos generales para todo el documento */
-body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    font-size: 30px; /* Puedes ajustar el tamaño de fuente según tus preferencias */
-}
-
 /* Estilos para el contenedor principal */
 .contenedor-principal {
-    width: 80%;
-    margin: 0 auto;
-}
-
-/* Estilos para la sección de Generalidades */
-.Generalidades {
-    margin-bottom: 20px;
-}
-
-.Generalidades h2 {
-    color: #050505;
-    font-size: 25px;
-}
-
-.Generalidades p.Generalidades {
-    line-height: 1.6;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
     
-    color: #333;
-    font-size: 17px; /* Puedes ajustar el tamaño de fuente según tus preferencias */
+    border-radius: 8px;
+ background-color: #fff;
 }
 
-/* Estilos para la sección de Nuevo Plan de estudios */
-.Generalidades h2,
-.pdfs h2 {
+/* Estilos para el encabezado h2 dentro de .Generalidades */
+.Generalidades h2 {
     color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el texto dentro de .Generalidades */
+.Generalidades p {
+    
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estilos para el nuevo plan de estudios */
+.Generalidades h2 + p {
     margin-top: 20px;
 }
 
+/* Estilos para los enlaces dentro de .pdfs */
 .pdfs a {
-    display: block;
-    margin-bottom: 10px;
-    color: #007BFF;
+    color: #007bff;
     text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: inline-block;
 }
 
 .pdfs a:hover {
     text-decoration: underline;
 }
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Estilos adicionales si es necesario */
+/* .pdfs {
+    margin-top: 20px;
+} */
