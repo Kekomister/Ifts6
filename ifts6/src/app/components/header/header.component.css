@@ -13,16 +13,19 @@ header {
   .container {
     width: 85%;
     margin: 0 auto;
+    margin-left: 170px;
   }
   
   .header-logo-derecha,
   .header-logo-izquierda {
     width: 70px;
     margin-top: 0; /* Elimina el margen superior en los logos */
+    margin-left: -140px;
   }
   
   .header-logo-izquierda {
     width: 200px;
+    
   }
   
   .header-logo-derecha {
@@ -92,8 +95,10 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
- 
-  }
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin-left: -150px; /* Agrega un margen izquierdo según tus necesidades */
+}
+
   
   .header-negro{
     background-color: #1d1c1a;
@@ -114,10 +119,14 @@ header {
     padding: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-radius: 3px;
+    border-radius: 10px;
+    background-color:#007BFF;
+    color: #ffffff;
+    border: none;
+    
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1400px) {
     .container {
       width: 95%;
       margin: 0 auto;

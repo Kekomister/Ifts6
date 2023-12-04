@@ -150,7 +150,7 @@
   z-index: 9;
   flex-direction: column;
   padding: 10px;
-  box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
+  box-shadow: 0 0 0 99999px rgba(15, 206, 240, 0.233);
 }
 
 .admin-publicaciones-descripcion-button {
@@ -158,7 +158,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  background-color: red;
+  background-color: #e74c3c;
 }
 
 .admin-publicaciones-descripcion-label {

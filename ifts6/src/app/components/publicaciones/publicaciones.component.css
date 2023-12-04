@@ -11,8 +11,8 @@
 }
 
 .filtro-botones button {
-  background-color: #98FF1F;
-  color: black;
+  background-color: #007BFF;
+  color: #f5f5f5;
   padding: 15px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -38,7 +38,7 @@
   border-radius: 5px;
   width: calc(33.33% - 20px);
   /* Ajustar el ancho de acuerdo a tus necesidades */
-  box-shadow: -5px -5px rgba(53, 31, 3, 0.568);
+  box-shadow: -5px -5px rgba(35, 201, 201, 0.788);
   min-height: 508px;
 }
 
