@@ -38,7 +38,7 @@
   border-radius: 5px;
   width: calc(33.33% - 20px);
   /* Ajustar el ancho de acuerdo a tus necesidades */
-  box-shadow: -5px -5px rgba(35, 201, 201, 0.788);
+  box-shadow: -5px -5px rgba(35, 201, 201, 0.349);
   min-height: 508px;
 }
 
