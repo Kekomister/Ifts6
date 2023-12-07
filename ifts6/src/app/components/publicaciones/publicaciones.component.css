@@ -26,7 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 20px;
+  gap: 1.3rem;
   margin: 1rem;
 }
 
@@ -69,7 +69,6 @@
 /* Estilo para el párrafo de descripción */
 .pub p {
   margin: 10px 0;
-
 }
 
 

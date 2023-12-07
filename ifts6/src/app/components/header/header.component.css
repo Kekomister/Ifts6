@@ -1,129 +1,191 @@
 header {
-    width: 100%;
-  }
-  
-  .fondo {
+  width: 100%;
+}
+
+.fondo {
   background-color: #FFD300;
-  padding: 20px 0; /* Ajusta el espacio vertical arriba y abajo */
+  padding: 20px 0;
+  /* Ajusta el espacio vertical arriba y abajo */
   max-width: 100%;
   overflow: hidden;
-  min-height: 250px; /* Mantiene la altura mínima del fondo */
-  margin-bottom: -20px; /* Corrige el margen inferior */
+  min-height: 250px;
+  /* Mantiene la altura mínima del fondo */
+  margin-bottom: -20px;
+  /* Corrige el margen inferior */
 }
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+  margin-left: 170px;
+}
+
+.header-logo-derecha,
+.header-logo-izquierda {
+  width: 70px;
+  margin-top: 0;
+  /* Elimina el margen superior en los logos */
+  margin-left: -140px;
+}
+
+.header-logo-izquierda {
+  width: 200px;
+
+}
+
+.header-logo-derecha {
+  width: 70px;
+}
+
+.text-right {
+  float: right;
+  text-align: right;
+}
+
+.text-left {
+  float: left;
+  text-align: left;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  background-color: #333;
+  text-align: center;
+  display: flex;
+  /* Agrega display: flex para alinear los elementos en el centro verticalmente */
+  justify-content: center;
+  /* Centra horizontalmente los elementos */
+  align-items: center;
+  /* Centra verticalmente los elementos */
+}
+
+.imgifts6 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contenedor-botones {
+  text-align: center;
+  background-color: #1d1c1a;
+}
+
+.btn {
+  margin: 5px;
+  border-radius: 10px;
+  background-color: #424142;
+  color: #ffffff;
+  border: none;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.titulo_instituto {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  margin-top: -35px;
+  margin-left: 70px;
+  float: left;
+  text-align: left;
+  font-size: 24px;
+}
+
+.titulo_web {
+  font-weight: bold;
+  font-size: 40px;
+  white-space: nowrap;
+  color: #212121;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  /* Alinea el texto a la izquierda */
+  margin-left: -150px;
+  /* Agrega un margen izquierdo según tus necesidades */
+}
+
+
+.header-negro {
+  background-color: #1d1c1a;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 0.5rem;
+  width: 15%;
+}
+
+.user button {
+  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+
+}
+
+@media (min-width: 1400px) {
   .container {
-    width: 85%;
+    width: 95%;
     margin: 0 auto;
-    margin-left: 170px;
   }
-  
-  .header-logo-derecha,
-  .header-logo-izquierda {
-    width: 70px;
-    margin-top: 0; /* Elimina el margen superior en los logos */
-    margin-left: -140px;
+
+  .row{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
   }
-  
-  .header-logo-izquierda {
-    width: 200px;
-    
-  }
-  
-  .header-logo-derecha {
-    width: 70px;
-  }
-  
-  .text-right {
-    float: right;
-    text-align: right;
-  }
-  
-  .text-left {
-    float: left;
-    text-align: left;
-  }
-  
-  .header {
-    position: relative;
+
+  .grande{
     width: 100%;
-    height: 210px;
-    background-color: #333;
-    text-align: center;
-    display: flex; /* Agrega display: flex para alinear los elementos en el centro verticalmente */
-    justify-content: center; /* Centra horizontalmente los elementos */
-    align-items: center; /* Centra verticalmente los elementos */
-  }
-  
-  .imgifts6 {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .contenedor-botones {
-    text-align: center;
-    background-color: #1d1c1a;
-  }
-  
-  .btn {
-    margin: 5px;
-    border-radius: 10px;
-    background-color: #424142;
-    color: #ffffff;
-    border: none;
-    padding: 10px 30px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .titulo_instituto {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-    margin-top: -35px;
-    margin-left: 70px;
-    float: left;
-    text-align: left;
-    font-size: 24px;
-  }
-  
-  .titulo_web {
-    font-weight: bold;
-    font-size: 40px;
-    white-space: nowrap;
-    color: #212121;
-    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: left; /* Alinea el texto a la izquierda */
-    margin-left: -150px; /* Agrega un margen izquierdo según tus necesidades */
-}
-
-  
-  .header-negro{
-    background-color: #1d1c1a;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
   }
 
-  .user{
+  .text-right{
+    display: flex;
+    justify-content: end;
+  }
+
+  .header-logo-derecha{
+    margin-right: 1rem;
+  }
+
+  .btn {
+    padding: 10px 45px;
+  }
+
+  .header-negro {
+    height: 3.5rem;
+  }
+
+  .user {
     display: flex;
     align-items: center;
     color: white;
+    font-size: 20px;
     gap: 0.5rem;
-    width: 15%;
   }
 
-  .user button{
-    padding: 5px;
+  .user button {
+    padding: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 10px;
-    background-color:#007BFF;
-    color: #ffffff;
-    border: none;
-    
+    font-size: 14.4px;
   }
   .us{
     width: 1%;
@@ -143,35 +205,4 @@ header {
    
   }
 
-  @media (min-width: 1400px) {
-    .container {
-      width: 95%;
-      margin: 0 auto;
-    }
-
-    .btn{
-      padding: 10px 45px;
-    }
-
-    .header-negro{
-      height: 3.5rem;
-    }
-
-    .user{
-      display: flex;
-      align-items: center;
-      color: white;
-      font-size: 20px;
-      gap: 0.5rem;
-    }
-  
-    .user button{
-      padding: 10px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      border-radius: 10px;
-      font-size: 14.4px;
-    }
-
-  }
-  
+}

@@ -6,8 +6,8 @@ const config = {
     // TENES QUE ESPECIFICARLE LA BASE DE DATOS A LA QUE SE LE ASIGNO EN
     // SQL SERVER -> LOGIN -> USER MAPPING
     // Y EL NIVEL DE PERMISO
-   // database: 'prueba',
-    database: 'prueba_leppen',
+    database: 'prueba',
+    //database: 'prueba_leppen',
     options: {
         // PARA CONECTARSE DIRECTAMENTE CON WINDOWS
         // trustedConnection : true,
