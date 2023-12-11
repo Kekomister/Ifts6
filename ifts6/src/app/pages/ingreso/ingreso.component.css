@@ -36,3 +36,8 @@ img {
     height: auto;
     margin-bottom: 20px;
 }
+
+ul, ol {
+    margin-left: 20px; /* Ajusta el margen izquierdo según tu preferencia */
+    margin-bottom: 20px;
+}
