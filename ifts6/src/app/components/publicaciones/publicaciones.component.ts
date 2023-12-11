@@ -43,7 +43,7 @@ export class PublicacionesComponent {
   getUsuarios() {
     try {
       this.conexion.traerUsuariosComun().subscribe(async res => {
-        //console.log("USUARIOS : " + res);
+        //console.log(res);
         this.usuarios = await res;
       });
     } catch (e) {
@@ -54,7 +54,7 @@ export class PublicacionesComponent {
   getSectores() {
     try {
       this.conexion.traerSectoresComun().subscribe(async res => {
-        //console.log("SECTORES : " + res);
+        //console.log(res);
         this.sectores = await res;
       });
     } catch (e) {
@@ -66,7 +66,8 @@ export class PublicacionesComponent {
     try {
       this.conexion.traerPublicaciones().subscribe(async res => {
         this.publicaciones = await res;
-
+        //console.log(res);
+        
         this.verCriterio();
       });
     } catch (e) {
@@ -81,7 +82,7 @@ export class PublicacionesComponent {
   }
 
   verCriterio() {
-    console.log(this.publicaciones);
+    //console.log(this.publicaciones);
 
     if (this.criterio == "Inicio") {
       this.publicacionesMostrar = this.publicaciones;

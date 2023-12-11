@@ -63,7 +63,8 @@ export class AdminComponent implements OnInit {
 
         //console.log("Usuarios: ");
         this.conexion.traerUsuarios().subscribe(async res => {
-
+          //console.log(res);
+          
           let array_Users: Usuario[] = await res;
           array_Users.forEach(element => {
 
@@ -209,6 +210,7 @@ export class AdminComponent implements OnInit {
       });
       this.sectores.splice(this.sectores.indexOf(index), 1);
       this.filas = this.sectores;
+      //console.log(this.sectores);
     });
 
     this.conexion.traerPagina().subscribe(async res => {
@@ -257,6 +259,8 @@ export class AdminComponent implements OnInit {
       this.conexion.traerPublicaciones().subscribe(async res => {
         this.publicaciones = await res;
         this.filas = this.publicaciones;
+        console.log(this.filas);
+        
       });
     } else {
       if (this.login.getConectado().conectado) {
