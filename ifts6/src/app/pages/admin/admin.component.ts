@@ -310,16 +310,40 @@ export class AdminComponent implements OnInit {
 
   enviarPub() {
     if (this.paginas.length != 0) {
-      this.fileUpload.nativeElement.value = '';
-      this.files.forEach(file => {
-        this.sendFile(file);
-      });
-      this.msj.success("Se ha agregado con exito!", "Genial");
-      //console.log(this.files);
+      let msj = this.chequeoPub();
+      if(msj == ""){
+        this.fileUpload.nativeElement.value = '';
+        this.files.forEach(file => {
+          this.sendFile(file);
+        });
+        this.msj.success("Se ha agregado con exito!", "Genial");
+        //console.log(this.files);
+        this.vaciarCampos();
+      }else{
+        this.msj.error("Error",msj,"OK");
+      }
     } else {
       this.msj.error("Error", "No tenes permiso en ninguna pagina, chequea con el admin.", "Okey");
     }
-    this.vaciarCampos();
+  }
+
+  chequeoPub() : string{
+    if(this.pub.descripcion == "" || this.pub.descripcion == undefined){
+      return "La descripcion no debe estar vacia";
+    }else{
+      if(this.pub.titulo == "" || this.pub.titulo == undefined){
+        return "El titulo no debe estar vacio";
+      }else{
+        if(this.pub.imagen == undefined){
+          return "Debe subir una imagen";
+        }else{
+          if(this.pub.id_Pagina == undefined){
+            return "Debe seleccionar una pagina.";
+          }
+        }
+      }
+    }
+    return "";
   }
 
   enviarSec() {
